@@ -11,6 +11,7 @@ import DeleteSocialModal from "./_components/DeleteSocialModal";
 
 import { authClient } from "@/lib/auth-client";
 import Image from "next/image";
+import SkillIcon from "@/components/ui/SkillIcon";
 
 type Social = {
   id: number;
@@ -137,9 +138,8 @@ export default function SocialsPage() {
                     className="border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
                   >
                     <TableCell className="px-4 ">
-                      <span className="font-medium text-gray-800 dark:text-white/90">
-                        <img src={`https://skillicons.dev/icons?i=${social.name}`} alt="icon" width={50} height={50} />
-
+                      <span className="font-medium text-gray-800 dark:text-white/90 flex items-center">
+                        <SkillIcon icon={social.name} size={50} />
                       </span>
                     </TableCell>
                     <TableCell className="px-4 py-3">
