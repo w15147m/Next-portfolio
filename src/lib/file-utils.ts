@@ -8,15 +8,15 @@ import path from "path";
  * @returns The new permanent public URL (e.g., "/images/upload/project/1234.jpg")
  */
 export async function commitImage(tempUrl: string, category: string): Promise<string> {
-  if (!tempUrl || !tempUrl.startsWith("/images/upload/temp/")) {
+  if (!tempUrl || !tempUrl.startsWith("/uploads/temp/")) {
     return tempUrl; // It might be an existing permanent image or external URL
   }
 
   const filename = path.basename(tempUrl);
   
   // Define source (temp) and destination paths
-  const tempPath = path.join(process.cwd(), "public", "images", "upload", "temp", filename);
-  const destDir = path.join(process.cwd(), "public", "images", "upload", category);
+  const tempPath = path.join(process.cwd(), "public", "uploads", "temp", filename);
+  const destDir = path.join(process.cwd(), "public", "uploads", category);
   const destPath = path.join(destDir, filename);
 
   try {
@@ -27,7 +27,7 @@ export async function commitImage(tempUrl: string, category: string): Promise<st
     await fs.rename(tempPath, destPath);
 
     // Return the new public URL
-    return `/images/upload/${category}/${filename}`;
+    return `/uploads/${category}/${filename}`;
   } catch (error) {
     console.error("Error committing image:", error);
     throw new Error("Failed to commit image to permanent storage");
@@ -39,12 +39,12 @@ export async function commitImage(tempUrl: string, category: string): Promise<st
  * @param tempUrl The public URL of the temporary image
  */
 export async function deleteTempImage(tempUrl: string): Promise<void> {
-  if (!tempUrl || !tempUrl.startsWith("/images/upload/temp/")) {
+  if (!tempUrl || !tempUrl.startsWith("/uploads/temp/")) {
     return;
   }
 
   const filename = path.basename(tempUrl);
-  const tempPath = path.join(process.cwd(), "public", "images", "upload", "temp", filename);
+  const tempPath = path.join(process.cwd(), "public", "uploads", "temp", filename);
 
   try {
     await fs.unlink(tempPath);

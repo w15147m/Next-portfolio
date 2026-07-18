@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Define the temp directory
-    const tempDir = path.join(process.cwd(), "public", "images", "upload", "temp");
+    const tempDir = path.join(process.cwd(), "public", "uploads", "temp");
 
     // Ensure the temp directory exists
     await fs.mkdir(tempDir, { recursive: true });
@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
     await fs.writeFile(filePath, buffer);
 
     // Return the public URL for the temporary file
-    const publicUrl = `/images/upload/temp/${uniqueFilename}`;
+    const publicUrl = `/uploads/temp/${uniqueFilename}`;
 
     return NextResponse.json({ url: publicUrl }, { status: 200 });
   } catch (error) {

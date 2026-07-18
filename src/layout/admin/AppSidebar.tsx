@@ -23,6 +23,11 @@ const navItems: NavItem[] = [
     name: "Dashboard",
     path: "/admin",
   },
+  {
+    icon: <GridIcon />, // Reusing icon for simplicity
+    name: "Test Page",
+    path: "/admin/test",
+  },
 ];
 
 const othersItems: NavItem[] = [];
