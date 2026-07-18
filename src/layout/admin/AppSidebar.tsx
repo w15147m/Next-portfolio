@@ -24,6 +24,11 @@ const navItems: NavItem[] = [
     path: "/admin",
   },
   {
+    icon: <GridIcon />,
+    name: "Socials",
+    path: "/admin/socials",
+  },
+  {
     icon: <GridIcon />, // Reusing icon for simplicity
     name: "Test Page",
     path: "/admin/test",
