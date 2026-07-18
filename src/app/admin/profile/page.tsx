@@ -71,7 +71,7 @@ export default function ProfilePage() {
     if (result.success) {
       fetchProfile(); // Reload to get fresh data
       // Force reload authClient session data
-      window.location.reload(); 
+      window.location.reload();
     }
   };
 
@@ -107,46 +107,33 @@ export default function ProfilePage() {
 
       {error && <Alert variant="error" title="Error" message={error} />}
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Profile Info Card */}
-        <div className="lg:col-span-1">
-          <ComponentCard title="Profile Details">
-            <div className="flex flex-col items-center p-4">
-              <div className="w-24 h-24 mb-4 overflow-hidden rounded-full flex items-center justify-center bg-brand-100 text-brand-600 dark:bg-gray-800 dark:text-gray-300 text-2xl font-bold shadow-sm">
-                {profile.image ? (
-                  <Image src={profile.image} alt={profile.name} width={96} height={96} className="object-cover w-full h-full" />
-                ) : (
-                  <span>{initials}</span>
-                )}
+      <div className="w-full mx-auto">
+        <ComponentCard title="Edit Information">
+          <form onSubmit={handleSubmit} className="p-2">
+            {feedback && (
+              <div className="mb-6">
+                <Alert
+                  variant={feedback.success ? "success" : "error"}
+                  title={feedback.success ? "Success" : "Error"}
+                  message={feedback.message}
+                />
               </div>
-              <h3 className="text-xl font-semibold text-gray-800 dark:text-white/90 text-center">
-                {profile.name}
-              </h3>
-              <p className="text-gray-500 dark:text-gray-400 text-center mt-1">
-                {profile.email}
-              </p>
-              <div className="mt-4 px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-full text-xs font-medium uppercase tracking-wider">
-                {profile.role}
-              </div>
-            </div>
-          </ComponentCard>
-        </div>
-
-        {/* Edit Form Card */}
-        <div className="lg:col-span-2">
-          <ComponentCard title="Edit Information">
-            <form onSubmit={handleSubmit} className="p-2">
-              {feedback && (
-                <div className="mb-6">
-                  <Alert
-                    variant={feedback.success ? "success" : "error"}
-                    title={feedback.success ? "Success" : "Error"}
-                    message={feedback.message}
+            )}
+            <div className="flex flex-col gap-6 sm:flex-row sm:gap-8">
+              <div className="sm:w-1/3">
+                <div className="mt-2">
+                  <ImageUpload
+                    label="Upload new avatar"
+                    defaultImage={image}
+                    onUploadSuccess={(url) => setImage(url)}
                   />
+                  {feedback?.fieldErrors?.image && (
+                    <p className="mt-1 text-sm text-error-500">{feedback.fieldErrors.image[0]}</p>
+                  )}
                 </div>
-              )}
+              </div>
 
-              <div className="space-y-6">
+              <div className="space-y-6 sm:flex-1">
                 <div>
                   <Label>
                     Full Name <span className="text-error-500">*</span>
@@ -170,30 +157,17 @@ export default function ProfilePage() {
                     hint="Email cannot be changed."
                   />
                 </div>
-
-                <div className="mt-2">
-                  <Label>Profile Picture</Label>
-                  <div className="mt-2">
-                    <ImageUpload
-                      label="Upload new avatar"
-                      defaultImage={image}
-                      onUploadSuccess={(url) => setImage(url)}
-                    />
-                    {feedback?.fieldErrors?.image && (
-                      <p className="mt-1 text-sm text-error-500">{feedback.fieldErrors.image[0]}</p>
-                    )}
-                  </div>
-                </div>
-
                 <div className="flex justify-end pt-4 border-t border-gray-200 dark:border-gray-800">
                   <Button type="submit" disabled={isSaving}>
                     {isSaving ? "Saving..." : "Save Changes"}
                   </Button>
                 </div>
               </div>
-            </form>
-          </ComponentCard>
-        </div>
+            </div>
+
+
+          </form>
+        </ComponentCard>
       </div>
     </div>
   );
