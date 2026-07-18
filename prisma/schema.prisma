@@ -9,14 +9,19 @@ datasource db {
   provider = "mysql"
 }
 
+// ─────────────────────────────────────────────
+// USERS
+// ─────────────────────────────────────────────
 model User {
-  id        Int      @id @default(autoincrement())
-  name      String
-  email     String   @unique
-  password  String
-  role      Role     @default(USER)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id         BigInt      @id @default(autoincrement())
+  name       String
+  email      String      @unique
+  password   String
+  role       Role        @default(USER)
+  createdAt  DateTime    @default(now()) @map("created_at")
+  updatedAt  DateTime    @updatedAt      @map("updated_at")
+
+  portfolios Portfolio[]
 
   @@map("users")
 }
@@ -24,4 +29,174 @@ model User {
 enum Role {
   ADMIN
   USER
+}
+
+// ─────────────────────────────────────────────
+// PORTFOLIOS
+// ─────────────────────────────────────────────
+model Portfolio {
+  id        BigInt   @id @default(autoincrement())
+  userId    BigInt   @map("user_id")
+  name      String
+  number    String?
+  address   String?
+  image     String?
+  desc      String?  @db.Text
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt      @map("updated_at")
+
+  user        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  skills      Skill[]
+  projects    Project[]
+  services    Service[]
+  socials     Social[]
+  experiences Experience[]
+  educations  Education[]
+
+  @@map("portfolios")
+}
+
+// ─────────────────────────────────────────────
+// SKILLS
+// ─────────────────────────────────────────────
+model Skill {
+  id          BigInt   @id @default(autoincrement())
+  portfolioId BigInt   @map("portfolio_id")
+  name        String
+  proficiency String?
+  image       String?
+  desc        String?
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt      @map("updated_at")
+
+  portfolio     Portfolio      @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+  projectSkills ProjectSkill[]
+
+  @@map("skills")
+}
+
+// ─────────────────────────────────────────────
+// PROJECTS
+// ─────────────────────────────────────────────
+model Project {
+  id          BigInt   @id @default(autoincrement())
+  portfolioId BigInt   @map("portfolio_id")
+  name        String
+  image       String?
+  desc        String?
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt      @map("updated_at")
+
+  portfolio     Portfolio      @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+  projectImages ProjectImage[]
+  projectSkills ProjectSkill[]
+
+  @@map("projects")
+}
+
+// ─────────────────────────────────────────────
+// PROJECT_IMAGES
+// ─────────────────────────────────────────────
+model ProjectImage {
+  id        BigInt   @id @default(autoincrement())
+  projectId BigInt   @map("projects_id")
+  image     String
+  isDefault Boolean  @default(false) @map("default")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt      @map("updated_at")
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@map("project_images")
+}
+
+// ─────────────────────────────────────────────
+// PROJECT_SKILLS  (pivot / many-to-many)
+// ─────────────────────────────────────────────
+model ProjectSkill {
+  id        BigInt   @id @default(autoincrement())
+  projectId BigInt   @map("projects_id")
+  skillId   BigInt   @map("skills_id")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt      @map("updated_at")
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  skill   Skill   @relation(fields: [skillId],   references: [id], onDelete: Cascade)
+
+  @@unique([projectId, skillId])
+  @@map("project_skills")
+}
+
+// ─────────────────────────────────────────────
+// SERVICES
+// ─────────────────────────────────────────────
+model Service {
+  id          BigInt   @id @default(autoincrement())
+  portfolioId BigInt   @map("portfolio_id")
+  name        String
+  desc        String?
+  link        String?
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt      @map("updated_at")
+
+  portfolio Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+
+  @@map("services")
+}
+
+// ─────────────────────────────────────────────
+// SOCIALS
+// ─────────────────────────────────────────────
+model Social {
+  id          BigInt   @id @default(autoincrement())
+  portfolioId BigInt   @map("portfolio_id")
+  name        String
+  desc        String?
+  link        String?
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt      @map("updated_at")
+
+  portfolio Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+
+  @@map("socials")
+}
+
+// ─────────────────────────────────────────────
+// EXPERIENCES
+// ─────────────────────────────────────────────
+model Experience {
+  id          BigInt    @id @default(autoincrement())
+  portfolioId BigInt    @map("portfolio_id")
+  company     String
+  position    String
+  image       String?
+  startDate   DateTime  @map("start_date") @db.Date
+  endDate     DateTime? @map("end_date")   @db.Date
+  desc        String?
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt      @map("updated_at")
+
+  portfolio Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+
+  @@map("experiences")
+}
+
+// ─────────────────────────────────────────────
+// EDUCATIONS
+// ─────────────────────────────────────────────
+model Education {
+  id           BigInt    @id @default(autoincrement())
+  portfolioId  BigInt    @map("portfolio_id")
+  institution  String
+  degree       String
+  fieldOfStudy String?   @map("field_of_study")
+  startDate    DateTime  @map("start_date") @db.Date
+  endDate      DateTime? @map("end_date")   @db.Date
+  desc         String?
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @updatedAt      @map("updated_at")
+
+  portfolio Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+
+  @@map("educations")
 }
