@@ -5,6 +5,7 @@ import Label from "@/components/form/Label";
 import { ChevronLeftIcon, EyeCloseIcon, EyeIcon } from "@/icons";
 import Link from "next/link";
 import React, { useState } from "react";
+import { authClient } from "@/lib/auth-client";
 
 export default function SignUpForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -83,7 +84,26 @@ export default function SignUpForm() {
                 </span>
               </div>
             </div>
-            <form>
+            <form onSubmit={async (e) => {
+              e.preventDefault();
+              const formData = new FormData(e.currentTarget);
+              const firstName = formData.get("fname") as string;
+              const lastName = formData.get("lname") as string;
+              const email = formData.get("email") as string;
+              const password = formData.get("password") as string;
+
+              const { error } = await authClient.signUp.email({
+                email,
+                password,
+                name: `${firstName} ${lastName}`,
+              });
+              if (error) {
+                console.error("Sign up error:", error);
+                alert(error.message || JSON.stringify(error) || "An unknown error occurred. Make sure your auth backend is configured.");
+              } else {
+                window.location.href = "/";
+              }
+            }}>
               <div className="space-y-5">
                 <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                   {/* <!-- First Name --> */}
@@ -132,6 +152,8 @@ export default function SignUpForm() {
                     <Input
                       placeholder="Enter your password"
                       type={showPassword ? "text" : "password"}
+                      name="password"
+                      id="password"
                     />
                     <span
                       onClick={() => setShowPassword(!showPassword)}
