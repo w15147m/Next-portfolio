@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import ComponentCard from "@/components/common/ComponentCard";
 import { useDropzone } from "react-dropzone";
 import Image from "next/image";
@@ -18,6 +18,9 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
   const [preview, setPreview] = useState<string | null>(defaultImage || null);
   const [error, setError] = useState<string | null>(null);
 
+  // Tracks any temp URL that was uploaded but not yet committed (form not submitted)
+  const pendingTempUrl = useRef<string | null>(null);
+
   const onDrop = async (acceptedFiles: File[]) => {
     const file = acceptedFiles[0];
     if (!file) return;
@@ -28,6 +31,18 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
     // Create local preview immediately for better UX
     const objectUrl = URL.createObjectURL(file);
     setPreview(objectUrl);
+
+    // If the user uploaded a temp image previously but didn't submit yet,
+    // delete that old temp image from the server now.
+    if (pendingTempUrl.current) {
+      const urlToDelete = pendingTempUrl.current;
+      pendingTempUrl.current = null;
+      fetch("/api/upload/temp/delete", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url: urlToDelete }),
+      }).catch((err) => console.error("Failed to delete old temp image:", err));
+    }
 
     try {
       const formData = new FormData();
@@ -44,6 +59,8 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
       }
 
       const data = await res.json();
+      // Track the new temp URL so we can clean it up if the user re-uploads
+      pendingTempUrl.current = data.url;
       onUploadSuccess(data.url);
       setPreview(data.url); // Use the server temp URL once confirmed
     } catch (err: any) {

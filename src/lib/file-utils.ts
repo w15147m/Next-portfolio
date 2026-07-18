@@ -55,3 +55,26 @@ export async function deleteTempImage(tempUrl: string): Promise<void> {
     }
   }
 }
+
+/**
+ * Deletes any uploaded image (temp or permanent) from disk by its public URL.
+ * Only deletes files under /uploads/ to prevent accidental deletion of other assets.
+ * @param imageUrl The public URL of the image to delete (e.g., "/uploads/profile/1234.jpg")
+ */
+export async function deleteImage(imageUrl: string): Promise<void> {
+  if (!imageUrl || !imageUrl.startsWith("/uploads/")) {
+    return; // Don't attempt to delete external URLs or other paths
+  }
+
+  const relativePath = imageUrl.replace(/^\//, ""); // Remove leading slash
+  const absolutePath = path.join(process.cwd(), "public", relativePath);
+
+  try {
+    await fs.unlink(absolutePath);
+  } catch (error: any) {
+    // Ignore if file doesn't exist, log other errors
+    if (error.code !== "ENOENT") {
+      console.error("Error deleting image:", error);
+    }
+  }
+}

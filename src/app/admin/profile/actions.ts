@@ -3,7 +3,7 @@
 import { prisma } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
-import { commitImage, deleteTempImage } from "@/lib/file-utils";
+import { commitImage, deleteTempImage, deleteImage } from "@/lib/file-utils";
 
 const profileSchema = z.object({
   name: z.string().min(1, "Name is required").max(100, "Name is too long"),
@@ -38,6 +38,13 @@ export async function updateProfile(
   let finalImageUrl = parsed.data.image;
 
   try {
+    // Fetch the user's current image so we can delete it if it changes
+    const currentUser = await prisma.user.findUnique({
+      where: { id: userId },
+      select: { image: true },
+    });
+    const oldImageUrl = currentUser?.image ?? null;
+
     // If a new temporary image was uploaded, commit it to the "profile" directory
     if (finalImageUrl && finalImageUrl.startsWith("/uploads/temp/")) {
       finalImageUrl = await commitImage(finalImageUrl, "profile");
@@ -47,9 +54,19 @@ export async function updateProfile(
       where: { id: userId },
       data: {
         name: parsed.data.name,
-        ...(finalImageUrl !== undefined && { image: finalImageUrl }), // Only update if provided
+        ...(finalImageUrl !== undefined && { image: finalImageUrl }),
       },
     });
+
+    // If image changed and old one was a local upload, delete the old file
+    if (
+      finalImageUrl &&
+      oldImageUrl &&
+      oldImageUrl !== finalImageUrl &&
+      oldImageUrl.startsWith("/uploads/")
+    ) {
+      await deleteImage(oldImageUrl);
+    }
 
     revalidatePath("/admin/profile");
     return { success: true, message: "Profile updated successfully." };
