@@ -7,10 +7,17 @@ import { ChevronLeftIcon, EyeCloseIcon, EyeIcon } from "@/icons";
 import Link from "next/link";
 import React, { useState } from "react";
 import { authClient } from "@/lib/auth-client";
+import { z } from "zod";
+
+const signInSchema = z.object({
+  email: z.string().min(1, "Email is required").email("Please enter a valid email address"),
+  password: z.string().min(1, "Password is required"),
+});
 
 export default function SignInForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
   return (
     <div className="flex flex-col flex-1 lg:w-1/2 w-full">
       <div className="w-full max-w-md sm:pt-10 mx-auto mb-5">
@@ -91,6 +98,17 @@ export default function SignInForm() {
               const email = formData.get("email") as string;
               const password = formData.get("password") as string;
               
+              const validation = signInSchema.safeParse({ email, password });
+              if (!validation.success) {
+                const newErrors: Record<string, string> = {};
+                validation.error.issues.forEach((issue) => {
+                  newErrors[issue.path[0]] = issue.message;
+                });
+                setErrors(newErrors);
+                return;
+              }
+              
+              setErrors({});
               const { error } = await authClient.signIn.email({
                 email,
                 password,
@@ -108,7 +126,14 @@ export default function SignInForm() {
                   <Label>
                     Email <span className="text-error-500">*</span>{" "}
                   </Label>
-                  <Input placeholder="info@gmail.com" type="email" name="email" id="email" />
+                  <Input 
+                    placeholder="info@gmail.com" 
+                    type="email" 
+                    name="email" 
+                    id="email"
+                    error={!!errors.email}
+                    hint={errors.email}
+                  />
                 </div>
                 <div>
                   <Label>
@@ -120,6 +145,8 @@ export default function SignInForm() {
                       placeholder="Enter your password"
                       name="password"
                       id="password"
+                      error={!!errors.password}
+                      hint={errors.password}
                     />
                     <span
                       onClick={() => setShowPassword(!showPassword)}

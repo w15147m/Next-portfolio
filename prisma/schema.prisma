@@ -13,7 +13,7 @@ datasource db {
 // USERS
 // ─────────────────────────────────────────────
 model User {
-  id            BigInt      @id @default(autoincrement())
+  id            String      @id @default(cuid())
   name          String
   email         String      @unique
   emailVerified Boolean     @default(false) @map("email_verified")
@@ -40,7 +40,7 @@ enum Role {
 // ─────────────────────────────────────────────
 model Portfolio {
   id        BigInt   @id @default(autoincrement())
-  userId    BigInt   @map("user_id")
+  userId    String   @map("user_id")
   name      String
   number    String?
   address   String?
@@ -216,7 +216,7 @@ model Session {
   updatedAt DateTime @updatedAt @map("updated_at")
   ipAddress String?  @map("ip_address")
   userAgent String?  @map("user_agent")
-  userId    BigInt   @map("user_id")
+  userId    String   @map("user_id")
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([token])
@@ -227,7 +227,7 @@ model Account {
   id                    String    @id @default(cuid())
   accountId             String    @map("account_id")
   providerId            String    @map("provider_id")
-  userId                BigInt    @map("user_id")
+  userId                String    @map("user_id")
   user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   accessToken           String?   @db.Text @map("access_token")
   refreshToken          String?   @db.Text @map("refresh_token")

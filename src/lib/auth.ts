@@ -1,4 +1,8 @@
 import { betterAuth } from "better-auth";
+
+(BigInt.prototype as any).toJSON = function () {
+  return this.toString();
+};
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { prisma } from "./db";
 
