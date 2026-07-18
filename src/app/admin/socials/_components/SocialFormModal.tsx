@@ -17,14 +17,14 @@ type Social = {
 };
 
 interface SocialFormModalProps {
-  portfolioId: number;
+  userId: string;
   social?: Social; // if provided, we are editing
   trigger: React.ReactNode;
   onDone: () => void;
 }
 
 export default function SocialFormModal({
-  portfolioId,
+  userId,
   social,
   trigger,
   onDone,
@@ -57,7 +57,7 @@ export default function SocialFormModal({
 
     const result = social
       ? await updateSocial(social.id, data)
-      : await createSocial(portfolioId, data);
+      : await createSocial(userId, data);
 
     setFeedback(result);
     setIsLoading(false);
@@ -102,16 +102,20 @@ export default function SocialFormModal({
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
+                error={!!feedback?.fieldErrors?.name}
+                hint={feedback?.fieldErrors?.name?.[0]}
               />
             </div>
 
             <div>
               <Label>URL / Link</Label>
               <Input
-                type="url"
+                type="text"
                 placeholder="https://github.com/username"
                 value={link}
                 onChange={(e) => setLink(e.target.value)}
+                error={!!feedback?.fieldErrors?.link}
+                hint={feedback?.fieldErrors?.link?.[0]}
               />
             </div>
 
@@ -122,6 +126,8 @@ export default function SocialFormModal({
                 placeholder="Optional description"
                 value={desc}
                 onChange={(e) => setDesc(e.target.value)}
+                error={!!feedback?.fieldErrors?.desc}
+                hint={feedback?.fieldErrors?.desc?.[0]}
               />
             </div>
           </div>

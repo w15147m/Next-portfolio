@@ -23,9 +23,15 @@ model User {
   createdAt     DateTime    @default(now()) @map("created_at")
   updatedAt     DateTime    @updatedAt      @map("updated_at")
 
-  portfolios Portfolio[]
-  sessions   Session[]
-  accounts   Account[]
+  sessions     Session[]
+  accounts     Account[]
+  skills       Skill[]
+  projects     Project[]
+  services     Service[]
+  socials      Social[]
+  experiences  Experience[]
+  educations   Education[]
+  testimonials Testimonial[]
 
   @@map("users")
 }
@@ -36,37 +42,11 @@ enum Role {
 }
 
 // ─────────────────────────────────────────────
-// PORTFOLIOS
-// ─────────────────────────────────────────────
-model Portfolio {
-  id        BigInt   @id @default(autoincrement())
-  userId    String   @map("user_id")
-  name      String
-  number    String?
-  address   String?
-  image     String?
-  desc      String?  @db.Text
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt      @map("updated_at")
-
-  user        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
-  skills      Skill[]
-  projects    Project[]
-  services    Service[]
-  socials     Social[]
-  experiences  Experience[]
-  educations   Education[]
-  testimonials Testimonial[]
-
-  @@map("portfolios")
-}
-
-// ─────────────────────────────────────────────
 // SKILLS
 // ─────────────────────────────────────────────
 model Skill {
   id          BigInt   @id @default(autoincrement())
-  portfolioId BigInt   @map("portfolio_id")
+  userId      String   @map("user_id")
   name        String
   proficiency String?
   image       String?
@@ -74,7 +54,7 @@ model Skill {
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt      @map("updated_at")
 
-  portfolio     Portfolio      @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+  user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
   projectSkills ProjectSkill[]
 
   @@map("skills")
@@ -85,14 +65,14 @@ model Skill {
 // ─────────────────────────────────────────────
 model Project {
   id          BigInt   @id @default(autoincrement())
-  portfolioId BigInt   @map("portfolio_id")
+  userId      String   @map("user_id")
   name        String
   image       String?
   desc        String?
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt      @map("updated_at")
 
-  portfolio     Portfolio      @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+  user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
   projectImages ProjectImage[]
   projectSkills ProjectSkill[]
 
@@ -137,14 +117,14 @@ model ProjectSkill {
 // ─────────────────────────────────────────────
 model Service {
   id          BigInt   @id @default(autoincrement())
-  portfolioId BigInt   @map("portfolio_id")
+  userId      String   @map("user_id")
   name        String
   desc        String?
   link        String?
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt      @map("updated_at")
 
-  portfolio Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("services")
 }
@@ -154,14 +134,14 @@ model Service {
 // ─────────────────────────────────────────────
 model Social {
   id          BigInt   @id @default(autoincrement())
-  portfolioId BigInt   @map("portfolio_id")
+  userId      String   @map("user_id")
   name        String
   desc        String?
   link        String?
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt      @map("updated_at")
 
-  portfolio Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("socials")
 }
@@ -171,7 +151,7 @@ model Social {
 // ─────────────────────────────────────────────
 model Experience {
   id          BigInt    @id @default(autoincrement())
-  portfolioId BigInt    @map("portfolio_id")
+  userId      String    @map("user_id")
   company     String
   position    String
   image       String?
@@ -181,7 +161,7 @@ model Experience {
   createdAt   DateTime  @default(now()) @map("created_at")
   updatedAt   DateTime  @updatedAt      @map("updated_at")
 
-  portfolio Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("experiences")
 }
@@ -191,7 +171,7 @@ model Experience {
 // ─────────────────────────────────────────────
 model Education {
   id           BigInt    @id @default(autoincrement())
-  portfolioId  BigInt    @map("portfolio_id")
+  userId       String    @map("user_id")
   institution  String
   degree       String
   fieldOfStudy String?   @map("field_of_study")
@@ -201,7 +181,7 @@ model Education {
   createdAt    DateTime  @default(now()) @map("created_at")
   updatedAt    DateTime  @updatedAt      @map("updated_at")
 
-  portfolio Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("educations")
 }
@@ -251,7 +231,6 @@ model Verification {
   createdAt  DateTime @default(now()) @map("created_at")
   updatedAt  DateTime @updatedAt @map("updated_at")
 
-
   @@map("verifications")
 }
 
@@ -281,7 +260,7 @@ model ContactMessage {
 
 model Testimonial {
   id          BigInt   @id @default(autoincrement())
-  portfolioId BigInt   @map("portfolio_id")
+  userId      String   @map("user_id")
   name        String
   role        String?
   company     String?
@@ -289,7 +268,7 @@ model Testimonial {
   content     String   @db.Text
   createdAt   DateTime @default(now()) @map("created_at")
   
-  portfolio   Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("testimonials")
 }

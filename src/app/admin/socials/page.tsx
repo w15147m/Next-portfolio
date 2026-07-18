@@ -9,27 +9,30 @@ import ComponentCard from "@/components/common/ComponentCard";
 import SocialFormModal from "./_components/SocialFormModal";
 import DeleteSocialModal from "./_components/DeleteSocialModal";
 
+import { authClient } from "@/lib/auth-client";
+
 type Social = {
   id: number;
   name: string;
   link: string | null;
   desc: string | null;
-  portfolioId: number;
+  userId: string;
 };
 
-// Hard-coded portfolioId=1 for now; replace with session-based id when ready
-const PORTFOLIO_ID = 1;
-
 export default function SocialsPage() {
+  const { data: session, isPending: sessionLoading } = authClient.useSession();
+  const userId = session?.user?.id;
+
   const [socials, setSocials] = useState<Social[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   const fetchSocials = useCallback(async () => {
+    if (!userId) return;
     setIsLoading(true);
     setError(null);
     try {
-      const res = await fetch(`/api/socials?portfolioId=${PORTFOLIO_ID}`);
+      const res = await fetch(`/api/socials?userId=${userId}`);
       if (!res.ok) throw new Error("Failed to load socials");
       const data = await res.json();
       setSocials(data);
@@ -38,11 +41,29 @@ export default function SocialsPage() {
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  }, [userId]);
 
   useEffect(() => {
-    fetchSocials();
-  }, [fetchSocials]);
+    if (userId) {
+      fetchSocials();
+    }
+  }, [userId, fetchSocials]);
+
+  if (sessionLoading) {
+    return (
+      <div className="p-10 text-center text-gray-500 dark:text-gray-400">
+        Loading session...
+      </div>
+    );
+  }
+
+  if (!userId) {
+    return (
+      <div className="p-10 text-center text-error-500">
+        Unauthorized. Please sign in.
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-5 p-4 sm:p-6">
@@ -57,7 +78,7 @@ export default function SocialsPage() {
           </p>
         </div>
         <SocialFormModal
-          portfolioId={PORTFOLIO_ID}
+          userId={userId}
           onDone={fetchSocials}
           trigger={
             <Button size="sm">
@@ -101,7 +122,7 @@ export default function SocialsPage() {
                 </TableRow>
               ) : socials.length === 0 ? (
                 <TableRow>
-                  <TableCell className="px-4 py-10 text-center text-gray-500 dark:text-gray-400">
+                  <TableCell className="px-4 py-10 text-center text-gray-500 dark:text-gray-400" colSpan={4}>
                     No social links yet. Click &ldquo;Add Social&rdquo; to get started.
                   </TableCell>
                 </TableRow>
@@ -136,7 +157,7 @@ export default function SocialsPage() {
                     <TableCell className="px-4 py-3">
                       <div className="flex items-center justify-end gap-2">
                         <SocialFormModal
-                          portfolioId={PORTFOLIO_ID}
+                          userId={userId}
                           social={social}
                           onDone={fetchSocials}
                           trigger={

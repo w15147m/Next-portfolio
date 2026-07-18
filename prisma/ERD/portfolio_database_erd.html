@@ -25,106 +25,114 @@ mermaid.initialize({
 });
 
 const src = `erDiagram
-  USERS ||--o{ PORTFOLIOS : owns
-  PORTFOLIOS ||--o{ SKILLS : has
-  PORTFOLIOS ||--o{ PROJECTS : has
-  PORTFOLIOS ||--o{ SERVICES : has
-  PORTFOLIOS ||--o{ SOCIALS : has
-  PORTFOLIOS ||--o{ EXPERIENCES : has
-  PORTFOLIOS ||--o{ EDUCATIONS : has
+  USERS ||--o{ SKILLS : has
+  USERS ||--o{ PROJECTS : has
+  USERS ||--o{ SERVICES : has
+  USERS ||--o{ SOCIALS : has
+  USERS ||--o{ EXPERIENCES : has
+  USERS ||--o{ EDUCATIONS : has
+  USERS ||--o{ TESTIMONIALS : has
   PROJECTS ||--o{ PROJECT_IMAGES : has
   PROJECTS ||--o{ PROJECT_SKILLS : uses
   SKILLS ||--o{ PROJECT_SKILLS : used_in
 
   USERS {
-    bigint id PK
-  }
-  PORTFOLIOS {
-    bigint id PK
-    bigint user_id FK
+    varchar id PK
     varchar name
-    varchar number
-    varchar address
+    varchar email
+    boolean email_verified
     varchar image
-    text desc
+    varchar password
+    varchar role
     timestamp created_at
     timestamp updated_at
   }
   SKILLS {
-    id id PK
-    id portfolio_id FK
-    string name
-    string proficiency
-    string image
-    string desc
-    datetime created_at
-    datetime updated_at
+    bigint id PK
+    varchar user_id FK
+    varchar name
+    varchar proficiency
+    varchar image
+    varchar desc
+    timestamp created_at
+    timestamp updated_at
   }
   PROJECTS {
-    id id PK
-    id portfolio_id FK
-    string name
-    string image
-    string desc
-    datetime created_at
-    datetime updated_at
+    bigint id PK
+    varchar user_id FK
+    varchar name
+    varchar image
+    varchar desc
+    timestamp created_at
+    timestamp updated_at
   }
   PROJECT_SKILLS {
-    id id PK
-    id projects_id FK
-    id skills_id FK
-    datetime created_at
-    datetime updated_at
+    bigint id PK
+    bigint projects_id FK
+    bigint skills_id FK
+    timestamp created_at
+    timestamp updated_at
   }
   PROJECT_IMAGES {
-    id id PK
-    id projects_id FK
-    string image
+    bigint id PK
+    bigint projects_id FK
+    varchar image
     boolean default
-    datetime created_at
-    datetime updated_at
+    timestamp created_at
+    timestamp updated_at
   }
   SERVICES {
-    id id PK
-    id portfolio_id FK
-    string name
-    string desc
-    string link
-    datetime created_at
-    datetime updated_at
+    bigint id PK
+    varchar user_id FK
+    varchar name
+    varchar desc
+    varchar link
+    timestamp created_at
+    timestamp updated_at
   }
   SOCIALS {
-    id id PK
-    id portfolio_id FK
-    string name
-    string desc
-    string link
-    datetime created_at
-    datetime updated_at
+    bigint id PK
+    varchar user_id FK
+    varchar name
+    varchar desc
+    varchar link
+    timestamp created_at
+    timestamp updated_at
   }
   EXPERIENCES {
-    id id PK
-    id portfolio_id FK
-    string company
-    string position
-    string image
+    bigint id PK
+    varchar user_id FK
+    varchar company
+    varchar position
+    varchar image
     date start_date
     date end_date
-    string desc
-    datetime created_at
-    datetime updated_at
+    varchar desc
+    timestamp created_at
+    timestamp updated_at
   }
   EDUCATIONS {
-    id id PK
-    id portfolio_id FK
-    string institution
-    string degree
-    string field_of_study
+    bigint id PK
+    varchar user_id FK
+    varchar institution
+    varchar degree
+    varchar field_of_study
     date start_date
     date end_date
-    string desc
-    datetime created_at
-    datetime updated_at
+    varchar desc
+    timestamp created_at
+    timestamp updated_at
+  }
+  TESTIMONIALS {
+    bigint id PK
+    varchar user_id FK
+    varchar name
+    varchar role
+    varchar company
+    varchar image
+    text content
+    timestamp created_at
+    timestamp updated_at
   }
 `;
 
