@@ -25,8 +25,8 @@ export async function GET(request: NextRequest) {
     }));
 
     return NextResponse.json(serialized);
-  } catch (error) {
+  } catch (error: any) {
     console.error("Get socials error:", error);
-    return NextResponse.json({ error: "Failed to fetch socials" }, { status: 500 });
+    return NextResponse.json({ error: error.message || "Failed to fetch socials" }, { status: 500 });
   }
 }
