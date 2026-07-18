@@ -9,6 +9,15 @@ export const metadata: Metadata = {
 
 export default async function LandingPage() {
   // Fetch users from MySQL via Prisma (server component)
+  interface userInterface {
+    id: number
+    name: string
+    email: string
+    role: string
+    createdAt: Date
+  }
+
+
   const users = await prisma.user.findMany({
     select: {
       id: true,
@@ -67,7 +76,7 @@ export default async function LandingPage() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-                  {users.map((user) => (
+                  {users.map((user: userInterface) => (
                     <tr
                       key={user.id}
                       className="bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
@@ -83,11 +92,10 @@ export default async function LandingPage() {
                       </td>
                       <td className="px-4 py-3">
                         <span
-                          className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                            user.role === "ADMIN"
+                          className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${user.role === "ADMIN"
                               ? "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
                               : "bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300"
-                          }`}
+                            }`}
                         >
                           {user.role}
                         </span>
