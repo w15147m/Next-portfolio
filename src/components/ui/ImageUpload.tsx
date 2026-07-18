@@ -3,6 +3,7 @@ import React, { useState, useRef } from "react";
 import ComponentCard from "@/components/common/ComponentCard";
 import { useDropzone } from "react-dropzone";
 import Image from "next/image";
+import { uploadImage, deleteImage } from "@/lib/image-client";
 
 interface ImageUploadProps {
   onUploadSuccess: (tempUrl: string) => void;
@@ -37,32 +38,16 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
     if (pendingTempUrl.current) {
       const urlToDelete = pendingTempUrl.current;
       pendingTempUrl.current = null;
-      fetch("/api/upload/temp/delete", {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ url: urlToDelete }),
-      }).catch((err) => console.error("Failed to delete old temp image:", err));
+      deleteImage(urlToDelete); // fire-and-forget
     }
 
     try {
-      const formData = new FormData();
-      formData.append("file", file);
-
-      const res = await fetch("/api/upload/temp", {
-        method: "POST",
-        body: formData,
-      });
-
-      if (!res.ok) {
-        const errorData = await res.json();
-        throw new Error(errorData.error || "Upload failed");
-      }
-
-      const data = await res.json();
+      // Upload via reusable client utility
+      const tempUrl = await uploadImage(file);
       // Track the new temp URL so we can clean it up if the user re-uploads
-      pendingTempUrl.current = data.url;
-      onUploadSuccess(data.url);
-      setPreview(data.url); // Use the server temp URL once confirmed
+      pendingTempUrl.current = tempUrl;
+      onUploadSuccess(tempUrl);
+      setPreview(tempUrl);
     } catch (err: any) {
       console.error(err);
       setPreview(defaultImage || null); // Revert on failure

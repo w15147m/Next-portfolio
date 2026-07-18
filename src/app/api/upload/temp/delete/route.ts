@@ -1,12 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import { deleteTempImage } from "@/lib/file-utils";
+import { deleteImage } from "@/lib/image-service";
 
 /**
- * DELETE /api/upload/temp
- * Body: { url: "/uploads/temp/filename.jpg" }
+ * DELETE /api/upload/temp/delete
+ * Body: { url: "/uploads/…/filename.jpg" }
  *
- * Used by the client to clean up a temp image when the user replaces it
- * before submitting the form.
+ * Used by the client to delete any image under /uploads/ (temp or permanent).
  */
 export async function DELETE(request: NextRequest) {
   try {
@@ -16,18 +15,18 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: "URL is required" }, { status: 400 });
     }
 
-    // Only allow temp image deletion from this endpoint
-    if (!url.startsWith("/uploads/temp/")) {
+    // Only allow deletion of local /uploads/ files — never external URLs
+    if (!url.startsWith("/uploads/")) {
       return NextResponse.json(
-        { error: "Only temporary image URLs can be deleted via this endpoint" },
+        { error: "Only /uploads/ paths can be deleted via this endpoint" },
         { status: 403 }
       );
     }
 
-    await deleteTempImage(url);
+    await deleteImage(url);
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error("Error deleting temp image:", error);
+    console.error("Error deleting image:", error);
     return NextResponse.json({ error: "Failed to delete image" }, { status: 500 });
   }
 }
