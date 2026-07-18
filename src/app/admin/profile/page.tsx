@@ -120,10 +120,9 @@ export default function ProfilePage() {
               </div>
             )}
             <div className="flex flex-col gap-6 sm:flex-row sm:gap-8">
-              <div className="sm:w-1/3">
+              <div className="sm:w-1/5">
                 <div className="mt-2">
                   <ImageUpload
-                    label="Upload new avatar"
                     defaultImage={image}
                     onUploadSuccess={(url) => setImage(url)}
                   />

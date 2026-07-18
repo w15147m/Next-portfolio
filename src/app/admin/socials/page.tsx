@@ -10,6 +10,7 @@ import SocialFormModal from "./_components/SocialFormModal";
 import DeleteSocialModal from "./_components/DeleteSocialModal";
 
 import { authClient } from "@/lib/auth-client";
+import Image from "next/image";
 
 type Social = {
   id: number;
@@ -94,11 +95,14 @@ export default function SocialsPage() {
       )}
 
       {/* Table */}
-      <ComponentCard title="All Social Links">
+      <ComponentCard title={null} >
         <div className="overflow-x-auto">
           <Table>
             <TableHeader>
               <TableRow className="border-b border-gray-200 dark:border-gray-800">
+                <TableCell isHeader className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase dark:text-gray-400">
+                  Icon
+                </TableCell>
                 <TableCell isHeader className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase dark:text-gray-400">
                   Platform
                 </TableCell>
@@ -116,13 +120,13 @@ export default function SocialsPage() {
             <TableBody>
               {isLoading ? (
                 <TableRow>
-                  <TableCell className="px-4 py-10 text-center text-gray-500 dark:text-gray-400" colSpan={4}>
+                  <TableCell className="px-4 py-10 text-center text-gray-500 dark:text-gray-400" >
                     Loading...
                   </TableCell>
                 </TableRow>
               ) : socials.length === 0 ? (
                 <TableRow>
-                  <TableCell className="px-4 py-10 text-center text-gray-500 dark:text-gray-400" colSpan={4}>
+                  <TableCell className="px-4 py-10 text-center text-gray-500 dark:text-gray-400" >
                     No social links yet. Click &ldquo;Add Social&rdquo; to get started.
                   </TableCell>
                 </TableRow>
@@ -132,6 +136,12 @@ export default function SocialsPage() {
                     key={social.id}
                     className="border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
                   >
+                    <TableCell className="px-4 ">
+                      <span className="font-medium text-gray-800 dark:text-white/90">
+                        <img src={`https://skillicons.dev/icons?i=${social.name}`} alt="icon" width={50} height={50} />
+
+                      </span>
+                    </TableCell>
                     <TableCell className="px-4 py-3">
                       <span className="font-medium text-gray-800 dark:text-white/90">
                         {social.name}

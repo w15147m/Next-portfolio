@@ -10,10 +10,9 @@ interface ImageUploadProps {
   label?: string;
 }
 
-const ImageUpload: React.FC<ImageUploadProps> = ({ 
-  onUploadSuccess, 
+const ImageUpload: React.FC<ImageUploadProps> = ({
+  onUploadSuccess,
   defaultImage,
-  label = "Upload Image"
 }) => {
   const [isUploading, setIsUploading] = useState(false);
   const [preview, setPreview] = useState<string | null>(defaultImage || null);
@@ -49,7 +48,6 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
       setPreview(data.url); // Use the server temp URL once confirmed
     } catch (err: any) {
       console.error(err);
-      setError(err.message || "Failed to upload image");
       setPreview(defaultImage || null); // Revert on failure
     } finally {
       setIsUploading(false);
@@ -69,16 +67,15 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
   });
 
   return (
-    <ComponentCard title={label}>
+    < >
       <div className="transition border border-gray-300 border-dashed cursor-pointer dark:hover:border-brand-500 dark:border-gray-700 rounded-xl hover:border-brand-500">
         <div
           {...getRootProps()}
-          className={`dropzone rounded-xl border-dashed border-gray-300 p-7 lg:p-10 relative overflow-hidden
-        ${
-          isDragActive
-            ? "border-brand-500 bg-gray-100 dark:bg-gray-800"
-            : "border-gray-300 bg-gray-50 dark:border-gray-700 dark:bg-gray-900"
-        }
+          className={`dropzone rounded-xl border-dashed border-gray-300 p-1 lg:p-10 relative overflow-hidden
+        ${isDragActive
+              ? "border-brand-500 bg-gray-100 dark:bg-gray-800"
+              : "border-gray-300 bg-gray-50 dark:border-gray-700 dark:bg-gray-900"
+            }
       `}
           id="demo-upload"
         >
@@ -101,10 +98,10 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
           {/* Preview Image or Dropzone content */}
           {preview ? (
             <div className="flex flex-col items-center justify-center relative w-full h-48 sm:h-64 rounded-lg overflow-hidden group">
-              <Image 
-                src={preview} 
-                alt="Upload preview" 
-                fill 
+              <Image
+                src={preview}
+                alt="Upload preview"
+                fill
                 className="object-contain"
               />
               <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white font-medium text-sm rounded-lg">
@@ -151,7 +148,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
       {error && (
         <p className="mt-2 text-sm text-error-500">{error}</p>
       )}
-    </ComponentCard>
+    </ >
   );
 };
 
