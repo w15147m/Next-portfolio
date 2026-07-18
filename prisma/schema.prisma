@@ -54,8 +54,9 @@ model Portfolio {
   projects    Project[]
   services    Service[]
   socials     Social[]
-  experiences Experience[]
-  educations  Education[]
+  experiences  Experience[]
+  educations   Education[]
+  testimonials Testimonial[]
 
   @@map("portfolios")
 }
@@ -250,5 +251,45 @@ model Verification {
   createdAt  DateTime @default(now()) @map("created_at")
   updatedAt  DateTime @updatedAt @map("updated_at")
 
+
   @@map("verifications")
+}
+
+// ─────────────────────────────────────────────
+// NEW ADDITIONS
+// ─────────────────────────────────────────────
+
+model TempImage {
+  id        String   @id @default(cuid())
+  url       String   @unique
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("temp_images")
+}
+
+model ContactMessage {
+  id        BigInt   @id @default(autoincrement())
+  name      String
+  email     String
+  subject   String?
+  message   String   @db.Text
+  isRead    Boolean  @default(false) @map("is_read")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("contact_messages")
+}
+
+model Testimonial {
+  id          BigInt   @id @default(autoincrement())
+  portfolioId BigInt   @map("portfolio_id")
+  name        String
+  role        String?
+  company     String?
+  image       String?
+  content     String   @db.Text
+  createdAt   DateTime @default(now()) @map("created_at")
+  
+  portfolio   Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+
+  @@map("testimonials")
 }
