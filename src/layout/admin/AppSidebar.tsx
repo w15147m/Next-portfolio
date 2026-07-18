@@ -25,6 +25,11 @@ const navItems: NavItem[] = [
   },
   {
     icon: <GridIcon />,
+    name: "Profile",
+    path: "/admin/profile",
+  },
+  {
+    icon: <GridIcon />,
     name: "Socials",
     path: "/admin/socials",
   },
