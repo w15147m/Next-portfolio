@@ -10,6 +10,7 @@ import ImageUpload from "@/components/ui/ImageUpload";
 import { authClient } from "@/lib/auth-client";
 import { updateProfile, ProfileFormState } from "./actions";
 import Image from "next/image";
+import PageBreadcrumb from "@/components/common/PageBreadCrumb";
 
 type UserProfile = {
   id: string;
@@ -96,14 +97,9 @@ export default function ProfilePage() {
   return (
     <div className="space-y-6 p-4 sm:p-6">
       {/* Header */}
-      <div>
-        <h1 className="text-2xl font-semibold text-gray-800 dark:text-white/90">
-          My Profile
-        </h1>
-        <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-          Manage your account information and avatar.
-        </p>
-      </div>
+
+      <PageBreadcrumb pageTitle="Profile" />
+
 
       {error && <Alert variant="error" title="Error" message={error} />}
 
