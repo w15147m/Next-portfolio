@@ -116,12 +116,17 @@ export default function SignInForm() {
               });
               if (error) {
                 console.error("Sign in error:", error);
-                alert(error.message || JSON.stringify(error) || "An unknown error occurred. Make sure your auth backend is configured.");
+                setErrors({ root: error.message || JSON.stringify(error) || "An unknown error occurred. Make sure your auth backend is configured." });
               } else {
                 window.location.href = "/";
               }
             }}>
               <div className="space-y-6">
+                {errors.root && (
+                  <div className="p-3 text-sm text-error-500 bg-error-50 rounded-lg dark:bg-error-500/10 dark:text-error-400">
+                    {errors.root}
+                  </div>
+                )}
                 <div>
                   <Label>
                     Email <span className="text-error-500">*</span>{" "}

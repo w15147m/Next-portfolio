@@ -119,12 +119,17 @@ export default function SignUpForm() {
               });
               if (error) {
                 console.error("Sign up error:", error);
-                alert(error.message || JSON.stringify(error) || "An unknown error occurred. Make sure your auth backend is configured.");
+                setErrors({ root: error.message || JSON.stringify(error) || "An unknown error occurred. Make sure your auth backend is configured." });
               } else {
                 window.location.href = "/";
               }
             }}>
               <div className="space-y-5">
+                {errors.root && (
+                  <div className="p-3 text-sm text-error-500 bg-error-50 rounded-lg dark:bg-error-500/10 dark:text-error-400">
+                    {errors.root}
+                  </div>
+                )}
                 <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                   {/* <!-- First Name --> */}
                   <div className="sm:col-span-1">

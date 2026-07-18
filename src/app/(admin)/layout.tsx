@@ -4,7 +4,9 @@ import { useSidebar } from "@/context/SidebarContext";
 import AppHeader from "@/layout/admin/AppHeader";
 import AppSidebar from "@/layout/admin/AppSidebar";
 import Backdrop from "@/layout/admin/Backdrop";
-import React from "react";
+import React, { useEffect } from "react";
+import { authClient } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
 
 export default function AdminLayout({
   children,
@@ -12,6 +14,14 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   const { isExpanded, isHovered, isMobileOpen } = useSidebar();
+  const { data: session, isPending } = authClient.useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!isPending && !session) {
+      router.push("/signin");
+    }
+  }, [session, isPending, router]);
 
   // Dynamic class for main content margin based on sidebar state
   const mainContentMargin = isMobileOpen
@@ -19,6 +29,14 @@ export default function AdminLayout({
     : isExpanded || isHovered
     ? "lg:ml-[290px]"
     : "lg:ml-[90px]";
+
+  if (isPending) {
+    return <div className="flex items-center justify-center min-h-screen">Loading...</div>;
+  }
+
+  if (!session) {
+    return null;
+  }
 
   return (
     <div className="min-h-screen xl:flex">

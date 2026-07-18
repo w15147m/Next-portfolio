@@ -17,14 +17,38 @@ async function main() {
     // Upsert admin — safe to run multiple times
     const admin = await prisma.user.upsert({
       where: { email: "admin@admin.com" },
-      update: {},
+      update: {
+        password: hashedPassword,
+      },
       create: {
         name: "Admin",
         email: "admin@admin.com",
         password: hashedPassword,
         role: "ADMIN",
+        emailVerified: true,
       },
     });
+
+    // Create the better-auth credential account so it can verify the password
+    const existingAccount = await prisma.account.findFirst({
+      where: { userId: admin.id, providerId: "credential" }
+    });
+
+    if (!existingAccount) {
+      await prisma.account.create({
+        data: {
+          accountId: admin.email,
+          providerId: "credential",
+          userId: admin.id,
+          password: hashedPassword,
+        }
+      });
+    } else {
+      await prisma.account.update({
+        where: { id: existingAccount.id },
+        data: { password: hashedPassword }
+      });
+    }
 
     console.log("✅ Seeded admin user:", {
       id: admin.id,
