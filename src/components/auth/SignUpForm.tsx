@@ -121,7 +121,7 @@ export default function SignUpForm() {
                 console.error("Sign up error:", error);
                 setErrors({ root: error.message || JSON.stringify(error) || "An unknown error occurred. Make sure your auth backend is configured." });
               } else {
-                window.location.href = "/";
+                window.location.href = "/admin";
               }
             }}>
               <div className="space-y-5">
