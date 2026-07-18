@@ -8,6 +8,15 @@ import {
   ChevronDownIcon,
   GridIcon,
   HorizontaLDots,
+  UserIcon,
+  BoxCubeIcon,
+  BoltIcon,
+  FolderIcon,
+  PlugInIcon,
+  TimeIcon,
+  DocsIcon,
+  ChatIcon,
+  EnvelopeIcon,
 } from "../../icons/index";
 
 type NavItem = {
@@ -24,19 +33,49 @@ const navItems: NavItem[] = [
     path: "/admin",
   },
   {
-    icon: <GridIcon />,
+    icon: <UserIcon />,
     name: "Profile",
     path: "/admin/profile",
   },
   {
-    icon: <GridIcon />,
+    icon: <BoltIcon />,
+    name: "Skills",
+    path: "/admin/skills",
+  },
+  {
+    icon: <FolderIcon />,
+    name: "Projects",
+    path: "/admin/projects",
+  },
+  {
+    icon: <PlugInIcon />,
+    name: "Services",
+    path: "/admin/services",
+  },
+  {
+    icon: <BoxCubeIcon />,
     name: "Socials",
     path: "/admin/socials",
   },
   {
-    icon: <GridIcon />, // Reusing icon for simplicity
-    name: "Test Page",
-    path: "/admin/test",
+    icon: <TimeIcon />,
+    name: "Experiences",
+    path: "/admin/experiences",
+  },
+  {
+    icon: <DocsIcon />,
+    name: "Educations",
+    path: "/admin/educations",
+  },
+  {
+    icon: <ChatIcon />,
+    name: "Testimonials",
+    path: "/admin/testimonials",
+  },
+  {
+    icon: <EnvelopeIcon />,
+    name: "Messages",
+    path: "/admin/messages",
   },
 ];
 
