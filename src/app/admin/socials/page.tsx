@@ -11,15 +11,13 @@ import DeleteSocialModal from "./_components/DeleteSocialModal";
 
 import { authClient } from "@/lib/auth-client";
 import SkillIcon from "@/components/ui/SkillIcon";
+import { apiService } from "@/lib/api-service";
 import type { Social, SocialFormState } from "./actions";
 import CustomToaster, { type ToastType } from "@/components/common/CustomToaster";
 
 type ToastState = {
   message: string;
   type: ToastType;
-  // Incrementing key so CustomToaster re-fires even when two consecutive
-  // actions produce the exact same message (e.g. deleting two items in a
-  // row both say "Social link deleted.").
   key: number;
 };
 
@@ -43,16 +41,16 @@ export default function SocialsPage() {
     setIsLoading(true);
     setError(null);
     try {
-      const res = await fetch(`/api/socials?userId=${userId}`);
-      if (!res.ok) throw new Error("Failed to load socials");
-      const data = await res.json();
+      const data = await apiService.fetchData<Social[]>(`/api/socials?userId=${userId}`);
       setSocials(data);
     } catch {
-      setError("Could not load social links. Please try again.");
+      const message = "Could not load social links. Please try again.";
+      setError(message);
+      showToast(message, "error");
     } finally {
       setIsLoading(false);
     }
-  }, [userId]);
+  }, [userId, showToast]);
 
   useEffect(() => {
     if (userId) {
@@ -95,6 +93,9 @@ export default function SocialsPage() {
 
   return (
     <div className="space-y-5 p-4 sm:p-6">
+      {/* Exactly one CustomToaster (and therefore one <Toaster/>) in the
+          whole tree — mounting it more than once duplicates every toast,
+          since react-hot-toast's queue is global. */}
       <CustomToaster
         message={toastState.message}
         type={toastState.type}
@@ -122,14 +123,11 @@ export default function SocialsPage() {
         />
       </div>
 
-      {/* Error State */}
+      {/* Persistent error banner (separate from the transient toast above) —
+          this stays visible until a retry succeeds, so the user has a way
+          to act on it even after the toast disappears. */}
       {error && (
-        // <Alert variant="error" title="Error" message={error} />
-            <CustomToaster
-        message='Error'
-        type='error'
-        trigger={toastState.key}
-      />
+        <Alert variant="error" title="Error" message={error} />
       )}
 
       {/* Table */}
