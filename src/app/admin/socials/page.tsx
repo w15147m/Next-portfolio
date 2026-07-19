@@ -32,18 +32,11 @@ export default function SocialsPage() {
   const showToast = useCallback((message: string, type: ToastType) => {
     setToastState((prev) => ({ message, type, key: prev.key + 1 }));
   }, []);
-
-  // Only used for the initial load and manual "retry after error" — NOT
-  // called after create/update/delete anymore.
-  const fetchSocials = useCallback(async () => {
+const fetchSocials = useCallback(async () => {
     if (!userId) return;
     setIsLoading(true);
     setError(null);
-    try {
-      // apiService.fetchData attaches the auth headers and already handles
-      // 401/403 (session cleanup + redirect) and 451 (toast) globally, so
-      // we only need to handle the "show a persistent banner" case here.
-      const data = await apiService.fetchData<Social[]>(`/api/socials?userId=${userId}`);
+    try {  const data = await apiService.fetchData<Social[]>(`/api/socials?userId=${userId}`);
       setSocials(data);
     } catch {
       const message = "Could not load social links. Please try again.";
