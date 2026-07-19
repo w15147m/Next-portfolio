@@ -20,10 +20,19 @@ export type SocialFieldErrors = {
   desc?: string[];
 };
 
+export type Social = {
+  id: number;
+  name: string;
+  link: string | null;
+  desc: string | null;
+  userId: string;
+};
+
 export type SocialFormState = {
   success: boolean;
   message: string;
   fieldErrors?: SocialFieldErrors;
+  data?: Social;
 };
 
 // CREATE
@@ -41,7 +50,7 @@ export async function createSocial(
   }
 
   try {
-    await prisma.social.create({
+    const created = await prisma.social.create({
       data: {
         userId: userId,
         name: parsed.data.name,
@@ -50,7 +59,11 @@ export async function createSocial(
       },
     });
     revalidatePath("/admin/socials");
-    return { success: true, message: "Social link created successfully." };
+    return {
+      success: true,
+      message: "Social link created successfully.",
+      data: { ...created, id: Number(created.id) },
+    };
   } catch (error) {
     console.error("Create social DB error:", error);
     return { success: false, message: "A database error occurred. Please try again." };
@@ -72,7 +85,7 @@ export async function updateSocial(
   }
 
   try {
-    await prisma.social.update({
+    const updated = await prisma.social.update({
       where: { id: BigInt(id) },
       data: {
         name: parsed.data.name,
@@ -81,7 +94,11 @@ export async function updateSocial(
       },
     });
     revalidatePath("/admin/socials");
-    return { success: true, message: "Social link updated successfully." };
+    return {
+      success: true,
+      message: "Social link updated successfully.",
+      data: { ...updated, id: Number(updated.id) },
+    };
   } catch (error) {
     console.error("Update social DB error:", error);
     return { success: false, message: "A database error occurred. Please try again." };
@@ -101,4 +118,3 @@ export async function deleteSocial(id: number): Promise<SocialFormState> {
     return { success: false, message: "Failed to delete social link." };
   }
 }
-

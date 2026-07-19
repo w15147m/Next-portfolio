@@ -10,7 +10,9 @@ import { deleteSocial, SocialFormState } from "../actions";
 interface DeleteSocialModalProps {
   socialId: number;
   socialName: string;
-  onDone: () => void;
+  // Receives the deleted id so the parent can remove it from local state
+  // instead of refetching the whole list.
+  onDone: (socialId: number) => void;
 }
 
 export default function DeleteSocialModal({
@@ -31,7 +33,7 @@ export default function DeleteSocialModal({
     if (result.success) {
       setTimeout(() => {
         closeModal();
-        onDone();
+        onDone(socialId);
       }, 600);
     }
   };

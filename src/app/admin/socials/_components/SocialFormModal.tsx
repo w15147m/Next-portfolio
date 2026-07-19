@@ -7,20 +7,15 @@ import Label from "@/components/form/Label";
 import Input from "@/components/form/input/InputField";
 import Alert from "@/components/ui/alert/Alert";
 import { useModal } from "@/hooks/useModal";
-import { createSocial, updateSocial, SocialFormState } from "../actions";
-
-type Social = {
-  id: number;
-  name: string;
-  link: string | null;
-  desc: string | null;
-};
+import { createSocial, updateSocial, SocialFormState, Social } from "../actions";
 
 interface SocialFormModalProps {
   userId: string;
   social?: Social; // if provided, we are editing
   trigger: React.ReactNode;
-  onDone: () => void;
+  // Receives the created/updated record so the parent can patch its list
+  // in place instead of refetching the whole table.
+  onDone: (social: Social) => void;
 }
 
 export default function SocialFormModal({
@@ -62,10 +57,10 @@ export default function SocialFormModal({
     setFeedback(result);
     setIsLoading(false);
 
-    if (result.success) {
+    if (result.success && result.data) {
       setTimeout(() => {
         closeModal();
-        onDone();
+        onDone(result.data as Social);
       }, 800);
     }
   };

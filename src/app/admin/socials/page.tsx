@@ -10,16 +10,8 @@ import SocialFormModal from "./_components/SocialFormModal";
 import DeleteSocialModal from "./_components/DeleteSocialModal";
 
 import { authClient } from "@/lib/auth-client";
-import Image from "next/image";
 import SkillIcon from "@/components/ui/SkillIcon";
-
-type Social = {
-  id: number;
-  name: string;
-  link: string | null;
-  desc: string | null;
-  userId: string;
-};
+import type { Social } from "./actions";
 
 export default function SocialsPage() {
   const { data: session, isPending: sessionLoading } = authClient.useSession();
@@ -29,6 +21,8 @@ export default function SocialsPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Only used for the initial load and manual "retry after error" — NOT
+  // called after create/update/delete anymore.
   const fetchSocials = useCallback(async () => {
     if (!userId) return;
     setIsLoading(true);
@@ -50,6 +44,20 @@ export default function SocialsPage() {
       fetchSocials();
     }
   }, [userId, fetchSocials]);
+
+  // --- Local state patches (no network round-trip / no full re-render of unrelated rows) ---
+
+  const handleCreated = useCallback((social: Social) => {
+    setSocials((prev) => [social, ...prev]);
+  }, []);
+
+  const handleUpdated = useCallback((social: Social) => {
+    setSocials((prev) => prev.map((s) => (s.id === social.id ? social : s)));
+  }, []);
+
+  const handleDeleted = useCallback((id: number) => {
+    setSocials((prev) => prev.filter((s) => s.id !== id));
+  }, []);
 
   if (sessionLoading) {
     return (
@@ -81,7 +89,7 @@ export default function SocialsPage() {
         </div>
         <SocialFormModal
           userId={userId}
-          onDone={fetchSocials}
+          onDone={handleCreated}
           trigger={
             <Button size="sm">
               + Add Social
@@ -169,7 +177,7 @@ export default function SocialsPage() {
                         <SocialFormModal
                           userId={userId}
                           social={social}
-                          onDone={fetchSocials}
+                          onDone={handleUpdated}
                           trigger={
                             <Button size="sm" variant="outline">
                               Edit
@@ -179,7 +187,7 @@ export default function SocialsPage() {
                         <DeleteSocialModal
                           socialId={social.id}
                           socialName={social.name}
-                          onDone={fetchSocials}
+                          onDone={handleDeleted}
                         />
                       </div>
                     </TableCell>
