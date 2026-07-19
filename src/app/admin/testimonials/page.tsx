@@ -7,7 +7,7 @@ export default function TestimonialsPage() {
   return (
     <div className="space-y-6">
       <PageBreadcrumb pageTitle="Testimonials" />
-      <div className="rounded-2xl border border-gray-200 bg-white p-6 dark:border-neutral-900 dark:bg-white/[0.03]">
+      <div className="rounded-2xl border border-gray-200 bg-white p-6 dark:border-neutral-900 dark:bg-zinc-950">
         <h3 className="text-lg font-medium text-gray-800 dark:text-white/90">
           Testimonials Coming Soon
         </h3>

@@ -103,7 +103,6 @@ export default function ProfilePage() {
 
       {error && <Alert variant="error" title="Error" message={error} />}
 
-      <div className="w-full mx-auto">
         <ComponentCard title={null}>
           <form onSubmit={handleSubmit} className="p-2">
             {feedback && (
@@ -164,6 +163,5 @@ export default function ProfilePage() {
           </form>
         </ComponentCard>
       </div>
-    </div>
   );
 }

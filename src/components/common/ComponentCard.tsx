@@ -15,7 +15,7 @@ const ComponentCard: React.FC<ComponentCardProps> = ({
 }) => {
   return (
     <div
-      className={`rounded-2xl border border-gray-200 bg-white dark:border-neutral-900 dark:bg-white/[0.03] ${className}`}
+      className={`rounded-2xl border border-gray-200 bg-white dark:border-neutral-900 dark:bg-zinc-950 ${className}`}
     >
       {/* Card Header */}
       {title &&
@@ -32,7 +32,7 @@ const ComponentCard: React.FC<ComponentCardProps> = ({
       }
 
       {/* Card Body */}
-      <div className="p-4 border-t border-gray-100 dark:border-neutral-900 sm:p-6">
+      <div className="p-4  sm:p-6">
         <div className="space-y-6">{children}</div>
       </div>
     </div>
