@@ -232,7 +232,7 @@ export default function Hero() {
                     alt="TailAdmin dashboard preview"
                     width={1604}
                     height={686}
-                    src="https://tailadmin.com/_next/images/hero/main-image.png"
+                    src="/images/cards/card-01.jpg"
                   />
                 </div>
                 <div className="absolute -bottom-2 -right-[120px] aspect-[204/277] w-full max-w-[204px] overflow-hidden rounded-t-[10px] border-[.6px] border-b-0 border-stroke dark:border-gray-800 bg-white dark:bg-gray-900 dark:border-gray-800 shadow-[-30.119px_0px_87.847px_0px_rgba(16,24,40,0.10)] max-xl:-right-16 max-xl:max-w-[190px] max-lg:-right-12 max-lg:max-w-[150px] max-md:right-0 max-md:max-w-[100px]">
@@ -240,7 +240,7 @@ export default function Hero() {
                     alt="TailAdmin mobile preview"
                     width={409}
                     height={558}
-                    src="/images/hero/image-3.png"
+                    src="/images/cards/card-02.jpg"
                   />
                 </div>
               </div>

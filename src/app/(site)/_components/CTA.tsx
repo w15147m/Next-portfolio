@@ -19,16 +19,16 @@ export default function CTA() {
               <div className="flex items-center -space-x-4"><img alt="avatar" loading="lazy" width="40" height="40"
                   decoding="async" data-nimg="1" className="rounded-full border-[3px] border-gray-800"
                   style={{"color":"transparent"}}
-                  srcSet="/_next/image?url=%2Fimages%2Favatars%2Favatar-3.png&amp;w=48&amp;q=75 1x, /_next/image?url=%2Fimages%2Favatars%2Favatar-3.png&amp;w=96&amp;q=75 2x"
-                  src="/_next/image?url=%2Fimages%2Favatars%2Favatar-3.png&amp;w=96&amp;q=75" /><img alt="avatar"
+                  
+                  src="/images/user/user-04.jpg" /><img alt="avatar"
                   loading="lazy" width="40" height="40" decoding="async" data-nimg="1"
                   className="rounded-full border-[3px] border-gray-800" style={{"color":"transparent"}}
-                  srcSet="/_next/image?url=%2Fimages%2Favatars%2Favatar-2.png&amp;w=48&amp;q=75 1x, /_next/image?url=%2Fimages%2Favatars%2Favatar-2.png&amp;w=96&amp;q=75 2x"
-                  src="/_next/image?url=%2Fimages%2Favatars%2Favatar-2.png&amp;w=96&amp;q=75" /><img alt="avatar"
+                  
+                  src="/images/user/user-05.jpg" /><img alt="avatar"
                   loading="lazy" width="40" height="40" decoding="async" data-nimg="1"
                   className="rounded-full border-[3px] border-gray-800" style={{"color":"transparent"}}
-                  srcSet="/_next/image?url=%2Fimages%2Favatars%2Favatar-1.png&amp;w=48&amp;q=75 1x, /_next/image?url=%2Fimages%2Favatars%2Favatar-1.png&amp;w=96&amp;q=75 2x"
-                  src="/_next/image?url=%2Fimages%2Favatars%2Favatar-1.png&amp;w=96&amp;q=75" /></div>
+                  
+                  src="/images/user/user-06.jpg" /></div>
               <div>
                 <h3 className="text-base font-medium text-gray-200"><strong className="font-bold">80k+</strong> Happy Users!
                 </h3>
@@ -38,8 +38,8 @@ export default function CTA() {
           </div>
           <div className="relative max-w-[720px] self-end rounded-t-xl lg:ml-auto"><img alt="main image" loading="lazy"
               width="1356" height="870" decoding="async" data-nimg="1" className="h-full" style={{"color":"transparent"}}
-              srcSet="/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fimage-1.3117a922.png&amp;w=1920&amp;q=75 1x, /_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fimage-1.3117a922.png&amp;w=3840&amp;q=75 2x"
-              src="/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fimage-1.3117a922.png&amp;w=3840&amp;q=75" /></div>
+              
+              src="/images/user/user-07.jpg" /></div>
           <div className="absolute right-0 top-0"><svg width="158" height="184" viewBox="0 0 158 184" fill="none"
               xmlns="http://www.w3.org/2000/svg">
               <g opacity="0.05">

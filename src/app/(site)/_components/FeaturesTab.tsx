@@ -34,7 +34,7 @@ export default function FeaturesTab() {
               <div
                 className="aspect-[570/408] max-w-[570px] overflow-hidden rounded-3xl border border-gray-100 shadow-feature bg-[#fcfcfc] lg:ml-auto">
                 <img alt="image for feature one" loading="lazy" width="571" height="408" decoding="async" data-nimg="1"
-                  style={{"color":"transparent"}} src="/_next/static/media/feature-1.4274cef6.svg" /></div>
+                  style={{"color":"transparent"}} src="/images/brand/brand-01.svg" /></div>
             </div>
           </div>
           <div className="flex items-center gap-15 max-lg:flex-col max-lg:gap-y-10 xl:gap-20">
@@ -42,7 +42,7 @@ export default function FeaturesTab() {
               <div
                 className="aspect-[570/408] max-w-[570px] overflow-hidden rounded-3xl border border-gray-100 shadow-feature bg-[#fcfcfc]">
                 <img alt="image for feature two" loading="lazy" width="570" height="408" decoding="async" data-nimg="1"
-                  style={{"color":"transparent"}} src="/_next/static/media/feature-2.f38359f3.svg" /></div>
+                  style={{"color":"transparent"}} src="/images/brand/brand-02.svg" /></div>
             </div>
             <div className="w-full max-lg:mx-auto lg:max-w-[500px]">
               <h3 className="mb-4.5 text-lg font-medium text-primary">Essential UI Components, Elements, and Pages</h3>
@@ -84,7 +84,7 @@ export default function FeaturesTab() {
               <div
                 className="aspect-[570/440] max-w-[570px] overflow-hidden rounded-3xl border border-gray-100 shadow-feature bg-[#fcfcfc] lg:ml-auto">
                 <img alt="image for feature two" loading="lazy" width="570" height="440" decoding="async" data-nimg="1"
-                  style={{"color":"transparent"}} src="/_next/static/media/feature-3.3bbc8ea9.svg" /></div>
+                  style={{"color":"transparent"}} src="/images/brand/brand-03.svg" /></div>
             </div>
           </div>
           <div className="flex items-center gap-15 max-lg:flex-col max-lg:gap-y-10 xl:gap-20">
@@ -92,7 +92,7 @@ export default function FeaturesTab() {
               <div
                 className="aspect-[570/408] max-w-[570px] overflow-hidden rounded-3xl border border-gray-100 shadow-feature bg-[#fcfcfc]">
                 <img alt="image for AI components" loading="lazy" width="570" height="408" decoding="async"
-                  data-nimg="1" style={{"color":"transparent"}} src="/_next/static/media/feature-4.70837447.svg" /></div>
+                  data-nimg="1" style={{"color":"transparent"}} src="/images/brand/brand-04.svg" /></div>
             </div>
             <div className="w-full max-lg:mx-auto lg:max-w-[500px]">
               <h3 className="mb-4.5 text-lg font-medium text-primary">Pre-built AI Pages for Dashboards</h3>
@@ -134,7 +134,7 @@ export default function FeaturesTab() {
               <div
                 className="aspect-[570/440] max-w-[570px] overflow-hidden rounded-3xl border border-gray-100 shadow-feature bg-[#fcfcfc] lg:ml-auto">
                 <img alt="image for feature two" loading="lazy" width="570" height="440" decoding="async" data-nimg="1"
-                  style={{"color":"transparent"}} src="/_next/static/media/feature-5.2e21d5cb.svg" /></div>
+                  style={{"color":"transparent"}} src="/images/brand/brand-05.svg" /></div>
             </div>
           </div>
         </div>

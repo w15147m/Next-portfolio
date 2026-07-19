@@ -19,8 +19,8 @@ export default function Dashboards() {
                 <img alt="E-Commerce" loading="lazy" decoding="async" data-nimg="fill"
                   style={{"position":"absolute","height":"100%","width":"100%","left":"0","top":"0","right":"0","bottom":"0","color":"transparent"}}
                   sizes="100vw"
-                  srcSet="/_next/image?url=%2Fimages%2Fpreview%2Fecommerce.jpg&amp;w=640&amp;q=100 640w, /_next/image?url=%2Fimages%2Fpreview%2Fecommerce.jpg&amp;w=750&amp;q=100 750w, /_next/image?url=%2Fimages%2Fpreview%2Fecommerce.jpg&amp;w=828&amp;q=100 828w, /_next/image?url=%2Fimages%2Fpreview%2Fecommerce.jpg&amp;w=1080&amp;q=100 1080w, /_next/image?url=%2Fimages%2Fpreview%2Fecommerce.jpg&amp;w=1200&amp;q=100 1200w, /_next/image?url=%2Fimages%2Fpreview%2Fecommerce.jpg&amp;w=1920&amp;q=100 1920w, /_next/image?url=%2Fimages%2Fpreview%2Fecommerce.jpg&amp;w=2048&amp;q=100 2048w, /_next/image?url=%2Fimages%2Fpreview%2Fecommerce.jpg&amp;w=3840&amp;q=100 3840w"
-                  src="/_next/image?url=%2Fimages%2Fpreview%2Fecommerce.jpg&amp;w=3840&amp;q=100" /></div>
+                  
+                  src="/images/cards/card-01.jpg" /></div>
               <div
                 className="invisible absolute bottom-0 left-0 right-0 top-0 flex items-center justify-center rounded-xl border border-stroke-secondary dark:border-gray-700 bg-[rgba(152,162,179,0.32)] opacity-0 backdrop-blur-[15px] duration-200 group-hover:visible group-hover:opacity-100 false">
                 <a target="_blank"
@@ -44,8 +44,8 @@ export default function Dashboards() {
                 <img alt="Analytics" loading="lazy" decoding="async" data-nimg="fill"
                   style={{"position":"absolute","height":"100%","width":"100%","left":"0","top":"0","right":"0","bottom":"0","color":"transparent"}}
                   sizes="100vw"
-                  srcSet="/_next/image?url=%2Fimages%2Fpreview%2Fanalytics.jpg&amp;w=640&amp;q=100 640w, /_next/image?url=%2Fimages%2Fpreview%2Fanalytics.jpg&amp;w=750&amp;q=100 750w, /_next/image?url=%2Fimages%2Fpreview%2Fanalytics.jpg&amp;w=828&amp;q=100 828w, /_next/image?url=%2Fimages%2Fpreview%2Fanalytics.jpg&amp;w=1080&amp;q=100 1080w, /_next/image?url=%2Fimages%2Fpreview%2Fanalytics.jpg&amp;w=1200&amp;q=100 1200w, /_next/image?url=%2Fimages%2Fpreview%2Fanalytics.jpg&amp;w=1920&amp;q=100 1920w, /_next/image?url=%2Fimages%2Fpreview%2Fanalytics.jpg&amp;w=2048&amp;q=100 2048w, /_next/image?url=%2Fimages%2Fpreview%2Fanalytics.jpg&amp;w=3840&amp;q=100 3840w"
-                  src="/_next/image?url=%2Fimages%2Fpreview%2Fanalytics.jpg&amp;w=3840&amp;q=100" /></div>
+                  
+                  src="/images/cards/card-02.jpg" /></div>
               <div
                 className="invisible absolute bottom-0 left-0 right-0 top-0 flex items-center justify-center rounded-xl border border-stroke-secondary dark:border-gray-700 bg-[rgba(152,162,179,0.32)] opacity-0 backdrop-blur-[15px] duration-200 group-hover:visible group-hover:opacity-100 false">
                 <a target="_blank"
@@ -69,8 +69,8 @@ export default function Dashboards() {
                 <img alt="Marketing" loading="lazy" decoding="async" data-nimg="fill"
                   style={{"position":"absolute","height":"100%","width":"100%","left":"0","top":"0","right":"0","bottom":"0","color":"transparent"}}
                   sizes="100vw"
-                  srcSet="/_next/image?url=%2Fimages%2Fpreview%2Fmarketing.jpg&amp;w=640&amp;q=100 640w, /_next/image?url=%2Fimages%2Fpreview%2Fmarketing.jpg&amp;w=750&amp;q=100 750w, /_next/image?url=%2Fimages%2Fpreview%2Fmarketing.jpg&amp;w=828&amp;q=100 828w, /_next/image?url=%2Fimages%2Fpreview%2Fmarketing.jpg&amp;w=1080&amp;q=100 1080w, /_next/image?url=%2Fimages%2Fpreview%2Fmarketing.jpg&amp;w=1200&amp;q=100 1200w, /_next/image?url=%2Fimages%2Fpreview%2Fmarketing.jpg&amp;w=1920&amp;q=100 1920w, /_next/image?url=%2Fimages%2Fpreview%2Fmarketing.jpg&amp;w=2048&amp;q=100 2048w, /_next/image?url=%2Fimages%2Fpreview%2Fmarketing.jpg&amp;w=3840&amp;q=100 3840w"
-                  src="/_next/image?url=%2Fimages%2Fpreview%2Fmarketing.jpg&amp;w=3840&amp;q=100" /></div>
+                  
+                  src="/images/cards/card-03.jpg" /></div>
               <div
                 className="invisible absolute bottom-0 left-0 right-0 top-0 flex items-center justify-center rounded-xl border border-stroke-secondary dark:border-gray-700 bg-[rgba(152,162,179,0.32)] opacity-0 backdrop-blur-[15px] duration-200 group-hover:visible group-hover:opacity-100 false">
                 <a target="_blank"
@@ -94,8 +94,8 @@ export default function Dashboards() {
                 <img alt="CRM" loading="lazy" decoding="async" data-nimg="fill"
                   style={{"position":"absolute","height":"100%","width":"100%","left":"0","top":"0","right":"0","bottom":"0","color":"transparent"}}
                   sizes="100vw"
-                  srcSet="/_next/image?url=%2Fimages%2Fpreview%2Fcrm.jpg&amp;w=640&amp;q=100 640w, /_next/image?url=%2Fimages%2Fpreview%2Fcrm.jpg&amp;w=750&amp;q=100 750w, /_next/image?url=%2Fimages%2Fpreview%2Fcrm.jpg&amp;w=828&amp;q=100 828w, /_next/image?url=%2Fimages%2Fpreview%2Fcrm.jpg&amp;w=1080&amp;q=100 1080w, /_next/image?url=%2Fimages%2Fpreview%2Fcrm.jpg&amp;w=1200&amp;q=100 1200w, /_next/image?url=%2Fimages%2Fpreview%2Fcrm.jpg&amp;w=1920&amp;q=100 1920w, /_next/image?url=%2Fimages%2Fpreview%2Fcrm.jpg&amp;w=2048&amp;q=100 2048w, /_next/image?url=%2Fimages%2Fpreview%2Fcrm.jpg&amp;w=3840&amp;q=100 3840w"
-                  src="/_next/image?url=%2Fimages%2Fpreview%2Fcrm.jpg&amp;w=3840&amp;q=100" /></div>
+                  
+                  src="/images/cards/card-01.jpg" /></div>
               <div
                 className="invisible absolute bottom-0 left-0 right-0 top-0 flex items-center justify-center rounded-xl border border-stroke-secondary dark:border-gray-700 bg-[rgba(152,162,179,0.32)] opacity-0 backdrop-blur-[15px] duration-200 group-hover:visible group-hover:opacity-100 false">
                 <a target="_blank"
@@ -119,8 +119,8 @@ export default function Dashboards() {
                 <img alt="Stocks" loading="lazy" decoding="async" data-nimg="fill"
                   style={{"position":"absolute","height":"100%","width":"100%","left":"0","top":"0","right":"0","bottom":"0","color":"transparent"}}
                   sizes="100vw"
-                  srcSet="/_next/image?url=%2Fimages%2Fpreview%2Fstocks.jpg&amp;w=640&amp;q=100 640w, /_next/image?url=%2Fimages%2Fpreview%2Fstocks.jpg&amp;w=750&amp;q=100 750w, /_next/image?url=%2Fimages%2Fpreview%2Fstocks.jpg&amp;w=828&amp;q=100 828w, /_next/image?url=%2Fimages%2Fpreview%2Fstocks.jpg&amp;w=1080&amp;q=100 1080w, /_next/image?url=%2Fimages%2Fpreview%2Fstocks.jpg&amp;w=1200&amp;q=100 1200w, /_next/image?url=%2Fimages%2Fpreview%2Fstocks.jpg&amp;w=1920&amp;q=100 1920w, /_next/image?url=%2Fimages%2Fpreview%2Fstocks.jpg&amp;w=2048&amp;q=100 2048w, /_next/image?url=%2Fimages%2Fpreview%2Fstocks.jpg&amp;w=3840&amp;q=100 3840w"
-                  src="/_next/image?url=%2Fimages%2Fpreview%2Fstocks.jpg&amp;w=3840&amp;q=100" /></div>
+                  
+                  src="/images/cards/card-02.jpg" /></div>
               <div
                 className="invisible absolute bottom-0 left-0 right-0 top-0 flex items-center justify-center rounded-xl border border-stroke-secondary dark:border-gray-700 bg-[rgba(152,162,179,0.32)] opacity-0 backdrop-blur-[15px] duration-200 group-hover:visible group-hover:opacity-100 false">
                 <a target="_blank"
@@ -146,8 +146,8 @@ export default function Dashboards() {
                 <img alt="SaaS" loading="lazy" decoding="async" data-nimg="fill"
                   style={{"position":"absolute","height":"100%","width":"100%","left":"0","top":"0","right":"0","bottom":"0","color":"transparent"}}
                   sizes="100vw"
-                  srcSet="/_next/image?url=%2Fimages%2Fpreview%2Fsaas.jpg&amp;w=640&amp;q=100 640w, /_next/image?url=%2Fimages%2Fpreview%2Fsaas.jpg&amp;w=750&amp;q=100 750w, /_next/image?url=%2Fimages%2Fpreview%2Fsaas.jpg&amp;w=828&amp;q=100 828w, /_next/image?url=%2Fimages%2Fpreview%2Fsaas.jpg&amp;w=1080&amp;q=100 1080w, /_next/image?url=%2Fimages%2Fpreview%2Fsaas.jpg&amp;w=1200&amp;q=100 1200w, /_next/image?url=%2Fimages%2Fpreview%2Fsaas.jpg&amp;w=1920&amp;q=100 1920w, /_next/image?url=%2Fimages%2Fpreview%2Fsaas.jpg&amp;w=2048&amp;q=100 2048w, /_next/image?url=%2Fimages%2Fpreview%2Fsaas.jpg&amp;w=3840&amp;q=100 3840w"
-                  src="/_next/image?url=%2Fimages%2Fpreview%2Fsaas.jpg&amp;w=3840&amp;q=100" /></div>
+                  
+                  src="/images/cards/card-03.jpg" /></div>
               <div
                 className="invisible absolute bottom-0 left-0 right-0 top-0 flex items-center justify-center rounded-xl border border-stroke-secondary dark:border-gray-700 bg-[rgba(152,162,179,0.32)] opacity-0 backdrop-blur-[15px] duration-200 group-hover:visible group-hover:opacity-100 false">
                 <a target="_blank"
@@ -173,8 +173,8 @@ export default function Dashboards() {
                 <img alt="Logistics" loading="lazy" decoding="async" data-nimg="fill"
                   style={{"position":"absolute","height":"100%","width":"100%","left":"0","top":"0","right":"0","bottom":"0","color":"transparent"}}
                   sizes="100vw"
-                  srcSet="/_next/image?url=%2Fimages%2Fpreview%2Flogistics.jpg&amp;w=640&amp;q=100 640w, /_next/image?url=%2Fimages%2Fpreview%2Flogistics.jpg&amp;w=750&amp;q=100 750w, /_next/image?url=%2Fimages%2Fpreview%2Flogistics.jpg&amp;w=828&amp;q=100 828w, /_next/image?url=%2Fimages%2Fpreview%2Flogistics.jpg&amp;w=1080&amp;q=100 1080w, /_next/image?url=%2Fimages%2Fpreview%2Flogistics.jpg&amp;w=1200&amp;q=100 1200w, /_next/image?url=%2Fimages%2Fpreview%2Flogistics.jpg&amp;w=1920&amp;q=100 1920w, /_next/image?url=%2Fimages%2Fpreview%2Flogistics.jpg&amp;w=2048&amp;q=100 2048w, /_next/image?url=%2Fimages%2Fpreview%2Flogistics.jpg&amp;w=3840&amp;q=100 3840w"
-                  src="/_next/image?url=%2Fimages%2Fpreview%2Flogistics.jpg&amp;w=3840&amp;q=100" /></div>
+                  
+                  src="/images/cards/card-01.jpg" /></div>
               <div
                 className="invisible absolute bottom-0 left-0 right-0 top-0 flex items-center justify-center rounded-xl border border-stroke-secondary dark:border-gray-700 bg-[rgba(152,162,179,0.32)] opacity-0 backdrop-blur-[15px] duration-200 group-hover:visible group-hover:opacity-100 false">
                 <a target="_blank"
@@ -200,8 +200,8 @@ export default function Dashboards() {
                 <img alt="AI" loading="lazy" decoding="async" data-nimg="fill"
                   style={{"position":"absolute","height":"100%","width":"100%","left":"0","top":"0","right":"0","bottom":"0","color":"transparent"}}
                   sizes="100vw"
-                  srcSet="/_next/image?url=%2Fimages%2Fpreview%2Fdashboards%2Fai.jpg&amp;w=640&amp;q=100 640w, /_next/image?url=%2Fimages%2Fpreview%2Fdashboards%2Fai.jpg&amp;w=750&amp;q=100 750w, /_next/image?url=%2Fimages%2Fpreview%2Fdashboards%2Fai.jpg&amp;w=828&amp;q=100 828w, /_next/image?url=%2Fimages%2Fpreview%2Fdashboards%2Fai.jpg&amp;w=1080&amp;q=100 1080w, /_next/image?url=%2Fimages%2Fpreview%2Fdashboards%2Fai.jpg&amp;w=1200&amp;q=100 1200w, /_next/image?url=%2Fimages%2Fpreview%2Fdashboards%2Fai.jpg&amp;w=1920&amp;q=100 1920w, /_next/image?url=%2Fimages%2Fpreview%2Fdashboards%2Fai.jpg&amp;w=2048&amp;q=100 2048w, /_next/image?url=%2Fimages%2Fpreview%2Fdashboards%2Fai.jpg&amp;w=3840&amp;q=100 3840w"
-                  src="/_next/image?url=%2Fimages%2Fpreview%2Fdashboards%2Fai.jpg&amp;w=3840&amp;q=100" /></div>
+                  
+                  src="/images/cards/card-02.jpg" /></div>
               <div
                 className="invisible absolute bottom-0 left-0 right-0 top-0 flex items-center justify-center rounded-xl border border-stroke-secondary dark:border-gray-700 bg-[rgba(152,162,179,0.32)] opacity-0 backdrop-blur-[15px] duration-200 group-hover:visible group-hover:opacity-100 false">
                 <a target="_blank"
@@ -227,8 +227,8 @@ export default function Dashboards() {
                 <img alt="Sales" loading="lazy" decoding="async" data-nimg="fill"
                   style={{"position":"absolute","height":"100%","width":"100%","left":"0","top":"0","right":"0","bottom":"0","color":"transparent"}}
                   sizes="100vw"
-                  srcSet="/_next/image?url=%2Fimages%2Fpreview%2Fdashboards%2Fsales.jpg&amp;w=640&amp;q=100 640w, /_next/image?url=%2Fimages%2Fpreview%2Fdashboards%2Fsales.jpg&amp;w=750&amp;q=100 750w, /_next/image?url=%2Fimages%2Fpreview%2Fdashboards%2Fsales.jpg&amp;w=828&amp;q=100 828w, /_next/image?url=%2Fimages%2Fpreview%2Fdashboards%2Fsales.jpg&amp;w=1080&amp;q=100 1080w, /_next/image?url=%2Fimages%2Fpreview%2Fdashboards%2Fsales.jpg&amp;w=1200&amp;q=100 1200w, /_next/image?url=%2Fimages%2Fpreview%2Fdashboards%2Fsales.jpg&amp;w=1920&amp;q=100 1920w, /_next/image?url=%2Fimages%2Fpreview%2Fdashboards%2Fsales.jpg&amp;w=2048&amp;q=100 2048w, /_next/image?url=%2Fimages%2Fpreview%2Fdashboards%2Fsales.jpg&amp;w=3840&amp;q=100 3840w"
-                  src="/_next/image?url=%2Fimages%2Fpreview%2Fdashboards%2Fsales.jpg&amp;w=3840&amp;q=100" /></div>
+                  
+                  src="/images/cards/card-03.jpg" /></div>
               <div
                 className="invisible absolute bottom-0 left-0 right-0 top-0 flex items-center justify-center rounded-xl border border-stroke-secondary dark:border-gray-700 bg-[rgba(152,162,179,0.32)] opacity-0 backdrop-blur-[15px] duration-200 group-hover:visible group-hover:opacity-100 false">
                 <a target="_blank"
@@ -254,8 +254,8 @@ export default function Dashboards() {
                 <img alt="Finance" loading="lazy" decoding="async" data-nimg="fill"
                   style={{"position":"absolute","height":"100%","width":"100%","left":"0","top":"0","right":"0","bottom":"0","color":"transparent"}}
                   sizes="100vw"
-                  srcSet="/_next/image?url=%2Fimages%2Fpreview%2Fdashboards%2Ffinance.jpg&amp;w=640&amp;q=100 640w, /_next/image?url=%2Fimages%2Fpreview%2Fdashboards%2Ffinance.jpg&amp;w=750&amp;q=100 750w, /_next/image?url=%2Fimages%2Fpreview%2Fdashboards%2Ffinance.jpg&amp;w=828&amp;q=100 828w, /_next/image?url=%2Fimages%2Fpreview%2Fdashboards%2Ffinance.jpg&amp;w=1080&amp;q=100 1080w, /_next/image?url=%2Fimages%2Fpreview%2Fdashboards%2Ffinance.jpg&amp;w=1200&amp;q=100 1200w, /_next/image?url=%2Fimages%2Fpreview%2Fdashboards%2Ffinance.jpg&amp;w=1920&amp;q=100 1920w, /_next/image?url=%2Fimages%2Fpreview%2Fdashboards%2Ffinance.jpg&amp;w=2048&amp;q=100 2048w, /_next/image?url=%2Fimages%2Fpreview%2Fdashboards%2Ffinance.jpg&amp;w=3840&amp;q=100 3840w"
-                  src="/_next/image?url=%2Fimages%2Fpreview%2Fdashboards%2Ffinance.jpg&amp;w=3840&amp;q=100" /></div>
+                  
+                  src="/images/cards/card-01.jpg" /></div>
               <div
                 className="invisible absolute bottom-0 left-0 right-0 top-0 flex items-center justify-center rounded-xl border border-stroke-secondary dark:border-gray-700 bg-[rgba(152,162,179,0.32)] opacity-0 backdrop-blur-[15px] duration-200 group-hover:visible group-hover:opacity-100 false">
                 <a target="_blank"

@@ -17,8 +17,8 @@ export default function Plugins() {
             <div className="h-full rounded-2xl border border-[#F2F4F7] dark:border-gray-800 bg-white dark:bg-gray-900 dark:border-gray-800 p-6">
               <div className="mb-5 flex aspect-square w-11 items-center justify-center"><img alt="Apex Charts"
                   loading="lazy" width="86" height="88" decoding="async" data-nimg="1" style={{"color":"transparent"}}
-                  srcSet="/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fapexchart.7c30fd5f.png&amp;w=96&amp;q=75 1x, /_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fapexchart.7c30fd5f.png&amp;w=256&amp;q=75 2x"
-                  src="/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fapexchart.7c30fd5f.png&amp;w=256&amp;q=75" /></div>
+                  
+                  src="/images/brand/brand-06.svg" /></div>
               <h3 className="mb-3 text-2xl font-semibold text-title-color dark:text-white/90">Apex Charts</h3>
               <p className="text-base !leading-normal text-text-color dark:text-gray-300-secondary dark:text-gray-400">High-quality, Modern &amp; Interactive
                 Charts for Data visualization</p>
@@ -29,7 +29,7 @@ export default function Plugins() {
             <div className="h-full rounded-2xl border border-[#F2F4F7] dark:border-gray-800 bg-white dark:bg-gray-900 dark:border-gray-800 p-6">
               <div className="mb-5 flex aspect-square w-11 items-center justify-center"><img alt="Jsvectormap"
                   loading="lazy" width="44" height="44" decoding="async" data-nimg="1" style={{"color":"transparent"}}
-                  src="/_next/static/media/jsvector.8992e007.svg" /></div>
+                  src="/images/brand/brand-07.svg" /></div>
               <h3 className="mb-3 text-2xl font-semibold text-title-color dark:text-white/90">Jsvectormap</h3>
               <p className="text-base !leading-normal text-text-color dark:text-gray-300-secondary dark:text-gray-400">Interactive maps and Elegant data
                 visualization.</p>
@@ -40,8 +40,8 @@ export default function Plugins() {
             <div className="h-full rounded-2xl border border-[#F2F4F7] dark:border-gray-800 bg-white dark:bg-gray-900 dark:border-gray-800 p-6">
               <div className="mb-5 flex aspect-square w-11 items-center justify-center"><img alt="Flatpickr" loading="lazy"
                   width="88" height="88" decoding="async" data-nimg="1" style={{"color":"transparent"}}
-                  srcSet="/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fflatpickr.db03d27a.png&amp;w=96&amp;q=75 1x, /_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fflatpickr.db03d27a.png&amp;w=256&amp;q=75 2x"
-                  src="/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fflatpickr.db03d27a.png&amp;w=256&amp;q=75" /></div>
+                  
+                  src="/images/brand/brand-08.svg" /></div>
               <h3 className="mb-3 text-2xl font-semibold text-title-color dark:text-white/90">Flatpickr</h3>
               <p className="text-base !leading-normal text-text-color dark:text-gray-300-secondary dark:text-gray-400">Lightweight and Powerful date-time picker
                 for seamless management.</p>
@@ -52,7 +52,7 @@ export default function Plugins() {
             <div className="h-full rounded-2xl border border-[#F2F4F7] dark:border-gray-800 bg-white dark:bg-gray-900 dark:border-gray-800 p-6">
               <div className="mb-5 flex aspect-square w-11 items-center justify-center"><img alt="Swiper" loading="lazy"
                   width="44" height="44" decoding="async" data-nimg="1" style={{"color":"transparent"}}
-                  src="/_next/static/media/swiper.5e144991.svg" /></div>
+                  src="/images/brand/brand-09.svg" /></div>
               <h3 className="mb-3 text-2xl font-semibold text-title-color dark:text-white/90">Swiper</h3>
               <p className="text-base !leading-normal text-text-color dark:text-gray-300-secondary dark:text-gray-400">Modern Mobile Touch Slider with
                 hardware-accelerated transitions.</p>
@@ -63,7 +63,7 @@ export default function Plugins() {
             <div className="h-full rounded-2xl border border-[#F2F4F7] dark:border-gray-800 bg-white dark:bg-gray-900 dark:border-gray-800 p-6">
               <div className="mb-5 flex aspect-square w-11 items-center justify-center"><img alt="Alpine.js" loading="lazy"
                   width="44" height="44" decoding="async" data-nimg="1" style={{"color":"transparent"}}
-                  src="/_next/static/media/alpine.7fb72d6c.svg" /></div>
+                  src="/images/brand/brand-10.svg" /></div>
               <h3 className="mb-3 text-2xl font-semibold text-title-color dark:text-white/90">Alpine.js</h3>
               <p className="text-base !leading-normal text-text-color dark:text-gray-300-secondary dark:text-gray-400">Dynamic interactivity for a seamless user
                 experience.</p>
@@ -74,7 +74,7 @@ export default function Plugins() {
             <div className="h-full rounded-2xl border border-[#F2F4F7] dark:border-gray-800 bg-white dark:bg-gray-900 dark:border-gray-800 p-6">
               <div className="mb-5 flex aspect-square w-11 items-center justify-center"><img alt="Prettier" loading="lazy"
                   width="800" height="800" decoding="async" data-nimg="1" style={{"color":"transparent"}}
-                  src="/_next/static/media/prettier.720871a0.svg" /></div>
+                  src="/images/brand/brand-11.svg" /></div>
               <h3 className="mb-3 text-2xl font-semibold text-title-color dark:text-white/90">Prettier</h3>
               <p className="text-base !leading-normal text-text-color dark:text-gray-300-secondary dark:text-gray-400">Boosts code readability and maintainability
                 with advanced code formatting.</p>

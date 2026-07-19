@@ -17,16 +17,16 @@ export default function TrustedBy() {
               <div className="flex items-center -space-x-4"><img alt="avatar" loading="lazy" width="48" height="48"
                   decoding="async" data-nimg="1" className="rounded-full border-[3px] border-gray-50"
                   style={{"color":"transparent"}}
-                  srcSet="/_next/image?url=%2Fimages%2Favatars%2Favatar-1.png&amp;w=48&amp;q=75 1x, /_next/image?url=%2Fimages%2Favatars%2Favatar-1.png&amp;w=96&amp;q=75 2x"
-                  src="/_next/image?url=%2Fimages%2Favatars%2Favatar-1.png&amp;w=96&amp;q=75" /><img alt="avatar"
+                  
+                  src="/images/user/user-01.jpg" /><img alt="avatar"
                   loading="lazy" width="48" height="48" decoding="async" data-nimg="1"
                   className="rounded-full border-[3px] border-gray-50" style={{"color":"transparent"}}
-                  srcSet="/_next/image?url=%2Fimages%2Favatars%2Favatar-2.png&amp;w=48&amp;q=75 1x, /_next/image?url=%2Fimages%2Favatars%2Favatar-2.png&amp;w=96&amp;q=75 2x"
-                  src="/_next/image?url=%2Fimages%2Favatars%2Favatar-2.png&amp;w=96&amp;q=75" /><img alt="avatar"
+                  
+                  src="/images/user/user-02.jpg" /><img alt="avatar"
                   loading="lazy" width="48" height="48" decoding="async" data-nimg="1"
                   className="rounded-full border-[3px] border-gray-50" style={{"color":"transparent"}}
-                  srcSet="/_next/image?url=%2Fimages%2Favatars%2Favatar-3.png&amp;w=48&amp;q=75 1x, /_next/image?url=%2Fimages%2Favatars%2Favatar-3.png&amp;w=96&amp;q=75 2x"
-                  src="/_next/image?url=%2Fimages%2Favatars%2Favatar-3.png&amp;w=96&amp;q=75" /></div>
+                  
+                  src="/images/user/user-03.jpg" /></div>
               <div>
                 <h3 className="text-base font-medium text-text-color dark:text-gray-300"><strong className="font-bold">80k+</strong> Happy Users!
                 </h3>

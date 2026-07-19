@@ -17,8 +17,8 @@ export default function Blogs() {
                   loading="lazy" decoding="async" data-nimg="fill" className="duration-200"
                   style={{"position":"absolute","height":"100%","width":"100%","left":"0","top":"0","right":"0","bottom":"0","color":"transparent"}}
                   sizes="100vw"
-                  srcSet="/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fhkc8ojqt%2Fproduction%2F3ff45a09688d61138db207fd2daec68e6f2e81a4-2880x1512.png&amp;w=640&amp;q=75 640w, /_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fhkc8ojqt%2Fproduction%2F3ff45a09688d61138db207fd2daec68e6f2e81a4-2880x1512.png&amp;w=750&amp;q=75 750w, /_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fhkc8ojqt%2Fproduction%2F3ff45a09688d61138db207fd2daec68e6f2e81a4-2880x1512.png&amp;w=828&amp;q=75 828w, /_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fhkc8ojqt%2Fproduction%2F3ff45a09688d61138db207fd2daec68e6f2e81a4-2880x1512.png&amp;w=1080&amp;q=75 1080w, /_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fhkc8ojqt%2Fproduction%2F3ff45a09688d61138db207fd2daec68e6f2e81a4-2880x1512.png&amp;w=1200&amp;q=75 1200w, /_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fhkc8ojqt%2Fproduction%2F3ff45a09688d61138db207fd2daec68e6f2e81a4-2880x1512.png&amp;w=1920&amp;q=75 1920w, /_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fhkc8ojqt%2Fproduction%2F3ff45a09688d61138db207fd2daec68e6f2e81a4-2880x1512.png&amp;w=2048&amp;q=75 2048w, /_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fhkc8ojqt%2Fproduction%2F3ff45a09688d61138db207fd2daec68e6f2e81a4-2880x1512.png&amp;w=3840&amp;q=75 3840w"
-                  src="/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fhkc8ojqt%2Fproduction%2F3ff45a09688d61138db207fd2daec68e6f2e81a4-2880x1512.png&amp;w=3840&amp;q=75" /></a>
+                  
+                  src="/images/grid-image/image-01.png" /></a>
             </div>
             <div className="flex h-full flex-1 flex-col justify-between p-5">
               <div className="flex-1">
@@ -51,8 +51,8 @@ export default function Blogs() {
                   loading="lazy" decoding="async" data-nimg="fill" className="duration-200"
                   style={{"position":"absolute","height":"100%","width":"100%","left":"0","top":"0","right":"0","bottom":"0","color":"transparent"}}
                   sizes="100vw"
-                  srcSet="/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fhkc8ojqt%2Fproduction%2F65b847766a4511b1f96749fdac15f20ff4b22678-1920x1008.png&amp;w=640&amp;q=75 640w, /_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fhkc8ojqt%2Fproduction%2F65b847766a4511b1f96749fdac15f20ff4b22678-1920x1008.png&amp;w=750&amp;q=75 750w, /_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fhkc8ojqt%2Fproduction%2F65b847766a4511b1f96749fdac15f20ff4b22678-1920x1008.png&amp;w=828&amp;q=75 828w, /_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fhkc8ojqt%2Fproduction%2F65b847766a4511b1f96749fdac15f20ff4b22678-1920x1008.png&amp;w=1080&amp;q=75 1080w, /_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fhkc8ojqt%2Fproduction%2F65b847766a4511b1f96749fdac15f20ff4b22678-1920x1008.png&amp;w=1200&amp;q=75 1200w, /_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fhkc8ojqt%2Fproduction%2F65b847766a4511b1f96749fdac15f20ff4b22678-1920x1008.png&amp;w=1920&amp;q=75 1920w, /_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fhkc8ojqt%2Fproduction%2F65b847766a4511b1f96749fdac15f20ff4b22678-1920x1008.png&amp;w=2048&amp;q=75 2048w, /_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fhkc8ojqt%2Fproduction%2F65b847766a4511b1f96749fdac15f20ff4b22678-1920x1008.png&amp;w=3840&amp;q=75 3840w"
-                  src="/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fhkc8ojqt%2Fproduction%2F65b847766a4511b1f96749fdac15f20ff4b22678-1920x1008.png&amp;w=3840&amp;q=75" /></a>
+                  
+                  src="/images/grid-image/image-02.png" /></a>
             </div>
             <div className="flex h-full flex-1 flex-col justify-between p-5">
               <div className="flex-1">
@@ -84,8 +84,8 @@ export default function Blogs() {
                   loading="lazy" decoding="async" data-nimg="fill" className="duration-200"
                   style={{"position":"absolute","height":"100%","width":"100%","left":"0","top":"0","right":"0","bottom":"0","color":"transparent"}}
                   sizes="100vw"
-                  srcSet="/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fhkc8ojqt%2Fproduction%2Feecf22e5d7d950da16e74d25a12461edc0f79418-1920x1008.png&amp;w=640&amp;q=75 640w, /_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fhkc8ojqt%2Fproduction%2Feecf22e5d7d950da16e74d25a12461edc0f79418-1920x1008.png&amp;w=750&amp;q=75 750w, /_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fhkc8ojqt%2Fproduction%2Feecf22e5d7d950da16e74d25a12461edc0f79418-1920x1008.png&amp;w=828&amp;q=75 828w, /_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fhkc8ojqt%2Fproduction%2Feecf22e5d7d950da16e74d25a12461edc0f79418-1920x1008.png&amp;w=1080&amp;q=75 1080w, /_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fhkc8ojqt%2Fproduction%2Feecf22e5d7d950da16e74d25a12461edc0f79418-1920x1008.png&amp;w=1200&amp;q=75 1200w, /_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fhkc8ojqt%2Fproduction%2Feecf22e5d7d950da16e74d25a12461edc0f79418-1920x1008.png&amp;w=1920&amp;q=75 1920w, /_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fhkc8ojqt%2Fproduction%2Feecf22e5d7d950da16e74d25a12461edc0f79418-1920x1008.png&amp;w=2048&amp;q=75 2048w, /_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fhkc8ojqt%2Fproduction%2Feecf22e5d7d950da16e74d25a12461edc0f79418-1920x1008.png&amp;w=3840&amp;q=75 3840w"
-                  src="/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fhkc8ojqt%2Fproduction%2Feecf22e5d7d950da16e74d25a12461edc0f79418-1920x1008.png&amp;w=3840&amp;q=75" /></a>
+                  
+                  src="/images/grid-image/image-03.png" /></a>
             </div>
             <div className="flex h-full flex-1 flex-col justify-between p-5">
               <div className="flex-1">
