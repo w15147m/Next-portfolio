@@ -10,6 +10,7 @@ import ImageUpload from "@/components/ui/ImageUpload";
 import { authClient } from "@/lib/auth-client";
 import { updateProfile, ProfileFormState } from "./actions";
 import PageBreadcrumb from "@/components/common/PageBreadCrumb";
+import SkillIcon from "@/components/ui/SkillIcon";
 
 type UserProfile = {
   id: string;
@@ -136,6 +137,11 @@ export default function ProfilePage() {
                   <p className="mt-1 text-sm text-error-500">{feedback.fieldErrors.image[0]}</p>
                 )}
               </div>
+                  <div className="flex justify-center items-center p-2">
+                              {/* <SkillIcon icon='github' size={50} /> */}
+                    
+                  <p>{profile.email}</p>
+              </div>
             </div>
 
             <div className="space-y-6 flex flex-col sm:flex-1">
@@ -153,15 +159,7 @@ export default function ProfilePage() {
                 />
               </div>
 
-              <div>
-                <Label>Email Address</Label>
-                <Input
-                  type="email"
-                  value={profile.email}
-                  disabled
-                  hint="Email cannot be changed."
-                />
-              </div>
+          
 
               <div>
                 <Label>Phone Number</Label>
