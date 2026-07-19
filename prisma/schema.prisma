@@ -13,15 +13,25 @@ datasource db {
 // USERS
 // ─────────────────────────────────────────────
 model User {
-  id         BigInt      @id @default(autoincrement())
-  name       String
-  email      String      @unique
-  password   String
-  role       Role        @default(USER)
-  createdAt  DateTime    @default(now()) @map("created_at")
-  updatedAt  DateTime    @updatedAt      @map("updated_at")
+  id            String      @id @default(cuid())
+  name          String
+  email         String      @unique
+  emailVerified Boolean     @default(false) @map("email_verified")
+  image         String?
+  password      String?
+  role          Role        @default(USER)
+  createdAt     DateTime    @default(now()) @map("created_at")
+  updatedAt     DateTime    @updatedAt      @map("updated_at")
 
-  portfolios Portfolio[]
+  sessions     Session[]
+  accounts     Account[]
+  skills       Skill[]
+  projects     Project[]
+  services     Service[]
+  socials      Social[]
+  experiences  Experience[]
+  educations   Education[]
+  testimonials Testimonial[]
 
   @@map("users")
 }
@@ -32,36 +42,11 @@ enum Role {
 }
 
 // ─────────────────────────────────────────────
-// PORTFOLIOS
-// ─────────────────────────────────────────────
-model Portfolio {
-  id        BigInt   @id @default(autoincrement())
-  userId    BigInt   @map("user_id")
-  name      String
-  number    String?
-  address   String?
-  image     String?
-  desc      String?  @db.Text
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt      @map("updated_at")
-
-  user        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
-  skills      Skill[]
-  projects    Project[]
-  services    Service[]
-  socials     Social[]
-  experiences Experience[]
-  educations  Education[]
-
-  @@map("portfolios")
-}
-
-// ─────────────────────────────────────────────
 // SKILLS
 // ─────────────────────────────────────────────
 model Skill {
   id          BigInt   @id @default(autoincrement())
-  portfolioId BigInt   @map("portfolio_id")
+  userId      String   @map("user_id")
   name        String
   proficiency String?
   image       String?
@@ -69,7 +54,7 @@ model Skill {
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt      @map("updated_at")
 
-  portfolio     Portfolio      @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+  user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
   projectSkills ProjectSkill[]
 
   @@map("skills")
@@ -80,14 +65,14 @@ model Skill {
 // ─────────────────────────────────────────────
 model Project {
   id          BigInt   @id @default(autoincrement())
-  portfolioId BigInt   @map("portfolio_id")
+  userId      String   @map("user_id")
   name        String
   image       String?
   desc        String?
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt      @map("updated_at")
 
-  portfolio     Portfolio      @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+  user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
   projectImages ProjectImage[]
   projectSkills ProjectSkill[]
 
@@ -132,14 +117,14 @@ model ProjectSkill {
 // ─────────────────────────────────────────────
 model Service {
   id          BigInt   @id @default(autoincrement())
-  portfolioId BigInt   @map("portfolio_id")
+  userId      String   @map("user_id")
   name        String
   desc        String?
   link        String?
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt      @map("updated_at")
 
-  portfolio Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("services")
 }
@@ -149,14 +134,14 @@ model Service {
 // ─────────────────────────────────────────────
 model Social {
   id          BigInt   @id @default(autoincrement())
-  portfolioId BigInt   @map("portfolio_id")
+  userId      String   @map("user_id")
   name        String
   desc        String?
   link        String?
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt      @map("updated_at")
 
-  portfolio Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("socials")
 }
@@ -166,7 +151,7 @@ model Social {
 // ─────────────────────────────────────────────
 model Experience {
   id          BigInt    @id @default(autoincrement())
-  portfolioId BigInt    @map("portfolio_id")
+  userId      String    @map("user_id")
   company     String
   position    String
   image       String?
@@ -176,7 +161,7 @@ model Experience {
   createdAt   DateTime  @default(now()) @map("created_at")
   updatedAt   DateTime  @updatedAt      @map("updated_at")
 
-  portfolio Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("experiences")
 }
@@ -186,7 +171,7 @@ model Experience {
 // ─────────────────────────────────────────────
 model Education {
   id           BigInt    @id @default(autoincrement())
-  portfolioId  BigInt    @map("portfolio_id")
+  userId       String    @map("user_id")
   institution  String
   degree       String
   fieldOfStudy String?   @map("field_of_study")
@@ -196,7 +181,94 @@ model Education {
   createdAt    DateTime  @default(now()) @map("created_at")
   updatedAt    DateTime  @updatedAt      @map("updated_at")
 
-  portfolio Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("educations")
+}
+
+// ─────────────────────────────────────────────
+// BETTER AUTH MODELS
+// ─────────────────────────────────────────────
+model Session {
+  id        String   @id @default(cuid())
+  expiresAt DateTime @map("expires_at")
+  token     String
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  ipAddress String?  @map("ip_address")
+  userAgent String?  @map("user_agent")
+  userId    String   @map("user_id")
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([token])
+  @@map("sessions")
+}
+
+model Account {
+  id                    String    @id @default(cuid())
+  accountId             String    @map("account_id")
+  providerId            String    @map("provider_id")
+  userId                String    @map("user_id")
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?   @db.Text @map("access_token")
+  refreshToken          String?   @db.Text @map("refresh_token")
+  idToken               String?   @db.Text @map("id_token")
+  accessTokenExpiresAt  DateTime? @map("access_token_expires_at")
+  refreshTokenExpiresAt DateTime? @map("refresh_token_expires_at")
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now()) @map("created_at")
+  updatedAt             DateTime  @updatedAt @map("updated_at")
+
+  @@map("accounts")
+}
+
+model Verification {
+  id         String   @id @default(cuid())
+  identifier String
+  value      String
+  expiresAt  DateTime @map("expires_at")
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  @@map("verifications")
+}
+
+// ─────────────────────────────────────────────
+// NEW ADDITIONS
+// ─────────────────────────────────────────────
+
+model TempImage {
+  id        String   @id @default(cuid())
+  url       String   @unique
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("temp_images")
+}
+
+model ContactMessage {
+  id        BigInt   @id @default(autoincrement())
+  name      String
+  email     String
+  subject   String?
+  message   String   @db.Text
+  isRead    Boolean  @default(false) @map("is_read")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("contact_messages")
+}
+
+model Testimonial {
+  id          BigInt   @id @default(autoincrement())
+  userId      String   @map("user_id")
+  name        String
+  role        String?
+  company     String?
+  image       String?
+  content     String   @db.Text
+  createdAt   DateTime @default(now()) @map("created_at")
+  
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("testimonials")
 }

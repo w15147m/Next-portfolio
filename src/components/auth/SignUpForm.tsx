@@ -5,10 +5,20 @@ import Label from "@/components/form/Label";
 import { ChevronLeftIcon, EyeCloseIcon, EyeIcon } from "@/icons";
 import Link from "next/link";
 import React, { useState } from "react";
+import { authClient } from "@/lib/auth-client";
+import { z } from "zod";
+
+const signUpSchema = z.object({
+  fname: z.string().min(1, "First name is required"),
+  lname: z.string().min(1, "Last name is required"),
+  email: z.string().min(1, "Email is required").email("Please enter a valid email address"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
+});
 
 export default function SignUpForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
   return (
     <div className="flex flex-col flex-1 lg:w-1/2 w-full overflow-y-auto no-scrollbar">
       <div className="w-full max-w-md sm:pt-10 mx-auto mb-5">
@@ -83,8 +93,43 @@ export default function SignUpForm() {
                 </span>
               </div>
             </div>
-            <form>
+            <form onSubmit={async (e) => {
+              e.preventDefault();
+              const formData = new FormData(e.currentTarget);
+              const firstName = formData.get("fname") as string;
+              const lastName = formData.get("lname") as string;
+              const email = formData.get("email") as string;
+              const password = formData.get("password") as string;
+
+              const validation = signUpSchema.safeParse({ fname: firstName, lname: lastName, email, password });
+              if (!validation.success) {
+                const newErrors: Record<string, string> = {};
+                validation.error.issues.forEach((issue) => {
+                  newErrors[issue.path[0]] = issue.message;
+                });
+                setErrors(newErrors);
+                return;
+              }
+              
+              setErrors({});
+              const { error } = await authClient.signUp.email({
+                email,
+                password,
+                name: `${firstName} ${lastName}`,
+              });
+              if (error) {
+                console.error("Sign up error:", error);
+                setErrors({ root: error.message || JSON.stringify(error) || "An unknown error occurred. Make sure your auth backend is configured." });
+              } else {
+                window.location.href = "/admin";
+              }
+            }}>
               <div className="space-y-5">
+                {errors.root && (
+                  <div className="p-3 text-sm text-error-500 bg-error-50 rounded-lg dark:bg-error-500/10 dark:text-error-400">
+                    {errors.root}
+                  </div>
+                )}
                 <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                   {/* <!-- First Name --> */}
                   <div className="sm:col-span-1">
@@ -96,6 +141,8 @@ export default function SignUpForm() {
                       id="fname"
                       name="fname"
                       placeholder="Enter your first name"
+                      error={!!errors.fname}
+                      hint={errors.fname}
                     />
                   </div>
                   {/* <!-- Last Name --> */}
@@ -108,6 +155,8 @@ export default function SignUpForm() {
                       id="lname"
                       name="lname"
                       placeholder="Enter your last name"
+                      error={!!errors.lname}
+                      hint={errors.lname}
                     />
                   </div>
                 </div>
@@ -121,6 +170,8 @@ export default function SignUpForm() {
                     id="email"
                     name="email"
                     placeholder="Enter your email"
+                    error={!!errors.email}
+                    hint={errors.email}
                   />
                 </div>
                 {/* <!-- Password --> */}
@@ -132,6 +183,10 @@ export default function SignUpForm() {
                     <Input
                       placeholder="Enter your password"
                       type={showPassword ? "text" : "password"}
+                      name="password"
+                      id="password"
+                      error={!!errors.password}
+                      hint={errors.password}
                     />
                     <span
                       onClick={() => setShowPassword(!showPassword)}

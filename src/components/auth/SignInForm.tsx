@@ -6,10 +6,18 @@ import Button from "@/components/ui/button/Button";
 import { ChevronLeftIcon, EyeCloseIcon, EyeIcon } from "@/icons";
 import Link from "next/link";
 import React, { useState } from "react";
+import { authClient } from "@/lib/auth-client";
+import { z } from "zod";
+
+const signInSchema = z.object({
+  email: z.string().min(1, "Email is required").email("Please enter a valid email address"),
+  password: z.string().min(1, "Password is required"),
+});
 
 export default function SignInForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
   return (
     <div className="flex flex-col flex-1 lg:w-1/2 w-full">
       <div className="w-full max-w-md sm:pt-10 mx-auto mb-5">
@@ -84,13 +92,53 @@ export default function SignInForm() {
                 </span>
               </div>
             </div>
-            <form>
+            <form onSubmit={async (e) => {
+              e.preventDefault();
+              const formData = new FormData(e.currentTarget);
+              const email = formData.get("email") as string;
+              const password = formData.get("password") as string;
+              
+              const validation = signInSchema.safeParse({ email, password });
+              if (!validation.success) {
+                const newErrors: Record<string, string> = {};
+                validation.error.issues.forEach((issue) => {
+                  newErrors[issue.path[0]] = issue.message;
+                });
+                setErrors(newErrors);
+                return;
+              }
+              
+              setErrors({});
+              const { error } = await authClient.signIn.email({
+                email,
+                password,
+                rememberMe: isChecked,
+              });
+              if (error) {
+                console.error("Sign in error:", error);
+                setErrors({ root: error.message || JSON.stringify(error) || "An unknown error occurred. Make sure your auth backend is configured." });
+              } else {
+                window.location.href = "/admin";
+              }
+            }}>
               <div className="space-y-6">
+                {errors.root && (
+                  <div className="p-3 text-sm text-error-500 bg-error-50 rounded-lg dark:bg-error-500/10 dark:text-error-400">
+                    {errors.root}
+                  </div>
+                )}
                 <div>
                   <Label>
                     Email <span className="text-error-500">*</span>{" "}
                   </Label>
-                  <Input placeholder="info@gmail.com" type="email" />
+                  <Input 
+                    placeholder="info@gmail.com" 
+                    type="email" 
+                    name="email" 
+                    id="email"
+                    error={!!errors.email}
+                    hint={errors.email}
+                  />
                 </div>
                 <div>
                   <Label>
@@ -100,6 +148,10 @@ export default function SignInForm() {
                     <Input
                       type={showPassword ? "text" : "password"}
                       placeholder="Enter your password"
+                      name="password"
+                      id="password"
+                      error={!!errors.password}
+                      hint={errors.password}
                     />
                     <span
                       onClick={() => setShowPassword(!showPassword)}
@@ -128,7 +180,7 @@ export default function SignInForm() {
                   </Link>
                 </div>
                 <div>
-                  <Button className="w-full" size="sm">
+                  <Button className="w-full" size="sm" type="submit">
                     Sign in
                   </Button>
                 </div>
