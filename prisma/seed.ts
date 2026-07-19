@@ -24,7 +24,9 @@ async function main() {
         name: "Admin",
         email: "admin@admin.com",
         password: hashedPassword,
-        role: "ADMIN",
+        address: "Admin",
+        number: "03120990300",
+        desc: 'hashedPassword',
         emailVerified: true,
       },
     });
@@ -54,7 +56,6 @@ async function main() {
       id: admin.id,
       name: admin.name,
       email: admin.email,
-      role: admin.role,
     });
   } finally {
     await prisma.$disconnect();

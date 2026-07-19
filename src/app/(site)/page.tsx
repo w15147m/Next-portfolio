@@ -13,7 +13,6 @@ export default async function LandingPage() {
     id: number
     name: string
     email: string
-    role: string
     createdAt: Date
   }
 
@@ -23,7 +22,6 @@ export default async function LandingPage() {
       id: true,
       name: true,
       email: true,
-      role: true,
       createdAt: true,
     },
     orderBy: { createdAt: "asc" },
@@ -71,7 +69,6 @@ export default async function LandingPage() {
                     <th className="px-4 py-3">ID</th>
                     <th className="px-4 py-3">Name</th>
                     <th className="px-4 py-3">Email</th>
-                    <th className="px-4 py-3">Role</th>
                     <th className="px-4 py-3">Created At</th>
                   </tr>
                 </thead>
@@ -91,14 +88,6 @@ export default async function LandingPage() {
                         {user.email}
                       </td>
                       <td className="px-4 py-3">
-                        <span
-                          className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${user.role === "ADMIN"
-                              ? "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
-                              : "bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300"
-                            }`}
-                        >
-                          {user.role}
-                        </span>
                       </td>
                       <td className="px-4 py-3 text-gray-500 dark:text-gray-400 text-xs">
                         {user.createdAt.toLocaleDateString("en-US", {
