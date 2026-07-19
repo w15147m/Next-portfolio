@@ -30,7 +30,7 @@ export default async function LandingPage() {
   });
 
   return (
-    <main className="min-h-screen bg-white dark:bg-gray-900 flex flex-col items-center justify-center px-6 py-24">
+    <main className="min-h-screen bg-white dark:bg-neutral-950 flex flex-col items-center justify-center px-6 py-24">
       <div className="text-center max-w-2xl w-full">
         <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
           Welcome to the Starter Kit
@@ -79,7 +79,7 @@ export default async function LandingPage() {
                   {users.map((user: userInterface) => (
                     <tr
                       key={user.id}
-                      className="bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                      className="bg-white dark:bg-neutral-950 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
                     >
                       <td className="px-4 py-3 text-gray-500 dark:text-gray-400">
                         {user.id}
