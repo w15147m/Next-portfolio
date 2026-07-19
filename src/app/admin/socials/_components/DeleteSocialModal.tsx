@@ -10,9 +10,9 @@ import { deleteSocial, SocialFormState } from "../actions";
 interface DeleteSocialModalProps {
   socialId: number;
   socialName: string;
-  // Receives the deleted id so the parent can remove it from local state
-  // instead of refetching the whole list.
-  onDone: (socialId: number) => void;
+  // Receives the deleted id plus the full result (message, success flag)
+  // so the parent can remove it from local state AND show a toast.
+  onDone: (socialId: number, result: SocialFormState) => void;
 }
 
 export default function DeleteSocialModal({
@@ -22,19 +22,17 @@ export default function DeleteSocialModal({
 }: DeleteSocialModalProps) {
   const { isOpen, openModal, closeModal } = useModal();
   const [isLoading, setIsLoading] = useState(false);
-  const [feedback, setFeedback] = useState<SocialFormState | null>(null);
 
   const handleDelete = async () => {
     setIsLoading(true);
     const result = await deleteSocial(socialId);
-    setFeedback(result);
     setIsLoading(false);
 
     if (result.success) {
       setTimeout(() => {
         closeModal();
-        onDone(socialId);
-      }, 600);
+        onDone(socialId, result);
+      }, 60);
     }
   };
 
@@ -63,16 +61,6 @@ export default function DeleteSocialModal({
             </span>
             ? This action cannot be undone.
           </p>
-
-          {feedback && (
-            <div className="mb-4 text-left">
-              <Alert
-                variant={feedback.success ? "success" : "error"}
-                title={feedback.success ? "Deleted" : "Error"}
-                message={feedback.message}
-              />
-            </div>
-          )}
 
           <div className="flex items-center justify-center gap-3">
             <Button size="sm" variant="outline" onClick={closeModal} disabled={isLoading}>

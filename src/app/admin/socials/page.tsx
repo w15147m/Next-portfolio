@@ -11,7 +11,17 @@ import DeleteSocialModal from "./_components/DeleteSocialModal";
 
 import { authClient } from "@/lib/auth-client";
 import SkillIcon from "@/components/ui/SkillIcon";
-import type { Social } from "./actions";
+import type { Social, SocialFormState } from "./actions";
+import CustomToaster, { type ToastType } from "@/components/common/CustomToaster";
+
+type ToastState = {
+  message: string;
+  type: ToastType;
+  // Incrementing key so CustomToaster re-fires even when two consecutive
+  // actions produce the exact same message (e.g. deleting two items in a
+  // row both say "Social link deleted.").
+  key: number;
+};
 
 export default function SocialsPage() {
   const { data: session, isPending: sessionLoading } = authClient.useSession();
@@ -20,6 +30,11 @@ export default function SocialsPage() {
   const [socials, setSocials] = useState<Social[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [toastState, setToastState] = useState<ToastState>({ message: "", type: "default", key: 0 });
+
+  const showToast = useCallback((message: string, type: ToastType) => {
+    setToastState((prev) => ({ message, type, key: prev.key + 1 }));
+  }, []);
 
   // Only used for the initial load and manual "retry after error" — NOT
   // called after create/update/delete anymore.
@@ -47,17 +62,20 @@ export default function SocialsPage() {
 
   // --- Local state patches (no network round-trip / no full re-render of unrelated rows) ---
 
-  const handleCreated = useCallback((social: Social) => {
+  const handleCreated = useCallback((social: Social, result: SocialFormState) => {
     setSocials((prev) => [social, ...prev]);
-  }, []);
+    showToast(result.message, "success");
+  }, [showToast]);
 
-  const handleUpdated = useCallback((social: Social) => {
+  const handleUpdated = useCallback((social: Social, result: SocialFormState) => {
     setSocials((prev) => prev.map((s) => (s.id === social.id ? social : s)));
-  }, []);
+    showToast(result.message, "success");
+  }, [showToast]);
 
-  const handleDeleted = useCallback((id: number) => {
+  const handleDeleted = useCallback((id: number, result: SocialFormState) => {
     setSocials((prev) => prev.filter((s) => s.id !== id));
-  }, []);
+    showToast(result.message, "success");
+  }, [showToast]);
 
   if (sessionLoading) {
     return (
@@ -77,6 +95,12 @@ export default function SocialsPage() {
 
   return (
     <div className="space-y-5 p-4 sm:p-6">
+      <CustomToaster
+        message={toastState.message}
+        type={toastState.type}
+        trigger={toastState.key}
+      />
+
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
@@ -100,7 +124,12 @@ export default function SocialsPage() {
 
       {/* Error State */}
       {error && (
-        <Alert variant="error" title="Error" message={error} />
+        // <Alert variant="error" title="Error" message={error} />
+            <CustomToaster
+        message='Error'
+        type='error'
+        trigger={toastState.key}
+      />
       )}
 
       {/* Table */}

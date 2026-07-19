@@ -13,9 +13,9 @@ interface SocialFormModalProps {
   userId: string;
   social?: Social; // if provided, we are editing
   trigger: React.ReactNode;
-  // Receives the created/updated record so the parent can patch its list
-  // in place instead of refetching the whole table.
-  onDone: (social: Social) => void;
+  // Receives the created/updated record plus the full result (message,
+  // success flag) so the parent can patch its list AND show a toast.
+  onDone: (social: Social, result: SocialFormState) => void;
 }
 
 export default function SocialFormModal({
@@ -60,7 +60,7 @@ export default function SocialFormModal({
     if (result.success && result.data) {
       setTimeout(() => {
         closeModal();
-        onDone(result.data as Social);
+        onDone(result.data as Social, result);
       }, 800);
     }
   };
@@ -75,17 +75,6 @@ export default function SocialFormModal({
           <h4 className="mb-6 text-lg font-semibold text-gray-800 dark:text-white/90">
             {isEditing ? "Edit Social Link" : "Add Social Link"}
           </h4>
-
-          {feedback && (
-            <div className="mb-4">
-              <Alert
-                variant={feedback.success ? "success" : "error"}
-                title={feedback.success ? "Success" : "Error"}
-                message={feedback.message}
-              />
-            </div>
-          )}
-
           <div className="flex flex-col gap-5">
             <div>
               <Label>

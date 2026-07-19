@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import toast, { Toaster } from 'react-hot-toast';
 
-type ToastType = "success" | "error" | "loading" | "default";
+export type ToastType = "success" | "error" | "loading" | "default";
 
 interface CustomToasterProps {
   message: string;
@@ -14,7 +14,7 @@ interface CustomToasterProps {
     | "bottom-center"
     | "bottom-right";
   duration?: number;
-  trigger?: boolean; // controls when the toast fires
+   trigger?: boolean | number | string;
 }
 
 function CustomToaster({
@@ -50,8 +50,9 @@ function CustomToaster({
       default:
         toast(message, options);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [trigger]);
+    // Re-fires whenever trigger changes (by design), or if the message/type
+    // change under the same trigger value.
+  }, [trigger, message, type, duration]);
 
   return (
     <Toaster position={position} />
