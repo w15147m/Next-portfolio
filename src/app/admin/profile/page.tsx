@@ -104,7 +104,7 @@ export default function ProfilePage() {
       {error && <Alert variant="error" title="Error" message={error} />}
 
       <div className="w-full mx-auto">
-        <ComponentCard title="Edit Information">
+        <ComponentCard title={null}>
           <form onSubmit={handleSubmit} className="p-2">
             {feedback && (
               <div className="mb-6">
@@ -128,7 +128,7 @@ export default function ProfilePage() {
                 </div>
               </div>
 
-              <div className="space-y-6 sm:flex-1">
+              <div className="space-y-6 flex flex-col sm:flex-1  ">
                 <div>
                   <Label>
                     Full Name <span className="text-error-500">*</span>
@@ -152,8 +152,8 @@ export default function ProfilePage() {
                     hint="Email cannot be changed."
                   />
                 </div>
-                <div className="flex justify-end pt-4 border-t border-gray-200 dark:border-gray-800">
-                  <Button type="submit" disabled={isSaving}>
+                <div className=" flex-1   flex items-end justify-end pt-4 ">
+                  <Button className="max-h-14" type="submit"  disabled={isSaving}>
                     {isSaving ? "Saving..." : "Save Changes"}
                   </Button>
                 </div>
