@@ -3,17 +3,15 @@
 import React from "react";
 import { TableBody, TableCell, TableRow } from "@/components/ui/table";
 import SocialsTableRow from "../SocialsTableRow";
-import { useSocials } from "@/app/admin/socials/useSocials";
-import Loading from "@/components/ui/loaders/Loading";
+import { Social } from "@/app/admin/socials/actions";
 
 interface SocialsTableBodyProps {
   userId: string;
+  socials: Social[];
+  isError: any;
 }
 
-export default function SocialsTableBody({ userId }: SocialsTableBodyProps) {
-  const { socials,  isError } = useSocials(userId);
-
-
+export default function SocialsTableBody({ userId, socials, isError }: SocialsTableBodyProps) {
 
   if (isError) {
     return (

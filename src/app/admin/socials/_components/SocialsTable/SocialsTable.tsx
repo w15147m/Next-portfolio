@@ -12,18 +12,20 @@ interface SocialsTableProps {
 }
 
 export default function SocialsTable({ userId }: SocialsTableProps) {
-    const { socials, isLoading, isError } = useSocials(userId);
-
+  const { socials, isLoading, isError } = useSocials(userId);
 
   return (
-<>
-    {       isLoading ? <Loading msg='Loading...'/> :       <div className="overflow-x-auto">
-        <Table>
-        <SocialsTableHeader />
-        <SocialsTableBody userId={userId} />
-      </Table>
- 
- </div>
-}</>
+    <>
+      {isLoading ? (
+        <Loading msg="Loading..." />
+      ) : (
+        <div className="overflow-x-auto">
+          <Table>
+            <SocialsTableHeader />
+            <SocialsTableBody userId={userId} socials={socials} isError={isError} />
+          </Table>
+        </div>
+      )}
+    </>
   );
 }
