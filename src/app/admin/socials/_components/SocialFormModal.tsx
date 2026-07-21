@@ -50,21 +50,24 @@ export default function SocialFormModal({
 
     const data = { name, link: link || undefined, desc: desc || undefined };
 
-    const result = social
-      ? await updateSocial(social.id, data)
-      : await createSocial(userId, data);
+    try {
+      const result = social
+        ? await updateSocial(social.id, data)
+        : await createSocial(userId, data);
 
-    setFeedback(result);
-    setIsLoading(false);
+      setFeedback(result);
 
-    if (result.success && result.data) {
-      mutate(getSocialsKey(userId));
-      showToast(result.message, "success");
-      setTimeout(() => {
-        closeModal();
-      }, 800);
-    } else if (!result.success) {
-      showToast(result.message || "An error occurred", "error");
+      if (result.success && result.data) {
+        mutate(getSocialsKey(userId));
+        showToast(result.message, "success");
+        setTimeout(() => {
+          closeModal();
+        }, 300);
+      } else if (!result.success) {
+        showToast(result.message || "An error occurred", "error");
+      }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -72,7 +75,7 @@ export default function SocialFormModal({
 
   return (
     <>
-      <span onClick={handleOpen}>{trigger}</span>
+      {React.cloneElement(trigger as React.ReactElement, { onClick: handleOpen })}
       <Modal isOpen={isOpen} onClose={closeModal} className="max-w-[520px] p-6 lg:p-8">
         <form onSubmit={handleSubmit}>
           <h4 className="mb-6 text-lg font-semibold text-gray-800 dark:text-white/90">

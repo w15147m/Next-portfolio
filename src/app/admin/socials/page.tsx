@@ -1,22 +1,16 @@
-"use client";
-
 import ComponentCard from "@/components/common/ComponentCard";
 import SocialsHeader from "./_components/SocialsTable/components/SocialsHeader";
 
-import { authClient } from "@/lib/auth-client";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 import CustomToaster from "@/components/common/CustomToaster";
 import SocialsTable from "./_components/SocialsTable/SocialsTable";
-import Loading from "@/components/ui/loaders/Loading";
 
-export default function SocialsPage() {
-  const { data: session, isPending: sessionLoading } = authClient.useSession();
+export default async function SocialsPage() {
+  const session = await auth.api.getSession({
+    headers: await headers()
+  });
   const userId = session?.user?.id;
-
-  if (sessionLoading) {
-    return (
-   <Loading msg='Loading session...'/>
-  );
-  }
 
   if (!userId) {
     return (

@@ -8,7 +8,7 @@ import { Social } from "@/app/admin/socials/_lib/schema";
 interface SocialsTableBodyProps {
   userId: string;
   socials: Social[];
-  isError: any;
+  isError: Error | undefined;
 }
 
 export default function SocialsTableBody({ userId, socials, isError }: SocialsTableBodyProps) {
