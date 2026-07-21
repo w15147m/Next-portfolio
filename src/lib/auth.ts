@@ -9,6 +9,8 @@ import { prisma } from "./db";
 import bcrypt from "bcryptjs";
 
 export const auth = betterAuth({
+    baseURL: process.env.BETTER_AUTH_URL,
+    secret: process.env.BETTER_AUTH_SECRET,
     database: prismaAdapter(prisma, {
         provider: "mysql", // MariaDB uses mysql provider in Prisma
     }),
@@ -24,3 +26,4 @@ export const auth = betterAuth({
         }
     }
 });
+

@@ -8,11 +8,18 @@ const globalForPrisma = globalThis as unknown as {
 
 function createPrismaClient() {
   const databaseUrl = process.env.DATABASE_URL!;
-  const adapter = new PrismaMariaDb(databaseUrl);
+
+  const adapter = new PrismaMariaDb(databaseUrl, {
+    // Pool settings to prevent timeout exhaustion during hot-reload in dev
+    connectionLimit: 5,
+    acquireTimeout: 30000,
+    connectTimeout: 10000,
+    idleTimeout: 60000,
+  });
 
   return new PrismaClient({
     adapter,
-    log: process.env.NODE_ENV === "development" ? ["query"] : [],
+    log: process.env.NODE_ENV === "development" ? ["error", "warn"] : [],
   });
 }
 
