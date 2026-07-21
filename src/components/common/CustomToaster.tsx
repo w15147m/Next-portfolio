@@ -1,11 +1,40 @@
-import React, { useEffect } from 'react'
-import toast, { Toaster } from 'react-hot-toast';
+"use client";
 
-export type ToastType = "success" | "error" | "loading" | "default";
+import React, { useEffect, useSyncExternalStore } from "react";
+import toast, { Toaster } from "react-hot-toast";
+import { type ToastType } from "@/lib/types/types";
 
-interface CustomToasterProps {
+// ---- module-level store (lives outside React, survives across renders) ----
+type ToastState = {
   message: string;
-  type?: ToastType;
+  type: ToastType;
+  key: number;
+};
+
+let state: ToastState = { message: "", type: "default", key: 0 };
+const listeners = new Set<() => void>();
+
+function emitChange() {
+  listeners.forEach((listener) => listener());
+}
+
+function subscribe(listener: () => void) {
+  listeners.add(listener);
+  return () => listeners.delete(listener);
+}
+
+function getSnapshot() {
+  return state;
+}
+
+// ---- the function you import and call from anywhere ----
+export function showToast(message: string, type: ToastType = "default") {
+  state = { message, type, key: state.key + 1 };
+  emitChange();
+}
+
+// ---- the component you mount once per page that needs it ----
+interface CustomToasterProps {
   position?:
     | "top-left"
     | "top-center"
@@ -14,49 +43,39 @@ interface CustomToasterProps {
     | "bottom-center"
     | "bottom-right";
   duration?: number;
-   trigger?: boolean | number | string;
 }
 
-function CustomToaster({
-  message,
-  type = "default",
+export function CustomToaster({
   position = "bottom-right",
   duration = 3000,
-  trigger = true,
 }: CustomToasterProps) {
+  const toastState = useSyncExternalStore(subscribe, getSnapshot, getSnapshot);
 
   useEffect(() => {
-    if (!trigger || !message) return;
+    if (!toastState.key || !toastState.message) return;
 
     const options = {
-      style: {
-        borderRadius: '10px',
-        background: '#333',
-        color: '#fff',
-      },
+      style: { borderRadius: "10px", background: "#333", color: "#fff" },
       duration,
     };
 
-    switch (type) {
+    switch (toastState.type) {
       case "success":
-        toast.success(message, options);
+        toast.success(toastState.message, options);
         break;
       case "error":
-        toast.error(message, options);
+        toast.error(toastState.message, options);
         break;
       case "loading":
-        toast.loading(message, options);
+        toast.loading(toastState.message, options);
         break;
       default:
-        toast(message, options);
+        toast(toastState.message, options);
     }
-    // Re-fires whenever trigger changes (by design), or if the message/type
-    // change under the same trigger value.
-  }, [trigger, message, type, duration]);
+    // fires on every showToast() call, because `key` always changes
+  }, [toastState, duration]);
 
-  return (
-    <Toaster position={position} />
-  )
+  return <Toaster position={position} />;
 }
 
-export default CustomToaster
+export default CustomToaster;

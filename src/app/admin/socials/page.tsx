@@ -8,30 +8,20 @@ import SocialsHeader from "./_components/SocialsTable/components/SocialsHeader";
 import { authClient } from "@/lib/auth-client";
 import { apiService } from "@/lib/api-service";
 import type { Social, SocialFormState } from "./actions";
-import CustomToaster, { type ToastType } from "@/components/common/CustomToaster";
+import CustomToaster, { showToast }  from "@/components/common/CustomToaster";
 import SocialsTable from "./_components/SocialsTable/SocialsTable";
+import {ToastState, type ToastType } from "@/lib/types/types";
 
-type ToastState = {
-  message: string;
-  type: ToastType;
-  // Incrementing key so CustomToaster re-fires even when two consecutive
-  // actions produce the exact same message (e.g. deleting two items in a
-  // row both say "Social link deleted.").
-  key: number;
-};
+
 
 export default function SocialsPage() {
   const { data: session, isPending: sessionLoading } = authClient.useSession();
   const userId = session?.user?.id;
 
-  const [socials, setSocials] = useState<Social[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [socials, setSocials] = useState<Social[]>([]);
   const [error, setError] = useState<string | null>(null);
-  const [toastState, setToastState] = useState<ToastState>({ message: "", type: "default", key: 0 });
 
-  const showToast = useCallback((message: string, type: ToastType) => {
-    setToastState((prev) => ({ message, type, key: prev.key + 1 }));
-  }, []);
 const fetchSocials = useCallback(async () => {
     if (!userId) return;
     setIsLoading(true);
@@ -58,6 +48,7 @@ const fetchSocials = useCallback(async () => {
   const handleCreated = useCallback((social: Social, result: SocialFormState) => {
     setSocials((prev) => [social, ...prev]);
     showToast(result.message, "success");
+  
   }, [showToast]);
 
   const handleUpdated = useCallback((social: Social, result: SocialFormState) => {
@@ -91,11 +82,7 @@ const fetchSocials = useCallback(async () => {
       {/* Exactly one CustomToaster (and therefore one <Toaster/>) in the
           whole tree — mounting it more than once duplicates every toast,
           since react-hot-toast's queue is global. */}
-      <CustomToaster
-        message={toastState.message}
-        type={toastState.type}
-        trigger={toastState.key}
-      />
+     <CustomToaster />
 
       <SocialsHeader userId={userId} onCreated={handleCreated} />
 
