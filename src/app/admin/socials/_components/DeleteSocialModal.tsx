@@ -8,7 +8,7 @@ import { deleteSocial } from "../_lib/actions";
 import { useSWRConfig } from "swr";
 import { getSocialsKey } from "../_lib/useSocials";
 import { showToast } from "@/components/common/CustomToaster";
-import WarningIcon from "./WarningIcon";
+import WarningIcon from "@/components/ui/alert/WarningIcon";
 
 interface DeleteSocialModalProps {
   socialId: number;

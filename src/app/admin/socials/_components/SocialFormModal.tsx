@@ -75,7 +75,7 @@ export default function SocialFormModal({
 
   return (
     <>
-      {React.cloneElement(trigger as React.ReactElement, { onClick: handleOpen })}
+      {React.cloneElement(trigger as React.ReactElement<any>, { onClick: handleOpen })}
       <Modal isOpen={isOpen} onClose={closeModal} className="max-w-[520px] p-6 lg:p-8">
         <form onSubmit={handleSubmit}>
           <h4 className="mb-6 text-lg font-semibold text-gray-800 dark:text-white/90">
