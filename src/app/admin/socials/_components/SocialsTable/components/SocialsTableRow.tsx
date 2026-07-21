@@ -7,7 +7,7 @@ import Badge from "@/components/ui/badge/Badge";
 import SkillIcon from "@/components/ui/SkillIcon";
 import SocialFormModal from "../../SocialFormModal";
 import DeleteSocialModal from "../../DeleteSocialModal";
-import type { Social } from "../../../actions";
+import type { Social } from "../../../_lib/schema";
 
 interface SocialsTableRowProps {
   social: Social;

@@ -6,9 +6,10 @@ import Button from "@/components/ui/button/Button";
 import Label from "@/components/form/Label";
 import Input from "@/components/form/input/InputField";
 import { useModal } from "@/hooks/useModal";
-import { createSocial, updateSocial, SocialFormState, Social } from "../actions";
+import { createSocial, updateSocial } from "../_lib/actions";
+import type { SocialFormState, Social } from "../_lib/schema";
 import { useSWRConfig } from "swr";
-import { getSocialsKey } from "../useSocials";
+import { getSocialsKey } from "../_lib/useSocials";
 import { showToast } from "@/components/common/CustomToaster";
 
 interface SocialFormModalProps {

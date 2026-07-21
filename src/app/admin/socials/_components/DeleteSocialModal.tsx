@@ -4,9 +4,10 @@ import React, { useState } from "react";
 import { Modal } from "@/components/ui/modal";
 import Button from "@/components/ui/button/Button";
 import { useModal } from "@/hooks/useModal";
-import { deleteSocial, SocialFormState } from "../actions";
+import { deleteSocial } from "../_lib/actions";
+import type { SocialFormState } from "../_lib/schema";
 import { useSWRConfig } from "swr";
-import { getSocialsKey } from "../useSocials";
+import { getSocialsKey } from "../_lib/useSocials";
 import { showToast } from "@/components/common/CustomToaster";
 
 interface DeleteSocialModalProps {

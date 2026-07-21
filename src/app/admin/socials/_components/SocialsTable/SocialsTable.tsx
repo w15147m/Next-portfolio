@@ -4,7 +4,7 @@ import React from "react";
 import { Table } from "@/components/ui/table";
 import SocialsTableHeader from "./components/SocialsTableHeader";
 import SocialsTableBody from "./components/SocialsTableBody/SocialsTableBody";
-import { useSocials } from "../../useSocials";
+import { useSocials } from "../../_lib/useSocials";
 import Loading from "@/components/ui/loaders/Loading";
 
 interface SocialsTableProps {
