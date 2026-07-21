@@ -1,16 +1,12 @@
 import ComponentCard from "@/components/common/ComponentCard";
 import SocialsHeader from "./_components/SocialsTable/components/SocialsHeader";
 
-import { auth } from "@/lib/auth";
-import { headers } from "next/headers";
+import { getCurrentUserId } from "@/lib/session";
 import CustomToaster from "@/components/common/CustomToaster";
 import SocialsTable from "./_components/SocialsTable/SocialsTable";
 
 export default async function SocialsPage() {
-  const session = await auth.api.getSession({
-    headers: await headers()
-  });
-  const userId = session?.user?.id;
+  const userId = await getCurrentUserId();
 
   if (!userId) {
     return (

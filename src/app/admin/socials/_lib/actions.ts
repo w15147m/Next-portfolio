@@ -3,15 +3,14 @@
 import { prisma } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 import { socialSchema, SocialFieldErrors, SocialFormState } from "./schema";
-import { auth } from "@/lib/auth";
-import { headers } from "next/headers";
+import { getSession } from "@/lib/session";
 
 // CREATE
 export async function createSocial(
   userId: string,
   data: { name: string; link?: string; desc?: string }
 ): Promise<SocialFormState> {
-  const session = await auth.api.getSession({ headers: await headers() });
+  const session = await getSession();
   if (!session?.user || session.user.id !== userId) {
     return { success: false, message: "Unauthorized action." };
   }
@@ -50,7 +49,7 @@ export async function updateSocial(
   id: number,
   data: { name: string; link?: string; desc?: string }
 ): Promise<SocialFormState> {
-  const session = await auth.api.getSession({ headers: await headers() });
+  const session = await getSession();
   if (!session?.user) {
     return { success: false, message: "Unauthorized action." };
   }
@@ -92,7 +91,7 @@ export async function updateSocial(
 
 // DELETE
 export async function deleteSocial(id: number): Promise<SocialFormState> {
-  const session = await auth.api.getSession({ headers: await headers() });
+  const session = await getSession();
   if (!session?.user) {
     return { success: false, message: "Unauthorized action." };
   }
