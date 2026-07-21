@@ -7,16 +7,14 @@ import Badge from "@/components/ui/badge/Badge";
 import SkillIcon from "@/components/ui/SkillIcon";
 import SocialFormModal from "../../SocialFormModal";
 import DeleteSocialModal from "../../DeleteSocialModal";
-import type { Social, SocialFormState } from "../../../actions";
+import type { Social } from "../../../actions";
 
 interface SocialsTableRowProps {
   social: Social;
   userId: string;
-  onUpdated: (social: Social, result: SocialFormState) => void;
-  onDeleted: (id: number, result: SocialFormState) => void;
 }
 
-export default function SocialsTableRow({ social, userId, onUpdated, onDeleted }: SocialsTableRowProps) {
+export default function SocialsTableRow({ social, userId }: SocialsTableRowProps) {
   return (
     <TableRow className="border-b border-gray-100 dark:border-neutral-900 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
       <TableCell className="px-4 ">
@@ -51,7 +49,6 @@ export default function SocialsTableRow({ social, userId, onUpdated, onDeleted }
           <SocialFormModal
             userId={userId}
             social={social}
-            onDone={onUpdated}
             trigger={
               <Button size="sm" variant="outline">
                 Edit
@@ -61,7 +58,7 @@ export default function SocialsTableRow({ social, userId, onUpdated, onDeleted }
           <DeleteSocialModal
             socialId={social.id}
             socialName={social.name}
-            onDone={onDeleted}
+            userId={userId}
           />
         </div>
       </TableCell>

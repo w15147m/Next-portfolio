@@ -3,25 +3,26 @@
 import React, { useState } from "react";
 import { Modal } from "@/components/ui/modal";
 import Button from "@/components/ui/button/Button";
-import Alert from "@/components/ui/alert/Alert";
 import { useModal } from "@/hooks/useModal";
 import { deleteSocial, SocialFormState } from "../actions";
+import { useSWRConfig } from "swr";
+import { getSocialsKey } from "../useSocials";
+import { showToast } from "@/components/common/CustomToaster";
 
 interface DeleteSocialModalProps {
   socialId: number;
   socialName: string;
-  // Receives the deleted id plus the full result (message, success flag)
-  // so the parent can remove it from local state AND show a toast.
-  onDone: (socialId: number, result: SocialFormState) => void;
+  userId: string;
 }
 
 export default function DeleteSocialModal({
   socialId,
   socialName,
-  onDone,
+  userId,
 }: DeleteSocialModalProps) {
   const { isOpen, openModal, closeModal } = useModal();
   const [isLoading, setIsLoading] = useState(false);
+  const { mutate } = useSWRConfig();
 
   const handleDelete = async () => {
     setIsLoading(true);
@@ -29,10 +30,13 @@ export default function DeleteSocialModal({
     setIsLoading(false);
 
     if (result.success) {
+      mutate(getSocialsKey(userId));
+      showToast(result.message, "success");
       setTimeout(() => {
         closeModal();
-        onDone(socialId, result);
       }, 60);
+    } else {
+      showToast(result.message || "Failed to delete social link", "error");
     }
   };
 

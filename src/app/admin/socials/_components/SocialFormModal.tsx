@@ -5,28 +5,27 @@ import { Modal } from "@/components/ui/modal";
 import Button from "@/components/ui/button/Button";
 import Label from "@/components/form/Label";
 import Input from "@/components/form/input/InputField";
-import Alert from "@/components/ui/alert/Alert";
 import { useModal } from "@/hooks/useModal";
 import { createSocial, updateSocial, SocialFormState, Social } from "../actions";
+import { useSWRConfig } from "swr";
+import { getSocialsKey } from "../useSocials";
+import { showToast } from "@/components/common/CustomToaster";
 
 interface SocialFormModalProps {
   userId: string;
   social?: Social; // if provided, we are editing
   trigger: React.ReactNode;
-  // Receives the created/updated record plus the full result (message,
-  // success flag) so the parent can patch its list AND show a toast.
-  onDone: (social: Social, result: SocialFormState) => void;
 }
 
 export default function SocialFormModal({
   userId,
   social,
   trigger,
-  onDone,
 }: SocialFormModalProps) {
   const { isOpen, openModal, closeModal } = useModal();
   const [isLoading, setIsLoading] = useState(false);
   const [feedback, setFeedback] = useState<SocialFormState | null>(null);
+  const { mutate } = useSWRConfig();
 
   const [name, setName] = useState(social?.name ?? "");
   const [link, setLink] = useState(social?.link ?? "");
@@ -58,10 +57,13 @@ export default function SocialFormModal({
     setIsLoading(false);
 
     if (result.success && result.data) {
+      mutate(getSocialsKey(userId));
+      showToast(result.message, "success");
       setTimeout(() => {
         closeModal();
-        onDone(result.data as Social, result);
       }, 800);
+    } else if (!result.success) {
+      showToast(result.message || "An error occurred", "error");
     }
   };
 
