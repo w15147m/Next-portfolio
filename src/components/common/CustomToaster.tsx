@@ -2,8 +2,7 @@
 
 import React, { useEffect, useSyncExternalStore } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { type ToastType } from "@/lib/types/types";
-
+type ToastType = "success" | "error" | "loading" | "default";
 // ---- module-level store (lives outside React, survives across renders) ----
 type ToastState = {
   message: string;

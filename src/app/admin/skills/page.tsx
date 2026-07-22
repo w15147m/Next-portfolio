@@ -4,8 +4,8 @@ import  { useCallback, useEffect, useState } from "react";
 import PageBreadcrumb from "@/components/common/PageBreadCrumb";
 import { authClient } from "@/lib/auth-client";
 import { apiService } from "@/lib/api-service";
-import { skill } from "./actions";
 import { showToast } from "@/components/common/CustomToaster";
+import { type skill } from "./_lib/schema";
 export default function SkillsPage() {
   const { data: session, isPending: sessionLoading } = authClient.useSession();
   const userId = session?.user?.id;
