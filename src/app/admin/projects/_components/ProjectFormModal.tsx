@@ -6,7 +6,7 @@ import { Modal } from "@/components/ui/modal";
 import Button from "@/components/ui/button/Button";
 import Label from "@/components/form/Label";
 import Input from "@/components/form/input/InputField";
-import ImageUpload from "@/components/ui/ImageUpload";
+import MultiImageUpload from "@/components/ui/MultiImageUpload";
 import { useModal } from "@/hooks/useModal";
 import { createProject, updateProject } from "../_lib/actions";
 import type { ProjectFormState, Project } from "../_lib/schema";
@@ -38,7 +38,9 @@ export default function ProjectFormModal({
   const { skills } = useSkills(userId);
 
   const [name, setName] = useState(project?.name ?? "");
-  const [image, setImage] = useState(project?.image ?? "");
+  const [images, setImages] = useState<string[]>(
+    project?.images ?? (project?.image ? [project.image] : [])
+  );
   const [desc, setDesc] = useState(project?.desc ?? "");
   const [selectedSkillIds, setSelectedSkillIds] = useState<number[]>(
     project?.skillIds ?? project?.skills?.map((s) => s.id) ?? []
@@ -51,7 +53,7 @@ export default function ProjectFormModal({
 
   const handleOpen = () => {
     setName(project?.name ?? "");
-    setImage(project?.image ?? "");
+    setImages(project?.images ?? (project?.image ? [project.image] : []));
     setDesc(project?.desc ?? "");
     setSelectedSkillIds(project?.skillIds ?? project?.skills?.map((s) => s.id) ?? []);
     setFeedback(null);
@@ -70,7 +72,8 @@ export default function ProjectFormModal({
 
     const data = {
       name,
-      image: image || undefined,
+      images,
+      image: images.length > 0 ? images[0] : undefined,
       desc: desc || undefined,
       skillIds: selectedSkillIds,
     };
@@ -101,7 +104,7 @@ export default function ProjectFormModal({
   return (
     <>
       {React.cloneElement(trigger as React.ReactElement<any>, { onClick: handleOpen })}
-      <Modal isOpen={isOpen} onClose={closeModal} className="max-w-[560px] p-6 lg:p-8">
+      <Modal isOpen={isOpen} onClose={closeModal} className="max-w-[620px] p-6 lg:p-8">
         <form onSubmit={handleSubmit}>
           <h4 className="mb-6 text-lg font-semibold text-gray-800 dark:text-white/90">
             {isEditing ? "Edit Project" : "Add Project"}
@@ -109,13 +112,13 @@ export default function ProjectFormModal({
 
           <div className="flex flex-col gap-5">
             <div>
-              <Label>Project Image</Label>
-              <ImageUpload
-                defaultImage={image}
-                onUploadSuccess={(url) => setImage(url)}
+              <Label>Project Images (First image is set as main cover)</Label>
+              <MultiImageUpload
+                images={images}
+                onChange={(newImages) => setImages(newImages)}
               />
-              {feedback?.fieldErrors?.image && (
-                <p className="mt-1 text-sm text-error-500">{feedback.fieldErrors.image[0]}</p>
+              {feedback?.fieldErrors?.images && (
+                <p className="mt-1 text-sm text-error-500">{feedback.fieldErrors.images[0]}</p>
               )}
             </div>
 

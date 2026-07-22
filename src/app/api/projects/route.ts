@@ -18,6 +18,7 @@ export async function GET(request: NextRequest) {
             skill: true,
           },
         },
+        projectImages: true,
       },
       orderBy: { createdAt: "asc" },
     });
@@ -27,12 +28,18 @@ export async function GET(request: NextRequest) {
         id: Number(ps.skill.id),
         name: ps.skill.name,
       }));
+
+      // Combine main image and projectImages into single images array
+      const additionalImages = p.projectImages.map((pi) => pi.image);
+      const allImages = p.image ? [p.image, ...additionalImages] : additionalImages;
+
       return {
         id: Number(p.id),
         userId: p.userId,
         name: p.name,
         desc: p.desc,
         image: p.image,
+        images: allImages,
         skills,
         skillIds: skills.map((s) => s.id),
       };

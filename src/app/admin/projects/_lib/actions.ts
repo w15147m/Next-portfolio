@@ -8,7 +8,7 @@ import { getSession } from "@/lib/session";
 // CREATE
 export async function createProject(
   userId: string,
-  data: { name: string; desc?: string; image?: string; skillIds?: number[] }
+  data: { name: string; desc?: string; image?: string; images?: string[]; skillIds?: number[] }
 ): Promise<ProjectFormState> {
   const session = await getSession();
   if (!session?.user || session.user.id !== userId) {
@@ -23,17 +23,28 @@ export async function createProject(
     };
   }
 
+  const allImages = parsed.data.images || (parsed.data.image ? [parsed.data.image] : []);
+  const mainImage = allImages.length > 0 ? allImages[0] : null;
+  const secondaryImages = allImages.length > 1 ? allImages.slice(1) : [];
+
   try {
     const created = await prisma.project.create({
       data: {
         userId: userId,
         name: parsed.data.name,
         desc: parsed.data.desc || null,
-        image: parsed.data.image || null,
+        image: mainImage,
         projectSkills: parsed.data.skillIds && parsed.data.skillIds.length > 0
           ? {
               create: parsed.data.skillIds.map((skillId) => ({
                 skillId: BigInt(skillId),
+              })),
+            }
+          : undefined,
+        projectImages: secondaryImages.length > 0
+          ? {
+              create: secondaryImages.map((imgUrl) => ({
+                image: imgUrl,
               })),
             }
           : undefined,
@@ -44,6 +55,7 @@ export async function createProject(
             skill: true,
           },
         },
+        projectImages: true,
       },
     });
 
@@ -59,6 +71,7 @@ export async function createProject(
       data: {
         ...created,
         id: Number(created.id),
+        images: allImages,
         skills,
         skillIds: skills.map((s) => s.id),
       },
@@ -72,7 +85,7 @@ export async function createProject(
 // UPDATE
 export async function updateProject(
   id: number,
-  data: { name: string; desc?: string; image?: string; skillIds?: number[] }
+  data: { name: string; desc?: string; image?: string; images?: string[]; skillIds?: number[] }
 ): Promise<ProjectFormState> {
   const session = await getSession();
   if (!session?.user) {
@@ -93,25 +106,38 @@ export async function updateProject(
     };
   }
 
+  const allImages = parsed.data.images || (parsed.data.image ? [parsed.data.image] : []);
+  const mainImage = allImages.length > 0 ? allImages[0] : null;
+  const secondaryImages = allImages.length > 1 ? allImages.slice(1) : [];
+
   try {
-    // Transaction to update project and sync projectSkills pivot entries
     const updated = await prisma.$transaction(async (tx) => {
-      // Delete existing links
+      // Delete existing skill and image relations
       await tx.projectSkill.deleteMany({
         where: { projectId: BigInt(id) },
       });
+      await tx.projectImage.deleteMany({
+        where: { projectId: BigInt(id) },
+      });
 
-      // Update project & recreate links
+      // Update project & recreate relations
       return await tx.project.update({
         where: { id: BigInt(id) },
         data: {
           name: parsed.data.name,
           desc: parsed.data.desc || null,
-          image: parsed.data.image || null,
+          image: mainImage,
           projectSkills: parsed.data.skillIds && parsed.data.skillIds.length > 0
             ? {
                 create: parsed.data.skillIds.map((skillId) => ({
                   skillId: BigInt(skillId),
+                })),
+              }
+            : undefined,
+          projectImages: secondaryImages.length > 0
+            ? {
+                create: secondaryImages.map((imgUrl) => ({
+                  image: imgUrl,
                 })),
               }
             : undefined,
@@ -122,6 +148,7 @@ export async function updateProject(
               skill: true,
             },
           },
+          projectImages: true,
         },
       });
     });
@@ -138,6 +165,7 @@ export async function updateProject(
       data: {
         ...updated,
         id: Number(updated.id),
+        images: allImages,
         skills,
         skillIds: skills.map((s) => s.id),
       },
