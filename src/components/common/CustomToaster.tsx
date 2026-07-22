@@ -2,8 +2,9 @@
 
 import React, { useEffect, useSyncExternalStore } from "react";
 import toast, { Toaster } from "react-hot-toast";
+
 type ToastType = "success" | "error" | "loading" | "default";
-// ---- module-level store (lives outside React, survives across renders) ----
+
 type ToastState = {
   message: string;
   type: ToastType;
@@ -26,13 +27,11 @@ function getSnapshot() {
   return state;
 }
 
-// ---- the function you import and call from anywhere ----
 export function showToast(message: string, type: ToastType = "default") {
   state = { message, type, key: state.key + 1 };
   emitChange();
 }
 
-// ---- the component you mount once per page that needs it ----
 interface CustomToasterProps {
   position?:
     | "top-left"
@@ -51,6 +50,7 @@ export function CustomToaster({
   const toastState = useSyncExternalStore(subscribe, getSnapshot, getSnapshot);
 
   useEffect(() => {
+    // Only fire toast when key > 0 (meaning showToast was explicitly called in this session)
     if (!toastState.key || !toastState.message) return;
 
     const options = {
@@ -71,7 +71,9 @@ export function CustomToaster({
       default:
         toast(toastState.message, options);
     }
-    // fires on every showToast() call, because `key` always changes
+
+    // Reset state after triggering so page navigation won't re-trigger it
+    state = { message: "", type: "default", key: 0 };
   }, [toastState, duration]);
 
   return <Toaster position={position} />;
