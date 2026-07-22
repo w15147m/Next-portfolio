@@ -1,6 +1,5 @@
 import PageBreadcrumb from "@/components/common/PageBreadCrumb";
 import { getCurrentUserId } from "@/lib/session";
-import { useSkills } from "./_lib/useSkills";
 import SocialsHeader from "./_components/SkillsHeader";
 
 export default async function SkillsPage() {
@@ -12,7 +11,6 @@ export default async function SkillsPage() {
       </div>
     );
   }
-  const { skills, isLoading, isError } = useSkills(userId);
 
   return (
      <div className="space-y-5 p-4 sm:p-6">
