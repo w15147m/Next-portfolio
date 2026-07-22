@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { useDropzone } from "react-dropzone";
 import Image from "next/image";
-import { uploadImage } from "@/lib/image-client";
+import { uploadImage, deleteImage } from "@/lib/image-client";
 
 interface MultiImageUploadProps {
   images: string[];
@@ -28,6 +28,10 @@ const MultiImageUpload: React.FC<MultiImageUploadProps> = ({ images, onChange })
   };
 
   const removeImage = (indexToRemove: number) => {
+    const targetUrl = images[indexToRemove];
+    if (targetUrl && targetUrl.startsWith("/uploads/temp/")) {
+      deleteImage(targetUrl); // fire-and-forget immediate delete for temp image
+    }
     const updated = images.filter((_, idx) => idx !== indexToRemove);
     onChange(updated);
   };

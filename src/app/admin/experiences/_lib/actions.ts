@@ -4,6 +4,7 @@ import { prisma } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 import { experienceSchema, ExperienceFieldErrors, ExperienceFormState } from "./schema";
 import { getSession } from "@/lib/session";
+import { replaceImage, deleteImage, commitImage } from "@/lib/image-service";
 
 // CREATE
 export async function createExperience(
@@ -31,6 +32,8 @@ export async function createExperience(
   }
 
   try {
+    const finalImage = parsed.data.image ? await commitImage(parsed.data.image, "experiences") : null;
+
     const created = await prisma.experience.create({
       data: {
         userId: userId,
@@ -39,7 +42,7 @@ export async function createExperience(
         startDate: new Date(parsed.data.startDate),
         endDate: parsed.data.endDate ? new Date(parsed.data.endDate) : null,
         desc: parsed.data.desc || null,
-        image: parsed.data.image || null,
+        image: finalImage,
       },
     });
     revalidatePath("/admin/experiences");
@@ -50,6 +53,9 @@ export async function createExperience(
     };
   } catch (error) {
     console.error("Create experience DB error:", error);
+    if (parsed.data.image && parsed.data.image.startsWith("/uploads/")) {
+      await deleteImage(parsed.data.image);
+    }
     return { success: false, message: "A database error occurred. Please try again." };
   }
 }
@@ -86,6 +92,8 @@ export async function updateExperience(
   }
 
   try {
+    const finalImage = await replaceImage(parsed.data.image, existing.image, "experiences");
+
     const updated = await prisma.experience.update({
       where: { id: BigInt(id) },
       data: {
@@ -94,7 +102,7 @@ export async function updateExperience(
         startDate: new Date(parsed.data.startDate),
         endDate: parsed.data.endDate ? new Date(parsed.data.endDate) : null,
         desc: parsed.data.desc || null,
-        image: parsed.data.image || null,
+        image: finalImage !== undefined ? finalImage : existing.image,
       },
     });
     revalidatePath("/admin/experiences");
@@ -105,6 +113,9 @@ export async function updateExperience(
     };
   } catch (error) {
     console.error("Update experience DB error:", error);
+    if (parsed.data.image && parsed.data.image.startsWith("/uploads/")) {
+      await deleteImage(parsed.data.image);
+    }
     return { success: false, message: "A database error occurred. Please try again." };
   }
 }
@@ -122,6 +133,9 @@ export async function deleteExperience(id: number): Promise<ExperienceFormState>
   }
 
   try {
+    if (existing.image && existing.image.startsWith("/uploads/")) {
+      await deleteImage(existing.image);
+    }
     await prisma.experience.delete({
       where: { id: BigInt(id) },
     });

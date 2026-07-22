@@ -4,6 +4,7 @@ import { prisma } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 import { projectSchema, ProjectFieldErrors, ProjectFormState } from "./schema";
 import { getSession } from "@/lib/session";
+import { commitImage, replaceImage, deleteImage } from "@/lib/image-service";
 
 // CREATE
 export async function createProject(
@@ -23,9 +24,15 @@ export async function createProject(
     };
   }
 
-  const allImages = parsed.data.images || (parsed.data.image ? [parsed.data.image] : []);
-  const mainImage = allImages.length > 0 ? allImages[0] : null;
-  const secondaryImages = allImages.length > 1 ? allImages.slice(1) : [];
+  const rawImages = parsed.data.images || (parsed.data.image ? [parsed.data.image] : []);
+  
+  // Commit all temp images to public/uploads/projects folder
+  const committedImages = await Promise.all(
+    rawImages.map((img) => commitImage(img, "projects"))
+  );
+
+  const mainImage = committedImages.length > 0 ? committedImages[0] : null;
+  const secondaryImages = committedImages.length > 1 ? committedImages.slice(1) : [];
 
   try {
     const created = await prisma.project.create({
@@ -71,13 +78,15 @@ export async function createProject(
       data: {
         ...created,
         id: Number(created.id),
-        images: allImages,
+        images: committedImages,
         skills,
         skillIds: skills.map((s) => s.id),
       },
     };
   } catch (error) {
     console.error("Create project DB error:", error);
+    // Cleanup committed files if DB create failed
+    await Promise.all(committedImages.map((img) => deleteImage(img)));
     return { success: false, message: "A database error occurred. Please try again." };
   }
 }
@@ -92,7 +101,10 @@ export async function updateProject(
     return { success: false, message: "Unauthorized action." };
   }
 
-  const existing = await prisma.project.findUnique({ where: { id: BigInt(id) } });
+  const existing = await prisma.project.findUnique({
+    where: { id: BigInt(id) },
+    include: { projectImages: true },
+  });
   if (!existing || existing.userId !== session.user.id) {
     return { success: false, message: "Unauthorized or project not found." };
   }
@@ -106,9 +118,22 @@ export async function updateProject(
     };
   }
 
-  const allImages = parsed.data.images || (parsed.data.image ? [parsed.data.image] : []);
-  const mainImage = allImages.length > 0 ? allImages[0] : null;
-  const secondaryImages = allImages.length > 1 ? allImages.slice(1) : [];
+  const rawImages = parsed.data.images || (parsed.data.image ? [parsed.data.image] : []);
+
+  // Commit any new temp images to public/uploads/projects
+  const committedImages = await Promise.all(
+    rawImages.map((img) => commitImage(img, "projects"))
+  );
+
+  const mainImage = committedImages.length > 0 ? committedImages[0] : null;
+  const secondaryImages = committedImages.length > 1 ? committedImages.slice(1) : [];
+
+  // Track old images to delete those no longer present in committedImages
+  const oldMainImage = existing.image;
+  const oldSecondaryImages = existing.projectImages.map((pi) => pi.image);
+  const allOldImages = oldMainImage ? [oldMainImage, ...oldSecondaryImages] : oldSecondaryImages;
+
+  const imagesToDelete = allOldImages.filter((img) => !committedImages.includes(img));
 
   try {
     const updated = await prisma.$transaction(async (tx) => {
@@ -153,6 +178,9 @@ export async function updateProject(
       });
     });
 
+    // Clean up removed image files from filesystem
+    await Promise.all(imagesToDelete.map((img) => deleteImage(img)));
+
     revalidatePath("/admin/projects");
     const skills = updated.projectSkills.map((ps) => ({
       id: Number(ps.skill.id),
@@ -165,7 +193,7 @@ export async function updateProject(
       data: {
         ...updated,
         id: Number(updated.id),
-        images: allImages,
+        images: committedImages,
         skills,
         skillIds: skills.map((s) => s.id),
       },
@@ -183,12 +211,21 @@ export async function deleteProject(id: number): Promise<ProjectFormState> {
     return { success: false, message: "Unauthorized action." };
   }
 
-  const existing = await prisma.project.findUnique({ where: { id: BigInt(id) } });
+  const existing = await prisma.project.findUnique({
+    where: { id: BigInt(id) },
+    include: { projectImages: true },
+  });
   if (!existing || existing.userId !== session.user.id) {
     return { success: false, message: "Unauthorized or project not found." };
   }
 
   try {
+    // Delete physical files
+    if (existing.image) {
+      await deleteImage(existing.image);
+    }
+    await Promise.all(existing.projectImages.map((pi) => deleteImage(pi.image)));
+
     await prisma.project.delete({
       where: { id: BigInt(id) },
     });
