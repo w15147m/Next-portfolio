@@ -1,13 +1,10 @@
+import { descSchema, linkSchema, nameSchema } from "@/lib/schema/zodSchema";
 import { z } from "zod";
 
 export const socialSchema = z.object({
-  name: z.string().min(1, "Platform name is required").max(100, "Name is too long"),
-  link: z
-    .string()
-    .url("Please enter a valid URL (e.g. https://github.com/user)")
-    .optional()
-    .or(z.literal("")),
-  desc: z.string().max(255, "Description is too long").optional().or(z.literal("")),
+  name: nameSchema,
+  desc: descSchema,
+  link: linkSchema,
 });
 
 export type SocialFieldErrors = {

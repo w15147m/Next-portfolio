@@ -43,12 +43,11 @@ export default function SocialFormModal({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name.trim()) return;
 
     setIsLoading(true);
     setFeedback(null);
 
-    const data = { name, link: link || undefined, desc: desc || undefined };
+    const data = { name, link, desc: desc || undefined };
 
     try {
       const result = social
@@ -91,7 +90,6 @@ export default function SocialFormModal({
                 placeholder="e.g. GitHub, LinkedIn, Twitter"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                required
                 error={!!feedback?.fieldErrors?.name}
                 hint={feedback?.fieldErrors?.name?.[0]}
               />
