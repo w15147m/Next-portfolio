@@ -21,7 +21,7 @@ model User {
   password      String?
   address         String?
   number      String?
-  desc      String?
+  desc      String?   @db.Text
   createdAt     DateTime    @default(now()) @map("created_at")
   updatedAt     DateTime    @updatedAt      @map("updated_at")
 
@@ -67,7 +67,7 @@ model Project {
   userId      String   @map("user_id")
   name        String
   image       String?
-  desc        String?
+  desc        String?  @db.Text
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt      @map("updated_at")
 
