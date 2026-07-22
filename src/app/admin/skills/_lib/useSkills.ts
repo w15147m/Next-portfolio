@@ -1,19 +1,19 @@
 import useSWR from 'swr';
 import { apiService } from "@/lib/api-service";
-import type { Social } from "./schema";
+import { type skill } from './schema';
 
-export const getSocialsKey = (userId?: string) => userId ? `/api/socials?userId=${userId}` : null;
+export const getSkillsKey = (userId?: string) => userId ? `/api/skills?userId=${userId}` : null;
 
-const fetcher = (url: string) => apiService.fetchData<Social[]>(url);
+const fetcher = (url: string) => apiService.fetchData<skill[]>(url);
 
-export function useSocials(userId?: string) {
-  const { data, error, isLoading, mutate } = useSWR<Social[]>(
-    getSocialsKey(userId),
+export function useSkills(userId?: string) {
+  const { data, error, isLoading, mutate } = useSWR<skill[]>(
+    getSkillsKey(userId),
     fetcher
   );
 
   return {
-    socials: data || [],
+    skills: data || [],
     isLoading,
     isError: error,
     mutate

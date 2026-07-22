@@ -1,3 +1,4 @@
+import { descSchema, nameSchema } from "@/lib/schema/zodSchema";
 import { z } from "zod";
 
 export const skillSchema = z.object({
@@ -5,6 +6,8 @@ export const skillSchema = z.object({
     .number()
     .min(0, "Proficiency can't be negative")
     .max(100, "Proficiency can't exceed 100"),
+  name: nameSchema,
+  desc: descSchema,
 });
 
 export type SocialFieldErrors = {
