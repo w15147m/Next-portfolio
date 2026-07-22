@@ -5,6 +5,7 @@ import { Modal } from "@/components/ui/modal";
 import Button from "@/components/ui/button/Button";
 import Label from "@/components/form/Label";
 import Input from "@/components/form/input/InputField";
+import ImageUpload from "@/components/ui/ImageUpload";
 import { useModal } from "@/hooks/useModal";
 import { createExperience, updateExperience } from "../_lib/actions";
 import type { ExperienceFormState, Experience } from "../_lib/schema";
@@ -36,6 +37,7 @@ export default function ExperienceFormModal({
 
   const [company, setCompany] = useState(experience?.company ?? "");
   const [position, setPosition] = useState(experience?.position ?? "");
+  const [image, setImage] = useState(experience?.image ?? "");
   const [startDate, setStartDate] = useState(formatDate(experience?.startDate));
   const [endDate, setEndDate] = useState(formatDate(experience?.endDate));
   const [desc, setDesc] = useState(experience?.desc ?? "");
@@ -43,6 +45,7 @@ export default function ExperienceFormModal({
   const handleOpen = () => {
     setCompany(experience?.company ?? "");
     setPosition(experience?.position ?? "");
+    setImage(experience?.image ?? "");
     setStartDate(formatDate(experience?.startDate));
     setEndDate(formatDate(experience?.endDate));
     setDesc(experience?.desc ?? "");
@@ -59,6 +62,7 @@ export default function ExperienceFormModal({
     const data = {
       company,
       position,
+      image: image || undefined,
       startDate,
       endDate: endDate || undefined,
       desc: desc || undefined,
@@ -90,12 +94,24 @@ export default function ExperienceFormModal({
   return (
     <>
       {React.cloneElement(trigger as React.ReactElement<any>, { onClick: handleOpen })}
-      <Modal isOpen={isOpen} onClose={closeModal} className="max-w-[520px] p-6 lg:p-8">
+      <Modal isOpen={isOpen} onClose={closeModal} className="max-w-[560px] p-6 lg:p-8">
         <form onSubmit={handleSubmit}>
           <h4 className="mb-6 text-lg font-semibold text-gray-800 dark:text-white/90">
             {isEditing ? "Edit Experience" : "Add Experience"}
           </h4>
+
           <div className="flex flex-col gap-5">
+            <div>
+              <Label>Logo / Image</Label>
+              <ImageUpload
+                defaultImage={image}
+                onUploadSuccess={(url) => setImage(url)}
+              />
+              {feedback?.fieldErrors?.image && (
+                <p className="mt-1 text-sm text-error-500">{feedback.fieldErrors.image[0]}</p>
+              )}
+            </div>
+
             <div>
               <Label>
                 Company <span className="text-error-500">*</span>

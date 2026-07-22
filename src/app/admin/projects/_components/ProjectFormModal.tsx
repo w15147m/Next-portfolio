@@ -5,6 +5,7 @@ import { Modal } from "@/components/ui/modal";
 import Button from "@/components/ui/button/Button";
 import Label from "@/components/form/Label";
 import Input from "@/components/form/input/InputField";
+import ImageUpload from "@/components/ui/ImageUpload";
 import { useModal } from "@/hooks/useModal";
 import { createProject, updateProject } from "../_lib/actions";
 import type { ProjectFormState, Project } from "../_lib/schema";
@@ -29,10 +30,12 @@ export default function ProjectFormModal({
   const { mutate } = useSWRConfig();
 
   const [name, setName] = useState(project?.name ?? "");
+  const [image, setImage] = useState(project?.image ?? "");
   const [desc, setDesc] = useState(project?.desc ?? "");
 
   const handleOpen = () => {
     setName(project?.name ?? "");
+    setImage(project?.image ?? "");
     setDesc(project?.desc ?? "");
     setFeedback(null);
     openModal();
@@ -44,7 +47,11 @@ export default function ProjectFormModal({
     setIsLoading(true);
     setFeedback(null);
 
-    const data = { name, desc: desc || undefined };
+    const data = {
+      name,
+      image: image || undefined,
+      desc: desc || undefined,
+    };
 
     try {
       const result = project
@@ -72,12 +79,24 @@ export default function ProjectFormModal({
   return (
     <>
       {React.cloneElement(trigger as React.ReactElement<any>, { onClick: handleOpen })}
-      <Modal isOpen={isOpen} onClose={closeModal} className="max-w-[520px] p-6 lg:p-8">
+      <Modal isOpen={isOpen} onClose={closeModal} className="max-w-[560px] p-6 lg:p-8">
         <form onSubmit={handleSubmit}>
           <h4 className="mb-6 text-lg font-semibold text-gray-800 dark:text-white/90">
             {isEditing ? "Edit Project" : "Add Project"}
           </h4>
+
           <div className="flex flex-col gap-5">
+            <div>
+              <Label>Project Image</Label>
+              <ImageUpload
+                defaultImage={image}
+                onUploadSuccess={(url) => setImage(url)}
+              />
+              {feedback?.fieldErrors?.image && (
+                <p className="mt-1 text-sm text-error-500">{feedback.fieldErrors.image[0]}</p>
+              )}
+            </div>
+
             <div>
               <Label>
                 Project Name <span className="text-error-500">*</span>
