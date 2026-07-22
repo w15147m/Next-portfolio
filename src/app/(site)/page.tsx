@@ -1,11 +1,12 @@
-import React from 'react'
+import type { Metadata } from "next";
+import PortfolioPage from "./_components/PortfolioPage";
 
-function page() {
-  return (
-    <main className="flex flex-col w-full overflow-hidden">
+export const metadata: Metadata = {
+  title: "Waseem Abbas | Software Engineer & Full Stack Developer",
+  description:
+    "Portfolio of Waseem Abbas — Software Engineer specializing in Laravel, Vue, React, React Native, Electron, and modern full-stack development.",
+};
 
-    </main>
-  )
+export default function SitePage() {
+  return <PortfolioPage />;
 }
-
-export default page
