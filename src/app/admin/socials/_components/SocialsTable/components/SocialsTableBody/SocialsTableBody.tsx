@@ -2,7 +2,7 @@
 
 import React from "react";
 import { TableBody, TableCell, TableRow } from "@/components/ui/table";
-import SocialsTableRow from "../SocialsTableRow";
+import SocialsTableRow from "./SocialsTableRow";
 import { Social } from "@/app/admin/socials/_lib/schema";
 
 interface SocialsTableBodyProps {
