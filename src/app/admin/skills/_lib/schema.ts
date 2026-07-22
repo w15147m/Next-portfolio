@@ -2,22 +2,21 @@ import { descSchema, nameSchema } from "@/lib/schema/zodSchema";
 import { z } from "zod";
 
 export const skillSchema = z.object({
-   proficiency: z
-    .number()
-    .min(0, "Proficiency can't be negative")
-    .max(100, "Proficiency can't exceed 100"),
   name: nameSchema,
+  proficiency: z
+    .string()
+    .optional()
+    .or(z.literal("")),
   desc: descSchema,
 });
 
-export type SocialFieldErrors = {
+export type SkillFieldErrors = {
   name?: string[];
   proficiency?: string[];
   desc?: string[];
 };
 
-
-export type skill = {
+export type Skill = {
   id: number;
   name: string;
   proficiency: string | null;
@@ -25,9 +24,9 @@ export type skill = {
   userId: string;
 };
 
-export type SocialFormState = {
+export type SkillFormState = {
   success: boolean;
   message: string;
-  fieldErrors?: SocialFieldErrors;
-  data?: skill;
+  fieldErrors?: SkillFieldErrors;
+  data?: Skill;
 };

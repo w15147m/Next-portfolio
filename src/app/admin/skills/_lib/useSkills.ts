@@ -1,13 +1,13 @@
 import useSWR from 'swr';
 import { apiService } from "@/lib/api-service";
-import { type skill } from './schema';
+import { type Skill } from './schema';
 
 export const getSkillsKey = (userId?: string) => userId ? `/api/skills?userId=${userId}` : null;
 
-const fetcher = (url: string) => apiService.fetchData<skill[]>(url);
+const fetcher = (url: string) => apiService.fetchData<Skill[]>(url);
 
 export function useSkills(userId?: string) {
-  const { data, error, isLoading, mutate } = useSWR<skill[]>(
+  const { data, error, isLoading, mutate } = useSWR<Skill[]>(
     getSkillsKey(userId),
     fetcher
   );

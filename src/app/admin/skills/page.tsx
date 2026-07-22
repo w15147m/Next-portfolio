@@ -1,11 +1,12 @@
-import PageBreadcrumb from "@/components/common/PageBreadCrumb";
-import { getCurrentUserId } from "@/lib/session";
-import SocialsHeader from "./_components/SkillsHeader";
 import ComponentCard from "@/components/common/ComponentCard";
-import SkillsTableHeader from "./_components/SocialsTable/SkillsTable";
+import { getCurrentUserId } from "@/lib/session";
+import CustomToaster from "@/components/common/CustomToaster";
+import SkillsHeader from "./_components/SkillsHeader";
+import SkillsTable from "./_components/SkillsTable/SkillsTable";
 
 export default async function SkillsPage() {
   const userId = await getCurrentUserId();
+
   if (!userId) {
     return (
       <div className="p-10 text-center text-error-500">
@@ -15,10 +16,11 @@ export default async function SkillsPage() {
   }
 
   return (
-     <div className="space-y-5 p-4 sm:p-6">
-      <SocialsHeader userId={userId}/>
+    <div className="space-y-5 p-4 sm:p-6">
+      <CustomToaster />
+      <SkillsHeader userId={userId} />
       <ComponentCard title={null}>
-        <SkillsTableHeader userId={userId} />
+        <SkillsTable userId={userId} />
       </ComponentCard>
     </div>
   );
