@@ -1,9 +1,9 @@
 import ComponentCard from "@/components/common/ComponentCard";
-import SocialsHeader from "./_components/SocialsTable/components/SocialsHeader";
 
 import { getCurrentUserId } from "@/lib/session";
 import CustomToaster from "@/components/common/CustomToaster";
 import SocialsTable from "./_components/SocialsTable/SocialsTable";
+import SocialsHeader from "./_components/SocialsHeader";
 
 export default async function SocialsPage() {
   const userId = await getCurrentUserId();

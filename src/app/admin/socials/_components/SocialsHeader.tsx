@@ -2,7 +2,7 @@
 
 import React from "react";
 import Button from "@/components/ui/button/Button";
-import SocialFormModal from "../../SocialFormModal";
+import SocialFormModal from "./SocialFormModal";
 
 interface SocialsHeaderProps {
   userId: string;
