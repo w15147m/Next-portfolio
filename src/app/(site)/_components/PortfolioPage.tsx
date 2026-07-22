@@ -53,7 +53,7 @@ async function PortfolioPage() {
       <SkillsSection skills={user.skills} />
       <ProjectsSection projects={user.projects} />
       <ExperienceSection experiences={user.experiences} />
-      <EducationSection educations={user.educations} />
+      {/* <EducationSection educations={user.educations} /> */}
       <ServicesSection services={user.services} />
       <TestimonialsSection testimonials={user.testimonials} />
       <ContactSection user={user} />
