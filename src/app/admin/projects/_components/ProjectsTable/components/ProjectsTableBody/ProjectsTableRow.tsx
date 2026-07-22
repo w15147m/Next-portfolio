@@ -4,6 +4,7 @@ import React from "react";
 import { TableCell, TableRow } from "@/components/ui/table";
 import Button from "@/components/ui/button/Button";
 import SkillIcon from "@/components/ui/SkillIcon";
+import Badge from "@/components/ui/badge/Badge";
 import Image from "next/image";
 import ProjectFormModal from "../../../ProjectFormModal";
 import DeleteProjectModal from "../../../DeleteProjectModal";
@@ -37,6 +38,19 @@ export default function ProjectsTableRow({ project, userId }: ProjectsTableRowPr
         <span className="font-medium text-gray-800 dark:text-white/90">
           {project.name}
         </span>
+      </TableCell>
+      <TableCell className="px-4 py-3">
+        <div className="flex flex-wrap gap-1">
+          {project.skills && project.skills.length > 0 ? (
+            project.skills.map((s) => (
+              <Badge key={s.id} color="light" size="sm">
+                {s.name}
+              </Badge>
+            ))
+          ) : (
+            <span className="text-sm text-gray-400">—</span>
+          )}
+        </div>
       </TableCell>
       <TableCell className="px-4 py-3 text-sm text-gray-500 dark:text-gray-400 max-w-xs truncate">
         {project.desc || "—"}

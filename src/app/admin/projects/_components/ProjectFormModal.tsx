@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Select, { MultiValue } from "react-select";
 import { Modal } from "@/components/ui/modal";
 import Button from "@/components/ui/button/Button";
 import Label from "@/components/form/Label";
@@ -11,12 +12,18 @@ import { createProject, updateProject } from "../_lib/actions";
 import type { ProjectFormState, Project } from "../_lib/schema";
 import { useSWRConfig } from "swr";
 import { getProjectsKey } from "../_lib/useProjects";
+import { useSkills } from "@/app/admin/skills/_lib/useSkills";
 import { showToast } from "@/components/common/CustomToaster";
 
 interface ProjectFormModalProps {
   userId: string;
   project?: Project;
   trigger: React.ReactNode;
+}
+
+interface SelectOption {
+  value: number;
+  label: string;
 }
 
 export default function ProjectFormModal({
@@ -28,17 +35,31 @@ export default function ProjectFormModal({
   const [isLoading, setIsLoading] = useState(false);
   const [feedback, setFeedback] = useState<ProjectFormState | null>(null);
   const { mutate } = useSWRConfig();
+  const { skills } = useSkills(userId);
 
   const [name, setName] = useState(project?.name ?? "");
   const [image, setImage] = useState(project?.image ?? "");
   const [desc, setDesc] = useState(project?.desc ?? "");
+  const [selectedSkillIds, setSelectedSkillIds] = useState<number[]>(
+    project?.skillIds ?? project?.skills?.map((s) => s.id) ?? []
+  );
+
+  const skillOptions: SelectOption[] = skills.map((s) => ({
+    value: s.id,
+    label: s.name,
+  }));
 
   const handleOpen = () => {
     setName(project?.name ?? "");
     setImage(project?.image ?? "");
     setDesc(project?.desc ?? "");
+    setSelectedSkillIds(project?.skillIds ?? project?.skills?.map((s) => s.id) ?? []);
     setFeedback(null);
     openModal();
+  };
+
+  const handleSkillsChange = (newValue: MultiValue<SelectOption>) => {
+    setSelectedSkillIds(newValue.map((item) => item.value));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -51,6 +72,7 @@ export default function ProjectFormModal({
       name,
       image: image || undefined,
       desc: desc || undefined,
+      skillIds: selectedSkillIds,
     };
 
     try {
@@ -108,6 +130,19 @@ export default function ProjectFormModal({
                 onChange={(e) => setName(e.target.value)}
                 error={!!feedback?.fieldErrors?.name}
                 hint={feedback?.fieldErrors?.name?.[0]}
+              />
+            </div>
+
+            <div>
+              <Label>Associated Skills (Multi-select)</Label>
+              <Select
+                isMulti
+                options={skillOptions}
+                value={skillOptions.filter((opt) => selectedSkillIds.includes(opt.value))}
+                onChange={handleSkillsChange}
+                placeholder="Select skills..."
+                className="my-react-select-container"
+                classNamePrefix="my-react-select"
               />
             </div>
 

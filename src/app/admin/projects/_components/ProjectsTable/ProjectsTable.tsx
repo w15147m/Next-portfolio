@@ -13,7 +13,7 @@ interface ProjectsTableProps {
 
 export default function ProjectsTable({ userId }: ProjectsTableProps) {
   const { projects, isLoading, isError } = useProjects(userId);
-  const headers = ["Icon", "Project Name", "Description", "Action"];
+  const headers = ["Icon", "Project Name", "Skills", "Description", "Action"];
 
   return (
     <>

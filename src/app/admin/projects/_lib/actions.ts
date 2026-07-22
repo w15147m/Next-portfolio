@@ -8,7 +8,7 @@ import { getSession } from "@/lib/session";
 // CREATE
 export async function createProject(
   userId: string,
-  data: { name: string; desc?: string; image?: string }
+  data: { name: string; desc?: string; image?: string; skillIds?: number[] }
 ): Promise<ProjectFormState> {
   const session = await getSession();
   if (!session?.user || session.user.id !== userId) {
@@ -30,13 +30,38 @@ export async function createProject(
         name: parsed.data.name,
         desc: parsed.data.desc || null,
         image: parsed.data.image || null,
+        projectSkills: parsed.data.skillIds && parsed.data.skillIds.length > 0
+          ? {
+              create: parsed.data.skillIds.map((skillId) => ({
+                skillId: BigInt(skillId),
+              })),
+            }
+          : undefined,
+      },
+      include: {
+        projectSkills: {
+          include: {
+            skill: true,
+          },
+        },
       },
     });
+
     revalidatePath("/admin/projects");
+    const skills = created.projectSkills.map((ps) => ({
+      id: Number(ps.skill.id),
+      name: ps.skill.name,
+    }));
+
     return {
       success: true,
       message: "Project created successfully.",
-      data: { ...created, id: Number(created.id) },
+      data: {
+        ...created,
+        id: Number(created.id),
+        skills,
+        skillIds: skills.map((s) => s.id),
+      },
     };
   } catch (error) {
     console.error("Create project DB error:", error);
@@ -47,7 +72,7 @@ export async function createProject(
 // UPDATE
 export async function updateProject(
   id: number,
-  data: { name: string; desc?: string; image?: string }
+  data: { name: string; desc?: string; image?: string; skillIds?: number[] }
 ): Promise<ProjectFormState> {
   const session = await getSession();
   if (!session?.user) {
@@ -69,19 +94,53 @@ export async function updateProject(
   }
 
   try {
-    const updated = await prisma.project.update({
-      where: { id: BigInt(id) },
-      data: {
-        name: parsed.data.name,
-        desc: parsed.data.desc || null,
-        image: parsed.data.image || null,
-      },
+    // Transaction to update project and sync projectSkills pivot entries
+    const updated = await prisma.$transaction(async (tx) => {
+      // Delete existing links
+      await tx.projectSkill.deleteMany({
+        where: { projectId: BigInt(id) },
+      });
+
+      // Update project & recreate links
+      return await tx.project.update({
+        where: { id: BigInt(id) },
+        data: {
+          name: parsed.data.name,
+          desc: parsed.data.desc || null,
+          image: parsed.data.image || null,
+          projectSkills: parsed.data.skillIds && parsed.data.skillIds.length > 0
+            ? {
+                create: parsed.data.skillIds.map((skillId) => ({
+                  skillId: BigInt(skillId),
+                })),
+              }
+            : undefined,
+        },
+        include: {
+          projectSkills: {
+            include: {
+              skill: true,
+            },
+          },
+        },
+      });
     });
+
     revalidatePath("/admin/projects");
+    const skills = updated.projectSkills.map((ps) => ({
+      id: Number(ps.skill.id),
+      name: ps.skill.name,
+    }));
+
     return {
       success: true,
       message: "Project updated successfully.",
-      data: { ...updated, id: Number(updated.id) },
+      data: {
+        ...updated,
+        id: Number(updated.id),
+        skills,
+        skillIds: skills.map((s) => s.id),
+      },
     };
   } catch (error) {
     console.error("Update project DB error:", error);

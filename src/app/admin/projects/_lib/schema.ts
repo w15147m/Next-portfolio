@@ -5,12 +5,19 @@ export const projectSchema = z.object({
   name: nameSchema,
   desc: descSchema,
   image: z.string().optional().or(z.literal("")),
+  skillIds: z.array(z.number()).optional(),
 });
 
 export type ProjectFieldErrors = {
   name?: string[];
   desc?: string[];
   image?: string[];
+  skillIds?: string[];
+};
+
+export type ProjectSkillItem = {
+  id: number;
+  name: string;
 };
 
 export type Project = {
@@ -19,6 +26,8 @@ export type Project = {
   desc: string | null;
   image: string | null;
   userId: string;
+  skills?: ProjectSkillItem[];
+  skillIds?: number[];
 };
 
 export type ProjectFormState = {

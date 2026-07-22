@@ -12,16 +12,31 @@ export async function GET(request: NextRequest) {
 
     const projects = await prisma.project.findMany({
       where: { userId },
+      include: {
+        projectSkills: {
+          include: {
+            skill: true,
+          },
+        },
+      },
       orderBy: { createdAt: "asc" },
     });
 
-    const serialized = projects.map((p) => ({
-      id: Number(p.id),
-      userId: p.userId,
-      name: p.name,
-      desc: p.desc,
-      image: p.image,
-    }));
+    const serialized = projects.map((p) => {
+      const skills = p.projectSkills.map((ps) => ({
+        id: Number(ps.skill.id),
+        name: ps.skill.name,
+      }));
+      return {
+        id: Number(p.id),
+        userId: p.userId,
+        name: p.name,
+        desc: p.desc,
+        image: p.image,
+        skills,
+        skillIds: skills.map((s) => s.id),
+      };
+    });
 
     return NextResponse.json(serialized);
   } catch (error: any) {
