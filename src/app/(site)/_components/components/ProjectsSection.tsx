@@ -13,11 +13,15 @@ export default function ProjectsSection({ projects }: { projects: PortfolioUser[
           title="Featured Projects"
           subtitle="A selection of work that demonstrates my capabilities and problem-solving approach."
         />
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="flex flex-wrap gap-6 justify-center">
           {projects.map((proj) => (
-            <ProjectCard key={proj.id} project={proj} />
-          ))}
+    <div key={proj.id} className="w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)]">
+      <ProjectCard project={proj} />
+    </div>
+  ))}
         </div>
+
+
       </div>
     </section>
   );
