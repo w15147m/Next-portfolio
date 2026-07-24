@@ -1,4 +1,3 @@
-import React from "react";
 
 interface SkillIconProps {
   icon: string;
@@ -8,7 +7,7 @@ interface SkillIconProps {
 
 const SkillIcon: React.FC<SkillIconProps> = ({ icon, size = 40, className = "" }) => {
   if (!icon) return null;
-  const iconName = icon.trim().toLowerCase();
+  const iconName = icon.trim().toLowerCase(); 
   if (iconName == 'vps') {
     return (
       // https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6SJ4JKUzINxH5SYJuZxESg9uzKuTzu4woQgudspJ1Mg&s=10
