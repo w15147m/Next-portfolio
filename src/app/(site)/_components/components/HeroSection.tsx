@@ -4,7 +4,7 @@ import type { PortfolioUser } from "../types";
 
 export default function HeroSection({ user }: { user: PortfolioUser }) {
   return (
-    <section id="hero" className="relative min-h-[90vh] flex items-center">
+    <section id="hero" className="relative min-h-[100vh] flex items-center">
       {/* Gradient Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full bg-brand-500/10 blur-3xl" />
