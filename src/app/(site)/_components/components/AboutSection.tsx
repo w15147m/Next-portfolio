@@ -20,18 +20,18 @@ export default function AboutSection({ user }: { user: PortfolioUser }) {
     <section
       id="about"
       ref={sectionRef}
-      className="py-24 px-6 sm:px-12 lg:px-24 max-w-4xl mx-auto"
+      className="py-28 px-6 sm:px-12 lg:px-20 max-w-6xl mx-auto"
     >
-      {/* Title with number prefix and trailing line matching v4-main */}
-      <div className="flex items-center gap-3 mb-10 whitespace-nowrap">
+      {/* Title with number prefix and longer trailing line */}
+      <div className="flex items-center gap-4 mb-12 whitespace-nowrap">
         <span className="font-mono text-[#64ffda] text-xl sm:text-2xl font-normal">01.</span>
-        <h2 className="text-2xl sm:text-3xl font-bold text-[#ccd6f6]">About Me</h2>
-        <div className="h-[1px] bg-[#233554] w-full max-w-[300px] ml-4" />
+        <h2 className="text-2xl sm:text-4xl font-bold text-[#ccd6f6]">About Me</h2>
+        <div className="h-[1px] bg-[#233554] flex-1 max-w-md ml-4" />
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-start">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-12 sm:gap-16 items-start">
         {/* Left Bio Text (7 cols) */}
-        <div className="md:col-span-7 text-[#8892b0] text-base leading-relaxed space-y-4">
+        <div className="md:col-span-7 text-[#8892b0] text-base sm:text-lg leading-relaxed space-y-5">
           <p>
             {user.desc ||
               "Hello! My name is Brittany and I enjoy creating things that live on the internet. My interest in web development started back in 2012 when I decided to try editing custom Tumblr themes — turns out hacking together a custom reblog button taught me a lot about HTML & CSS!"}
@@ -71,9 +71,9 @@ export default function AboutSection({ user }: { user: PortfolioUser }) {
 
           <p>Here are a few technologies I’ve been working with recently:</p>
 
-          <ul className="grid grid-cols-2 gap-y-2.5 gap-x-4 font-mono text-xs text-[#8892b0] pt-2">
+          <ul className="grid grid-cols-2 gap-y-3 gap-x-6 font-mono text-sm text-[#8892b0] pt-2">
             {skills.map((skill, i) => (
-              <li key={i} className="flex items-center gap-2">
+              <li key={i} className="flex items-center gap-2.5">
                 <span className="text-[#64ffda] text-xs">▹</span>
                 <span>{skill}</span>
               </li>
@@ -81,9 +81,9 @@ export default function AboutSection({ user }: { user: PortfolioUser }) {
           </ul>
         </div>
 
-        {/* Right Image (5 cols) — Always visible offset border + subtle hover color shift */}
-        <div className="md:col-span-5 flex justify-center md:justify-start">
-          <div className="relative w-64 sm:w-72 max-w-[300px] group">
+        {/* Right Image (5 cols) — Larger size matching max-w-6xl container */}
+        <div className="md:col-span-5 flex justify-center md:justify-end">
+          <div className="relative w-72 sm:w-80 max-w-[340px] group">
             {/* Main Wrapper */}
             <div className="relative block w-full rounded bg-[#64ffda] transition-transform duration-300 group-hover:-translate-x-1.5 group-hover:-translate-y-1.5">
               {/* Screen mix-blend layer */}
@@ -100,7 +100,7 @@ export default function AboutSection({ user }: { user: PortfolioUser }) {
               />
 
               {/* Always visible offset border frame */}
-              <div className="absolute top-[14px] left-[14px] w-full h-full rounded border-2 border-[#64ffda]/80 -z-10 transition-all duration-300 group-hover:translate-x-2 group-hover:translate-y-2 group-hover:border-[#64ffda] group-hover:shadow-[0_0_20px_rgba(100,255,218,0.25)]" />
+              <div className="absolute top-[16px] left-[16px] w-full h-full rounded border-2 border-[#64ffda]/80 -z-10 transition-all duration-300 group-hover:translate-x-2 group-hover:translate-y-2 group-hover:border-[#64ffda] group-hover:shadow-[0_0_20px_rgba(100,255,218,0.25)]" />
             </div>
           </div>
         </div>
