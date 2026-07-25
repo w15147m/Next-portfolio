@@ -1,7 +1,12 @@
+"use client";
+
 import Image from "next/image";
 import type { PortfolioUser } from "../types";
+import { useScrollReveal } from "../hooks/useScrollReveal";
 
 export default function AboutSection({ user }: { user: PortfolioUser }) {
+  const sectionRef = useScrollReveal<HTMLElement>({ delay: 200 });
+
   const skills = [
     "Laravel",
     "Vue",
@@ -12,7 +17,11 @@ export default function AboutSection({ user }: { user: PortfolioUser }) {
   ];
 
   return (
-    <section id="about" className="py-24 px-6 sm:px-12 lg:px-24 max-w-4xl mx-auto">
+    <section
+      id="about"
+      ref={sectionRef}
+      className="py-24 px-6 sm:px-12 lg:px-24 max-w-4xl mx-auto"
+    >
       {/* Title with number prefix and trailing line matching v4-main */}
       <div className="flex items-center gap-3 mb-10 whitespace-nowrap">
         <span className="font-mono text-[#64ffda] text-xl sm:text-2xl font-normal">01.</span>
@@ -90,7 +99,7 @@ export default function AboutSection({ user }: { user: PortfolioUser }) {
                 unoptimized
               />
 
-              {/* Always visible offset border frame — shifts slightly & brightens on hover */}
+              {/* Always visible offset border frame */}
               <div className="absolute top-[14px] left-[14px] w-full h-full rounded border-2 border-[#64ffda]/80 -z-10 transition-all duration-300 group-hover:translate-x-2 group-hover:translate-y-2 group-hover:border-[#64ffda] group-hover:shadow-[0_0_20px_rgba(100,255,218,0.25)]" />
             </div>
           </div>
