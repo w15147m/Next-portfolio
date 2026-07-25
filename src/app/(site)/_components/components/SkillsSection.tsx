@@ -9,7 +9,7 @@ export default function SkillsSection({ skills }: { skills: PortfolioUser["skill
     <section id="skills" className="py-24 bg-[#0a192f] text-[#8892b0]">
       <div className="max-w-6xl mx-auto px-6">
         <SectionTitle
-          label="Technical Expertise"
+          label="01"
           title="Skills & Technologies"
           subtitle="A curated set of tools and technologies I work with professionally."
         />
