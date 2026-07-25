@@ -6,7 +6,7 @@ export default function ProjectsSection({ projects }: { projects: PortfolioUser[
   if (projects.length === 0) return null;
 
   return (
-    <section id="projects" className="py-24 bg-gray-50 dark:bg-neutral-950">
+    <section id="projects" className="py-24 bg-[#0a192f] text-[#8892b0]">
       <div className="max-w-6xl mx-auto px-6">
         <SectionTitle
           label="Portfolio"

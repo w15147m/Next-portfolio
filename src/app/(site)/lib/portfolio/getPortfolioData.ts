@@ -1,4 +1,4 @@
-import type { PortfolioUser } from "@/components/portfolio/types";
+import type { PortfolioUser } from "../../_components/types";
 
 /**
  * Fetches the portfolio user data on the SERVER (during rendering, not in

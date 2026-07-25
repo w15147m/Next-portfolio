@@ -4,37 +4,37 @@ import type { PortfolioUser } from "../types";
 
 export default function HeroSection({ user }: { user: PortfolioUser }) {
   return (
-    <section id="hero" className="relative min-h-[100vh] flex items-center">
-      {/* Gradient Background */}
+    <section id="hero" className="relative min-h-[100vh] flex items-center bg-[#0a192f] text-[#8892b0]">
+      {/* Background glow matching navy theme */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full bg-brand-500/10 blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 w-[500px] h-[500px] rounded-full bg-purple-500/10 blur-3xl" />
+        <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full bg-[#64ffda]/5 blur-3xl" />
+        <div className="absolute -bottom-40 -left-40 w-[500px] h-[500px] rounded-full bg-[#112240]/40 blur-3xl" />
       </div>
 
       <div className="relative max-w-6xl mx-auto px-6 py-24 w-full">
         <div className="flex flex-col lg:flex-row items-center gap-16">
           {/* Text */}
           <div className="flex-1 text-center lg:text-left">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-50 dark:bg-brand-500/10 border border-brand-200 dark:border-brand-500/20 text-brand-600 dark:text-brand-400 text-sm font-medium mb-6">
-              <span className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#64ffda]/10 border border-[#64ffda]/20 text-[#64ffda] font-mono text-sm font-medium mb-6">
+              <span className="h-2 w-2 rounded-full bg-[#64ffda] animate-pulse" />
               Available for work
             </div>
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-gray-900 dark:text-white leading-tight mb-6">
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-[#ccd6f6] leading-tight mb-6">
               Hi, I'm{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-500 to-purple-600">
+              <span className="text-[#64ffda]">
                 {user.name}
               </span>
             </h1>
-            <p className="text-lg text-gray-600 dark:text-gray-400 max-w-xl lg:max-w-none leading-relaxed mb-8">
+            <p className="text-lg text-[#8892b0] max-w-xl lg:max-w-none leading-relaxed mb-8">
               {user.desc || "A passionate developer building amazing digital experiences."}
             </p>
-            <div className="flex flex-wrap items-center gap-3 justify-center lg:justify-start mb-8">
+            <div className="flex flex-wrap items-center gap-3 justify-center lg:justify-start mb-8 font-mono">
               {user.number && (
                 <a
                   href={`tel:${user.number}`}
-                  className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 hover:text-brand-500 transition"
+                  className="flex items-center gap-2 text-sm text-[#8892b0] hover:text-[#64ffda] transition-colors"
                 >
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg className="w-4 h-4 text-[#64ffda]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -48,9 +48,9 @@ export default function HeroSection({ user }: { user: PortfolioUser }) {
               {user.email && (
                 <a
                   href={`mailto:${user.email}`}
-                  className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 hover:text-brand-500 transition"
+                  className="flex items-center gap-2 text-sm text-[#8892b0] hover:text-[#64ffda] transition-colors"
                 >
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg className="w-4 h-4 text-[#64ffda]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -62,8 +62,8 @@ export default function HeroSection({ user }: { user: PortfolioUser }) {
                 </a>
               )}
               {user.address && (
-                <span className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <span className="flex items-center gap-2 text-sm text-[#8892b0]">
+                  <svg className="w-4 h-4 text-[#64ffda]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -76,16 +76,16 @@ export default function HeroSection({ user }: { user: PortfolioUser }) {
                 </span>
               )}
             </div>
-            <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
+            <div className="flex flex-wrap gap-3 justify-center lg:justify-start font-mono">
               <a
                 href="#contact"
-                className="px-6 py-3 bg-brand-500 hover:bg-brand-600 text-white font-semibold rounded-xl transition shadow-lg shadow-brand-500/30"
+                className="px-6 py-3 border border-[#64ffda] text-[#64ffda] rounded-xl hover:bg-[#64ffda]/10 transition-colors"
               >
                 Get in Touch
               </a>
               <a
                 href="#projects"
-                className="px-6 py-3 bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 text-gray-700 dark:text-gray-300 font-semibold rounded-xl hover:border-brand-400 transition"
+                className="px-6 py-3 bg-[#112240] border border-[#233554] text-[#ccd6f6] rounded-xl hover:border-[#64ffda] hover:text-[#64ffda] transition-colors"
               >
                 View Projects
               </a>
@@ -99,7 +99,7 @@ export default function HeroSection({ user }: { user: PortfolioUser }) {
                     href={s.link || "#"}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-10 h-10 flex items-center justify-center rounded-xl border border-gray-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 text-gray-600 dark:text-gray-400 hover:text-brand-500 hover:border-brand-400 transition"
+                    className="w-10 h-10 flex items-center justify-center rounded-xl border border-[#233554] bg-[#112240] text-[#a8b2d1] hover:text-[#64ffda] hover:border-[#64ffda] transition-colors"
                     title={s.name}
                   >
                     {socialIcons[s.name] || <span className="text-xs font-bold">{s.name[0]}</span>}
@@ -112,13 +112,13 @@ export default function HeroSection({ user }: { user: PortfolioUser }) {
           {/* Avatar */}
           <div className="flex-shrink-0">
             <div className="relative w-64 h-64 lg:w-80 lg:h-80">
-              <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-brand-400 to-purple-600 rotate-6 opacity-20" />
-              <div className="relative w-full h-full rounded-3xl overflow-hidden border-4 border-white dark:border-neutral-800 shadow-2xl bg-gray-100 dark:bg-neutral-900">
+              <div className="absolute inset-0 rounded-3xl bg-[#64ffda] rotate-6 opacity-20" />
+              <div className="relative w-full h-full rounded-3xl overflow-hidden border-2 border-[#64ffda] shadow-2xl bg-[#112240]">
                 {user.image ? (
                   <Image src={user.image} alt={user.name} fill className="object-cover" priority />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center">
-                    <span className="text-7xl font-black text-gray-300 dark:text-neutral-700">{user.name[0]}</span>
+                    <span className="text-7xl font-bold text-[#64ffda]">{user.name[0]}</span>
                   </div>
                 )}
               </div>

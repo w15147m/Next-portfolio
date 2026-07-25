@@ -4,7 +4,7 @@ import type { PortfolioUser } from "../types";
 
 export default function ContactSection({ user }: { user: PortfolioUser }) {
   return (
-    <section id="contact" className="py-24 bg-white dark:bg-neutral-900">
+    <section id="contact" className="py-24 bg-[#0a192f] text-[#8892b0]">
       <div className="max-w-4xl mx-auto px-6">
         <SectionTitle
           label="Let's Connect"
@@ -16,8 +16,8 @@ export default function ContactSection({ user }: { user: PortfolioUser }) {
           <div className="lg:col-span-2 space-y-6">
             {user.email && (
               <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-xl bg-brand-50 dark:bg-brand-500/10 flex items-center justify-center flex-shrink-0">
-                  <svg className="w-5 h-5 text-brand-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div className="w-10 h-10 rounded-xl bg-[#64ffda]/10 border border-[#64ffda]/20 flex items-center justify-center flex-shrink-0">
+                  <svg className="w-5 h-5 text-[#64ffda]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -27,8 +27,8 @@ export default function ContactSection({ user }: { user: PortfolioUser }) {
                   </svg>
                 </div>
                 <div>
-                  <p className="text-xs text-gray-400 mb-1 font-medium uppercase tracking-wide">Email</p>
-                  <a href={`mailto:${user.email}`} className="text-gray-800 dark:text-white font-medium text-sm hover:text-brand-500 transition break-all">
+                  <p className="text-xs text-[#64ffda] font-mono mb-1 uppercase tracking-wide">Email</p>
+                  <a href={`mailto:${user.email}`} className="text-[#ccd6f6] font-mono text-sm hover:text-[#64ffda] transition-colors break-all">
                     {user.email}
                   </a>
                 </div>
@@ -36,8 +36,8 @@ export default function ContactSection({ user }: { user: PortfolioUser }) {
             )}
             {user.number && (
               <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-xl bg-brand-50 dark:bg-brand-500/10 flex items-center justify-center flex-shrink-0">
-                  <svg className="w-5 h-5 text-brand-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div className="w-10 h-10 rounded-xl bg-[#64ffda]/10 border border-[#64ffda]/20 flex items-center justify-center flex-shrink-0">
+                  <svg className="w-5 h-5 text-[#64ffda]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -47,8 +47,8 @@ export default function ContactSection({ user }: { user: PortfolioUser }) {
                   </svg>
                 </div>
                 <div>
-                  <p className="text-xs text-gray-400 mb-1 font-medium uppercase tracking-wide">Phone</p>
-                  <a href={`tel:${user.number}`} className="text-gray-800 dark:text-white font-medium text-sm hover:text-brand-500 transition">
+                  <p className="text-xs text-[#64ffda] font-mono mb-1 uppercase tracking-wide">Phone</p>
+                  <a href={`tel:${user.number}`} className="text-[#ccd6f6] font-mono text-sm hover:text-[#64ffda] transition-colors">
                     {user.number}
                   </a>
                 </div>
@@ -56,8 +56,8 @@ export default function ContactSection({ user }: { user: PortfolioUser }) {
             )}
             {user.socials.length > 0 && (
               <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-xl bg-brand-50 dark:bg-brand-500/10 flex items-center justify-center flex-shrink-0">
-                  <svg className="w-5 h-5 text-brand-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div className="w-10 h-10 rounded-xl bg-[#64ffda]/10 border border-[#64ffda]/20 flex items-center justify-center flex-shrink-0">
+                  <svg className="w-5 h-5 text-[#64ffda]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -67,7 +67,7 @@ export default function ContactSection({ user }: { user: PortfolioUser }) {
                   </svg>
                 </div>
                 <div>
-                  <p className="text-xs text-gray-400 mb-2 font-medium uppercase tracking-wide">Social Links</p>
+                  <p className="text-xs text-[#64ffda] font-mono mb-2 uppercase tracking-wide">Social Links</p>
                   <div className="flex gap-2 flex-wrap">
                     {user.socials.map((s) => (
                       <a
@@ -75,7 +75,7 @@ export default function ContactSection({ user }: { user: PortfolioUser }) {
                         href={s.link || "#"}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-3 py-1 rounded-lg text-xs font-medium bg-gray-100 dark:bg-neutral-800 text-gray-700 dark:text-gray-300 hover:bg-brand-50 dark:hover:bg-brand-500/10 hover:text-brand-500 transition"
+                        className="px-3 py-1 rounded-lg text-xs font-mono bg-[#112240] border border-[#233554] text-[#a8b2d1] hover:text-[#64ffda] hover:border-[#64ffda] transition-colors"
                       >
                         {s.name}
                       </a>
@@ -87,7 +87,7 @@ export default function ContactSection({ user }: { user: PortfolioUser }) {
           </div>
 
           {/* Form */}
-          <div className="lg:col-span-3 rounded-2xl border border-gray-200 dark:border-neutral-800 bg-gray-50 dark:bg-neutral-950 p-6">
+          <div className="lg:col-span-3 rounded-2xl border border-[#233554] bg-[#112240] p-6">
             <ContactForm />
           </div>
         </div>

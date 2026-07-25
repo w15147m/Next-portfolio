@@ -27,26 +27,26 @@ const SiteHeader: React.FC = () => {
   return (
     <header
       className={`sticky top-0 z-99999 w-full transition-all duration-300 ${scrolled
-        ? "bg-white/90 dark:bg-neutral-950/90 backdrop-blur-lg border-b border-gray-200 dark:border-neutral-800 shadow-sm"
+        ? "bg-[#0a192f]/90 backdrop-blur-lg border-b border-[#233554] shadow-sm"
         : "bg-transparent"
         }`}
     >
       {/* Desktop Nav */}
-      <nav className="hidden md:flex items-center gap-1">
+      <nav className="hidden md:flex items-center gap-1 font-mono">
         <div
           className={cn(" fixed inset-x-0 top-5 z-50 mx-auto max-w-2xl")}
         >
 
           <Menu setActive={setActive}>
-            <Link href="/" className="font-black flex text-xl text-gray-900 dark:text-white tracking-tight hover:text-brand-500 transition">
+            <Link href="/" className="font-bold flex text-xl text-[#ccd6f6] tracking-tight hover:text-[#64ffda] transition-colors">
               <MenuItem setActive={setActive} active='active' item='WA' />
-              <span className="text-brand-500">.</span>
+              <span className="text-[#64ffda]">.</span>
             </Link>
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                className="px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400transition"
+                className="px-3 py-2 rounded-lg text-sm font-mono text-[#a8b2d1] hover:text-[#64ffda] transition-colors"
               >
                 <MenuItem setActive={setActive} active={active} item={link.label} />
 
@@ -54,15 +54,13 @@ const SiteHeader: React.FC = () => {
 
             ))}
 
-
-
           </Menu>
         </div>
       </nav>
       {/* Right side */}
-      <div className="md:hidden flex justify-end items-center gap-3 max-w-6xl mx-auto px-6 h-16 flex items-center ">
+      <div className="md:hidden flex justify-end items-center gap-3 max-w-6xl mx-auto px-6 h-16 flex items-center">
         <button
-          className="md:hidden p-2 rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-neutral-800 transition"
+          className="md:hidden p-2 rounded-lg text-[#a8b2d1] hover:bg-[#112240] hover:text-[#64ffda] transition-colors"
           onClick={() => setMenuOpen(!menuOpen)}
         >
           {menuOpen ? (
@@ -74,18 +72,18 @@ const SiteHeader: React.FC = () => {
       </div>
       {/* Mobile Nav */}
       {menuOpen && (
-        <div className="md:hidden border-t border-gray-200 dark:border-neutral-800 bg-white dark:bg-neutral-950 px-6 py-4 space-y-1">
+        <div className="md:hidden border-t border-[#233554] bg-[#0a192f] px-6 py-4 space-y-1 font-mono">
           {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
               onClick={() => setMenuOpen(false)}
-              className="block px-4 py-2.5 rounded-xl text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-neutral-800 hover:text-brand-500 transition"
+              className="block px-4 py-2.5 rounded-xl text-sm text-[#a8b2d1] hover:bg-[#112240] hover:text-[#64ffda] transition-colors"
             >
               {link.label}
             </a>
           ))}
-          <a href="#contact" onClick={() => setMenuOpen(false)} className="block mt-2 px-4 py-2.5 rounded-xl text-sm font-semibold text-center bg-brand-500 text-white hover:bg-brand-600 transition">
+          <a href="#contact" onClick={() => setMenuOpen(false)} className="block mt-2 px-4 py-2.5 rounded-xl text-sm font-semibold text-center border border-[#64ffda] text-[#64ffda] hover:bg-[#64ffda]/10 transition-colors">
             Hire Me
           </a>
         </div>

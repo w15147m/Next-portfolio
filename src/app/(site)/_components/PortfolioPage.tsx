@@ -48,7 +48,7 @@ async function PortfolioPage() {
   }
 
   return (
-    <main className="flex flex-col w-full overflow-hidden bg-gray-50 dark:bg-neutral-950">
+    <main className="flex flex-col w-full overflow-hidden bg-[#0a192f] text-[#8892b0] selection:bg-[#233554] selection:text-[#64ffda]">
       <HeroSection user={user} />
       <SkillsSection skills={user.skills} />
       <ProjectsSection projects={user.projects} />
