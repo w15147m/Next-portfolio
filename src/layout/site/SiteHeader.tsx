@@ -6,6 +6,7 @@ import Link from "next/link";
 import React, { useState, useEffect } from "react";
 
 const navLinks = [
+  { label: "Home", href: "#hero" },
   { label: "About", href: "#about" },
   { label: "Skills", href: "#skills" },
   { label: "Projects", href: "#projects" },
@@ -46,23 +47,16 @@ const SiteHeader: React.FC = () => {
   return (
     <header
       style={headerAnimStyle}
-      className={`sticky top-0 z-99999 w-full transition-all duration-300 ${
-        scrolled
-          ? "bg-[#0a192f]/90 backdrop-blur-lg border-b border-[#233554] shadow-sm"
-          : "bg-transparent"
-      }`}
+      className={`sticky top-0 z-99999 w-full transition-all duration-300 ${scrolled
+        ? "bg-[#0a192f]/90 backdrop-blur-lg border-b border-[#233554] shadow-sm"
+        : "bg-transparent"
+        }`}
     >
       {/* Desktop Nav */}
       <nav className="hidden md:flex items-center gap-1 font-mono">
         <div className={cn("fixed inset-x-0 top-5 z-50 mx-auto max-w-2xl")}>
           <Menu setActive={setActive}>
-            <Link
-              href="/"
-              className="font-bold flex text-xl text-[#ccd6f6] tracking-tight hover:text-[#64ffda] transition-colors"
-            >
-              <MenuItem setActive={setActive} active="active" item="WA" />
-              <span className="text-[#64ffda]">.</span>
-            </Link>
+
             {navLinks.map((link) => (
               <a
                 key={link.href}
