@@ -3,7 +3,6 @@
 import React from "react";
 import { TableCell, TableRow } from "@/components/ui/table";
 import Button from "@/components/ui/button/Button";
-import SkillIcon from "@/components/ui/SkillIcon";
 import EducationFormModal from "../../../EducationFormModal";
 import DeleteEducationModal from "../../../DeleteEducationModal";
 import type { Education } from "../../../../_lib/schema";
@@ -24,7 +23,7 @@ export default function EducationsTableRow({ education, userId }: EducationsTabl
     <TableRow className="border-b border-gray-100 dark:border-neutral-900 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
       <TableCell className="px-4">
         <span className="font-medium text-gray-800 dark:text-white/90 flex items-center">
-          <SkillIcon icon={education.institution} size={40} />
+          {education.id}
         </span>
       </TableCell>
       <TableCell className="px-4 py-3">
