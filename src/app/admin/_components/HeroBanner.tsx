@@ -1,88 +1,37 @@
 import React from 'react';
-import Link from 'next/link';
 
-interface Counts {
-  skills: number;
-  projects: number;
-  experiences: number;
-  messages: number;
-  unreadMessages: number;
-}
-
-interface HeroBannerProps {
-  userName: string;
-  userImage?: string | null;
-  counts: Counts;
-}
-
-export default function HeroBanner({ userName, userImage, counts }: HeroBannerProps) {
+export default function HeroBanner({ userName, userImage }: { userName: string, userImage?: string | null }) {
   return (
-    <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0c1c2a] via-[#05111a] to-black p-8 md:p-12 border border-brand-500/20 shadow-[0_0_40px_rgba(100,255,218,0.1)]">
-      {/* Background glow effects */}
-      <div className="absolute -top-24 -right-24 w-96 h-96 bg-brand-500/20 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-purple-500/10 rounded-full blur-[100px] pointer-events-none" />
-      
-      <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-8">
+    <div className="rounded-2xl bg-[#091515] border border-[#163533] p-6 flex flex-col md:flex-row items-center justify-between shadow-[0_0_30px_rgba(20,80,75,0.2)]">
+      <div className="flex items-center gap-6">
+        {userImage ? (
+          <img src={userImage} alt={userName} className="w-16 h-16 rounded-full border border-teal-500/50" />
+        ) : (
+          <div className="w-16 h-16 rounded-full bg-teal-900/40 border border-teal-500/50 flex items-center justify-center text-teal-400 font-bold text-2xl">
+            {userName.charAt(0).toUpperCase()}
+          </div>
+        )}
         <div>
-          <div className="flex items-center gap-4 mb-4">
-            {userImage ? (
-              <img src={userImage} alt={userName} className="w-16 h-16 rounded-full border-2 border-brand-500/50 object-cover shadow-[0_0_15px_rgba(100,255,218,0.3)]" />
-            ) : (
-              <div className="w-16 h-16 rounded-full bg-brand-500/20 border-2 border-brand-500/50 flex items-center justify-center text-brand-400 font-bold text-2xl shadow-[0_0_15px_rgba(100,255,218,0.3)]">
-                {userName.charAt(0).toUpperCase()}
-              </div>
-            )}
-            <div>
-              <h2 className="text-sm font-medium tracking-widest text-brand-400 uppercase mb-1">
-                Dashboard Overview
-              </h2>
-              <h1 className="text-3xl md:text-4xl font-bold text-white uppercase tracking-tight">
-                Welcome back, {userName.split(' ')[0]}
-              </h1>
-            </div>
-          </div>
-          
-          <div className="flex flex-wrap items-center gap-4 mt-8">
-            <Link 
-              href="/admin/projects"
-              className="flex items-center gap-2 bg-brand-500 text-gray-900 px-6 py-3 rounded-full font-semibold hover:bg-brand-400 transition-colors shadow-[0_0_15px_rgba(100,255,218,0.3)]"
-            >
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 4v16m8-8H4" />
-              </svg>
-              Add New Project
-            </Link>
-            <Link 
-              href="/admin/profile"
-              className="flex items-center gap-2 bg-white/5 border border-white/10 text-white px-6 py-3 rounded-full font-medium hover:bg-white/10 transition-colors backdrop-blur-sm"
-            >
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-              </svg>
-              Edit Profile
-            </Link>
+          <h1 className="text-2xl font-semibold text-teal-100 flex items-center gap-2 mb-1">
+            Welcome back, {userName.split(' ')[0]}! <span className="text-teal-500">/</span>
+          </h1>
+          <p className="text-lg text-teal-50/70 mb-3">Manage your portfolio effortlessly.</p>
+          <div className="flex items-center gap-3 text-xs">
+            <span className="flex items-center gap-1 text-teal-400">
+              <span className="w-2 h-2 rounded-full bg-teal-400 shadow-[0_0_8px_rgba(45,212,191,0.8)]"></span> Active
+            </span>
+            <span className="text-teal-600">|</span>
+            <span className="text-teal-600">Portfolio Updated: 2h ago</span>
           </div>
         </div>
-
-        {/* Quick Stats Grid */}
-        <div className="grid grid-cols-2 gap-4 md:gap-6 bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 md:p-8 shrink-0">
-          <div>
-            <p className="text-gray-400 text-sm font-medium mb-1">Total Projects</p>
-            <p className="text-3xl font-bold text-white">{counts.projects}</p>
-          </div>
-          <div>
-            <p className="text-gray-400 text-sm font-medium mb-1">Total Skills</p>
-            <p className="text-3xl font-bold text-white">{counts.skills}</p>
-          </div>
-          <div>
-            <p className="text-gray-400 text-sm font-medium mb-1">Experiences</p>
-            <p className="text-3xl font-bold text-white">{counts.experiences}</p>
-          </div>
-          <div>
-            <p className="text-gray-400 text-sm font-medium mb-1">Total Messages</p>
-            <p className="text-3xl font-bold text-white">{counts.messages}</p>
-          </div>
-        </div>
+      </div>
+      
+      {/* Mini Chart Mockup */}
+      <div className="hidden lg:flex h-20 w-56 relative bg-[#061011] rounded-lg border border-[#163533] overflow-hidden items-end shrink-0">
+        <svg className="absolute bottom-0 w-full h-full text-teal-500" preserveAspectRatio="none" viewBox="0 0 100 40">
+          <path d="M0,35 C20,35 30,10 50,25 C70,35 80,5 100,10 L100,40 L0,40 Z" fill="rgba(20,184,166,0.15)" stroke="currentColor" strokeWidth="2" />
+          <circle cx="80" cy="12" r="2" fill="#fff" stroke="currentColor" strokeWidth="1" />
+        </svg>
       </div>
     </div>
   );

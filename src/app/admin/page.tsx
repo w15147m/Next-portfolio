@@ -2,10 +2,14 @@ import type { Metadata } from "next";
 import React from "react";
 import { getSession } from "@/lib/session";
 import HeroBanner from "./_components/HeroBanner";
+import DashboardOverviewWidget from "./_components/DashboardOverviewWidget";
+import PortfolioHealthWidget from "./_components/PortfolioHealthWidget";
+import ActivityTimelineWidget from "./_components/ActivityTimelineWidget";
 import RecentProjectsGrid from "./_components/RecentProjectsGrid";
-import RecentMessagesList from "./_components/RecentMessagesList";
 import TopSkillsWidget from "./_components/TopSkillsWidget";
 import ExperienceTimelineWidget from "./_components/ExperienceTimelineWidget";
+import RecentMessagesList from "./_components/RecentMessagesList";
+import GithubActivityWidget from "./_components/GithubActivityWidget";
 
 export const metadata: Metadata = {
   title: "Admin Dashboard | Portfolio Management",
@@ -48,34 +52,43 @@ export default async function Dashboard() {
   const recentExperiences = data?.recentExperiences || [];
 
   return (
-    <div className="space-y-8 px-4 sm:px-8 pt-6 pb-12 max-w-7xl mx-auto">
-      {/* Hero Banner Section */}
-      <HeroBanner userName={userName} userImage={userImage} counts={counts} />
+    <div className="space-y-6 px-4 sm:px-6 lg:px-8 pt-6 pb-12 w-full max-w-[1600px] mx-auto bg-black min-h-screen">
+      {/* Row 1: Hero Banner */}
+      <div className="w-full">
+        <HeroBanner userName={userName} userImage={userImage} />
+      </div>
 
-      {/* Bento Grid Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      {/* Bento Grid System */}
+      <div className="grid grid-cols-1 md:grid-cols-6 lg:grid-cols-12 gap-6">
         
-        {/* Row 1: Projects (Span 2) + Skills (Span 1) */}
-        <div className="lg:col-span-2 flex flex-col">
-          <div className="flex items-center justify-between mb-4 pl-1">
-            <h3 className="text-xl font-bold text-white tracking-tight">Recent Projects</h3>
-          </div>
-          <div className="flex-1">
-            <RecentProjectsGrid projects={recentProjects} />
-          </div>
+        {/* Row 2 */}
+        <div className="md:col-span-6 lg:col-span-6">
+          <DashboardOverviewWidget counts={counts} />
+        </div>
+        <div className="md:col-span-3 lg:col-span-3">
+          <PortfolioHealthWidget />
+        </div>
+        <div className="md:col-span-3 lg:col-span-3">
+          <ActivityTimelineWidget />
         </div>
 
-        <div className="lg:col-span-1">
+        {/* Row 3 */}
+        <div className="md:col-span-6 lg:col-span-8">
+          <RecentProjectsGrid projects={recentProjects} />
+        </div>
+        <div className="md:col-span-6 lg:col-span-4">
           <TopSkillsWidget skills={recentSkills} />
         </div>
 
-        {/* Row 2: Experience (Span 1) + Messages (Span 2) */}
-        <div className="lg:col-span-1">
+        {/* Row 4 */}
+        <div className="md:col-span-4 lg:col-span-4">
           <ExperienceTimelineWidget experiences={recentExperiences} />
         </div>
-
-        <div className="lg:col-span-2">
+        <div className="md:col-span-4 lg:col-span-4">
           <RecentMessagesList messages={recentMessages} />
+        </div>
+        <div className="md:col-span-4 lg:col-span-4">
+          <GithubActivityWidget />
         </div>
         
       </div>
