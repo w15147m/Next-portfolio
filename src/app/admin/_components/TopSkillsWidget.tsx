@@ -1,4 +1,5 @@
 import React from 'react';
+import SkillIcon from '@/components/ui/SkillIcon';
 
 interface Skill {
   id: number;
@@ -40,15 +41,9 @@ export default function TopSkillsWidget({ skills }: { skills: Skill[] }) {
           return (
             <div key={s.id} className="flex items-center gap-3">
               <div className="w-8 flex justify-center shrink-0">
-                {s.image ? (
-                  <div className="w-7 h-7 bg-[#061011] border border-[#163533] rounded-full flex items-center justify-center shadow-inner overflow-hidden p-1">
-                    <img src={s.image} alt={s.name} className="w-full h-full object-contain" />
-                  </div>
-                ) : (
-                  <div className="w-7 h-7 bg-[#061011] border border-[#163533] rounded-full flex items-center justify-center shadow-inner text-[10px] font-bold text-teal-500">
-                    {s.name.charAt(0)}
-                  </div>
-                )}
+                <div className="w-7 h-7 bg-[#061011] border border-[#163533] rounded-full flex items-center justify-center shadow-inner overflow-hidden p-1">
+                  <SkillIcon icon={s.name} size={20} className="w-full h-full object-contain filter drop-shadow-md" />
+                </div>
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex justify-between items-center mb-1.5">
