@@ -13,7 +13,7 @@ interface EducationsTableProps {
 
 export default function EducationsTable({ userId }: EducationsTableProps) {
   const { educations, isLoading, isError } = useEducations(userId);
-  const headers = ["Icon", "Institution", "Degree", "Field of Study", "Duration", "Description", "Action"];
+  const headers = ["No", "Institution", "Degree", "Field of Study", "Duration", "Description", "Action"];
 
   return (
     <>
