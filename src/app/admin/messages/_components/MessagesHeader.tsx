@@ -5,7 +5,7 @@ import PageBreadcrumb from "@/components/common/PageBreadCrumb";
 
 export default function MessagesHeader() {
   return (
-    <div className="flex items-center justify-between">
+    <div className="px-8 flex items-center justify-between">
       <PageBreadcrumb pageTitle="Messages" />
     </div>
   );

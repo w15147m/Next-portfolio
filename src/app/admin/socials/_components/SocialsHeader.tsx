@@ -10,8 +10,8 @@ import { useridInterface } from "@/lib/schema/common";
 
 export default function SocialsHeader({ userId }: useridInterface) {
   return (
-    <div className="flex items-center justify-between">
-    
+    <div className="px-8 flex items-center justify-between">
+
       <PageBreadcrumb pageTitle="Socials" />
 
       <SocialFormModal

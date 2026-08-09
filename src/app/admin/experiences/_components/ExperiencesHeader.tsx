@@ -8,7 +8,7 @@ import { useridInterface } from "@/lib/schema/common";
 
 export default function ExperiencesHeader({ userId }: useridInterface) {
   return (
-    <div className="flex items-center justify-between">
+    <div className="px-8 flex items-center justify-between">
       <PageBreadcrumb pageTitle="Experiences" />
 
       <ExperienceFormModal
