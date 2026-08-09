@@ -3,7 +3,6 @@ import React from "react";
 import { getSession } from "@/lib/session";
 import HeroBanner from "./_components/HeroBanner";
 import DashboardOverviewWidget from "./_components/DashboardOverviewWidget";
-import PortfolioHealthWidget from "./_components/PortfolioHealthWidget";
 import ActivityTimelineWidget from "./_components/ActivityTimelineWidget";
 import RecentProjectsGrid from "./_components/RecentProjectsGrid";
 import TopSkillsWidget from "./_components/TopSkillsWidget";
@@ -62,13 +61,10 @@ export default async function Dashboard() {
       <div className="grid grid-cols-1 md:grid-cols-6 lg:grid-cols-12 gap-6">
         
         {/* Row 2 */}
-        <div className="md:col-span-6 lg:col-span-6">
+        <div className="md:col-span-4 lg:col-span-8">
           <DashboardOverviewWidget counts={counts} />
         </div>
-        <div className="md:col-span-3 lg:col-span-3">
-          <PortfolioHealthWidget />
-        </div>
-        <div className="md:col-span-3 lg:col-span-3">
+        <div className="md:col-span-2 lg:col-span-4">
           <ActivityTimelineWidget />
         </div>
 
@@ -81,13 +77,15 @@ export default async function Dashboard() {
         </div>
 
         {/* Row 4 */}
-        <div className="md:col-span-4 lg:col-span-4">
+        <div className="md:col-span-3 lg:col-span-6">
           <ExperienceTimelineWidget experiences={recentExperiences} />
         </div>
-        <div className="md:col-span-4 lg:col-span-4">
+        <div className="md:col-span-3 lg:col-span-6">
           <RecentMessagesList messages={recentMessages} />
         </div>
-        <div className="md:col-span-4 lg:col-span-4">
+        
+        {/* Row 5 */}
+        <div className="md:col-span-6 lg:col-span-12">
           <GithubActivityWidget />
         </div>
         

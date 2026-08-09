@@ -39,11 +39,13 @@ export default function TopSkillsWidget({ skills }: { skills: Skill[] }) {
           const pct = getPercent(s.proficiency);
           return (
             <div key={s.id} className="flex items-center gap-3">
-              <div className="w-6 flex justify-center shrink-0">
+              <div className="w-8 flex justify-center shrink-0">
                 {s.image ? (
-                  <img src={s.image} alt={s.name} className="w-5 h-5 object-contain" />
+                  <div className="w-7 h-7 bg-[#061011] border border-[#163533] rounded-full flex items-center justify-center shadow-inner overflow-hidden p-1">
+                    <img src={s.image} alt={s.name} className="w-full h-full object-contain" />
+                  </div>
                 ) : (
-                  <div className="w-5 h-5 bg-[#163533] rounded-full flex items-center justify-center text-[8px] font-bold text-teal-400">
+                  <div className="w-7 h-7 bg-[#061011] border border-[#163533] rounded-full flex items-center justify-center shadow-inner text-[10px] font-bold text-teal-500">
                     {s.name.charAt(0)}
                   </div>
                 )}
