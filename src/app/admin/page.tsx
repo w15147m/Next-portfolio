@@ -51,7 +51,7 @@ export default async function Dashboard() {
   const recentExperiences = data?.recentExperiences || [];
 
   return (
-    <div className="space-y-6 px-4 sm:px-6 lg:px-8 pt-6 pb-12 w-full max-w-[1600px] mx-auto bg-black min-h-screen">
+    <div className="space-y-6 px-4 sm:px-6 lg:px-8 pt-6 pb-12 w-full max-w-[1600px] mx-auto bg-gray-50 dark:bg-black min-h-screen">
       {/* Row 1: Hero Banner */}
       <div className="w-full">
         <HeroBanner userName={userName} userImage={userImage} />
