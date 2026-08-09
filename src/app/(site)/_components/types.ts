@@ -27,13 +27,6 @@ export interface PortfolioUser {
   }[];
   services: { id: number; name: string; desc: string | null; link: string | null }[];
   socials: { id: number; name: string; link: string | null; desc: string | null }[];
-  testimonials: {
-    id: number;
-    name: string;
-    role: string | null;
-    company: string | null;
-    image: string | null;
-    content: string;
-  }[];
+
   projects: { id: number; name: string; desc: string | null; image: string | null; skills: string[]; images: string[] }[];
 }

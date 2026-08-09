@@ -36,7 +36,7 @@ model User {
   socials            Social[]
   experiences        Experience[]
   educations         Education[]
-  testimonials       Testimonial[]
+
 
   @@map("users")
 }
@@ -287,17 +287,3 @@ model ContactMessage {
   @@map("contact_messages")
 }
 
-model Testimonial {
-  id        BigInt   @id @default(autoincrement())
-  userId    String   @map("user_id")
-  name      String
-  role      String?
-  company   String?
-  image     String?
-  content   String   @db.Text
-  createdAt DateTime @default(now()) @map("created_at")
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@map("testimonials")
-}
