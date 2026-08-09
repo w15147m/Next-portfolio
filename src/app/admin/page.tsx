@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import React from "react";
-import { getCurrentUserId } from "@/lib/session";
-import { DashboardMetrics } from "./_components/DashboardMetrics";
-import ActivityChart from "./_components/ActivityChart";
-import { RecentActivity } from "./_components/RecentActivity";
+import { getSession } from "@/lib/session";
+import HeroBanner from "./_components/HeroBanner";
+import RecentProjectsGrid from "./_components/RecentProjectsGrid";
+import RecentMessagesList from "./_components/RecentMessagesList";
+import TopSkillsWidget from "./_components/TopSkillsWidget";
+import ExperienceTimelineWidget from "./_components/ExperienceTimelineWidget";
 
 export const metadata: Metadata = {
   title: "Admin Dashboard | Portfolio Management",
@@ -25,8 +27,12 @@ async function getDashboardData(userId: string) {
 }
 
 export default async function Dashboard() {
-  const userId = await getCurrentUserId();
+  const session = await getSession();
+  const userId = session?.user?.id || null;
   const data = userId ? await getDashboardData(userId) : null;
+  
+  const userName = session?.user?.name || "Admin";
+  const userImage = session?.user?.image || null;
 
   const counts = data?.counts || {
     skills: 0,
@@ -38,25 +44,41 @@ export default async function Dashboard() {
 
   const recentProjects = data?.recentProjects || [];
   const recentMessages = data?.recentMessages || [];
+  const recentSkills = data?.recentSkills || [];
+  const recentExperiences = data?.recentExperiences || [];
 
   return (
-    <div className="space-y-6 px-8 pt-4">
-      {/* Welcome Banner */}
+    <div className="space-y-8 px-4 sm:px-8 pt-6 pb-12 max-w-7xl mx-auto">
+      {/* Hero Banner Section */}
+      <HeroBanner userName={userName} userImage={userImage} counts={counts} />
 
+      {/* Bento Grid Layout */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        {/* Row 1: Projects (Span 2) + Skills (Span 1) */}
+        <div className="lg:col-span-2 flex flex-col">
+          <div className="flex items-center justify-between mb-4 pl-1">
+            <h3 className="text-xl font-bold text-white tracking-tight">Recent Projects</h3>
+          </div>
+          <div className="flex-1">
+            <RecentProjectsGrid projects={recentProjects} />
+          </div>
+        </div>
 
-      {/* Metrics Cards */}
-      <DashboardMetrics counts={counts} />
+        <div className="lg:col-span-1">
+          <TopSkillsWidget skills={recentSkills} />
+        </div>
 
-      {/* Analytics Chart */}
-      <ActivityChart
-        skillsCount={counts.skills}
-        projectsCount={counts.projects}
-        experiencesCount={counts.experiences}
-        messagesCount={counts.messages}
-      />
+        {/* Row 2: Experience (Span 1) + Messages (Span 2) */}
+        <div className="lg:col-span-1">
+          <ExperienceTimelineWidget experiences={recentExperiences} />
+        </div>
 
-      {/* Recent Projects and Messages Tables */}
-      <RecentActivity projects={recentProjects} messages={recentMessages} />
+        <div className="lg:col-span-2">
+          <RecentMessagesList messages={recentMessages} />
+        </div>
+        
+      </div>
     </div>
   );
 }
