@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { Trash2 } from "lucide-react";
 import { Modal } from "@/components/ui/modal";
 import Button from "@/components/ui/button/Button";
 import { useModal } from "@/hooks/useModal";
@@ -50,9 +51,9 @@ export default function DeleteEducationModal({
         size="sm"
         variant="outline"
         onClick={openModal}
-        className="text-error-500 border-error-300 hover:bg-error-50 dark:border-error-500/30 dark:hover:bg-error-500/10"
+        className="px-2 text-error-500 hover:text-error-600 hover:bg-error-50 ring-error-300 dark:text-error-400 dark:hover:bg-error-500/10 dark:ring-error-500/30"
       >
-        Delete
+        <Trash2 className="w-4 h-4" />
       </Button>
 
       <Modal isOpen={isOpen} onClose={closeModal} className="max-w-[440px] p-6">

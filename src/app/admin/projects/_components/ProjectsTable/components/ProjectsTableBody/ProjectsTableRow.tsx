@@ -1,5 +1,6 @@
 "use client";
 
+import { Pencil } from "lucide-react";
 import React from "react";
 import { TableCell, TableRow } from "@/components/ui/table";
 import Button from "@/components/ui/button/Button";
@@ -61,8 +62,8 @@ export default function ProjectsTableRow({ project, userId }: ProjectsTableRowPr
             userId={userId}
             project={project}
             trigger={
-              <Button size="sm" variant="outline">
-                Edit
+              <Button size="sm" variant="outline" className="px-2">
+                <Pencil className="w-4 h-4" />
               </Button>
             }
           />

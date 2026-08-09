@@ -12,6 +12,8 @@ interface ButtonProps {
   type?: "button" | "submit" | "reset"; // Button type
 }
 
+import { twMerge } from "tailwind-merge";
+
 const Button: React.FC<ButtonProps> = ({
   children,
   size = "md",
@@ -40,11 +42,13 @@ const Button: React.FC<ButtonProps> = ({
   return (
     <button
       type={type}
-      className={`inline-flex items-center justify-center font-medium gap-2 rounded-lg transition ${className} ${
-        sizeClasses[size]
-      } ${variantClasses[variant]} ${
-        disabled ? "cursor-not-allowed opacity-50" : ""
-      }`}
+      className={twMerge(
+        "inline-flex items-center justify-center font-medium gap-2 rounded-lg transition",
+        sizeClasses[size],
+        variantClasses[variant],
+        disabled ? "cursor-not-allowed opacity-50" : "",
+        className
+      )}
       onClick={onClick}
       disabled={disabled}
     >

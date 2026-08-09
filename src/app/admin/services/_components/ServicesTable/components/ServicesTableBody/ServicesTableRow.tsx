@@ -1,5 +1,6 @@
 "use client";
 
+import { Pencil } from "lucide-react";
 import React from "react";
 import { TableCell, TableRow } from "@/components/ui/table";
 import Button from "@/components/ui/button/Button";
@@ -50,8 +51,8 @@ export default function ServicesTableRow({ service, userId }: ServicesTableRowPr
             userId={userId}
             service={service}
             trigger={
-              <Button size="sm" variant="outline">
-                Edit
+              <Button size="sm" variant="outline" className="px-2">
+                <Pencil className="w-4 h-4" />
               </Button>
             }
           />
