@@ -73,7 +73,7 @@ export default function ActivityChart({
   ];
 
   return (
-    <div className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-neutral-900 dark:bg-zinc-950 sm:p-6">
+    <div className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-none dark:bg-black sm:p-6">
       <div className="flex items-center justify-between mb-4">
         <div>
           <h3 className="text-lg font-semibold text-gray-800 dark:text-white/90">

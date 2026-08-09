@@ -28,7 +28,7 @@ export const RecentActivity: React.FC<RecentActivityProps> = ({ projects, messag
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
       {/* Recent Projects */}
-      <div className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-neutral-900 dark:bg-zinc-950">
+      <div className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-none dark:bg-black">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-semibold text-gray-800 dark:text-white/90">
             Recent Projects
@@ -84,7 +84,7 @@ export const RecentActivity: React.FC<RecentActivityProps> = ({ projects, messag
       </div>
 
       {/* Recent Messages */}
-      <div className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-neutral-900 dark:bg-zinc-950">
+      <div className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-none dark:bg-black">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-semibold text-gray-800 dark:text-white/90">
             Recent Contact Messages

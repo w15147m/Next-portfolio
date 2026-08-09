@@ -42,7 +42,7 @@ export default async function Dashboard() {
   return (
     <div className="space-y-6">
       {/* Welcome Banner */}
-      <div className="rounded-2xl border border-gray-200 bg-white p-6 dark:border-neutral-900 dark:bg-zinc-950 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div className="rounded-2xl border border-gray-200 bg-white p-6 dark:border-none dark:bg-black flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-gray-800 dark:text-white/90">
             Welcome back to your Portfolio Admin!

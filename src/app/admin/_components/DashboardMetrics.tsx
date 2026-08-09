@@ -72,7 +72,7 @@ export const DashboardMetrics: React.FC<DashboardMetricsProps> = ({ counts }) =>
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 md:gap-6">
       {metrics.map((item, idx) => (
         <Link key={idx} href={item.link} className="group block">
-          <div className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-neutral-900 dark:bg-zinc-950 transition-all hover:border-brand-500 dark:hover:border-brand-500 shadow-xs">
+          <div className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-none dark:bg-black transition-all hover:border-brand-500 dark:hover:border-brand-500 shadow-xs">
             <div className="flex items-center justify-between">
               <div className="flex items-center justify-center w-12 h-12 bg-brand-50 rounded-xl dark:bg-brand-500/10">
                 {item.icon}
