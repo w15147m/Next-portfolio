@@ -40,18 +40,9 @@ export default async function Dashboard() {
   const recentMessages = data?.recentMessages || [];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 px-8 pt-4">
       {/* Welcome Banner */}
-      <div className="rounded-2xl border border-gray-200 bg-white p-6 dark:border-none dark:bg-black flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-800 dark:text-white/90">
-            Welcome back to your Portfolio Admin!
-          </h1>
-          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-            Here&apos;s a quick snapshot of your live portfolio stats, content metrics, and contact messages.
-          </p>
-        </div>
-      </div>
+
 
       {/* Metrics Cards */}
       <DashboardMetrics counts={counts} />

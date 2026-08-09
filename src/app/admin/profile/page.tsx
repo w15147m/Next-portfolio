@@ -111,7 +111,10 @@ export default function ProfilePage() {
 
   return (
     <div className="space-y-6 p-4 sm:p-6">
-      <PageBreadcrumb pageTitle="Profile" />
+      <div className="px-8 flex items-center justify-between">
+
+        <PageBreadcrumb pageTitle="Profile" />
+      </div>
 
       {error && <Alert variant="error" title="Error" message={error} />}
 
@@ -137,10 +140,10 @@ export default function ProfilePage() {
                   <p className="mt-1 text-sm text-error-500">{feedback.fieldErrors.image[0]}</p>
                 )}
               </div>
-                  <div className="flex justify-center items-center p-2">
-                              {/* <SkillIcon icon='github' size={50} /> */}
-                    
-                  <p>{profile.email}</p>
+              <div className="flex justify-center items-center p-2">
+                {/* <SkillIcon icon='github' size={50} /> */}
+
+                <p>{profile.email}</p>
               </div>
             </div>
 
@@ -159,7 +162,7 @@ export default function ProfilePage() {
                 />
               </div>
 
-          
+
 
               <div>
                 <Label>Phone Number</Label>
