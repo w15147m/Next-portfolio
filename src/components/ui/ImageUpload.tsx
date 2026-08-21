@@ -76,7 +76,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
           className={`dropzone rounded-xl border-dashed border-gray-300 p-1 lg:p-10 relative overflow-hidden
         ${isDragActive
               ? "border-brand-500 bg-gray-100 dark:bg-gray-800"
-              : "border-gray-300 bg-gray-50 dark:border-gray-700 dark:bg-gray-900"
+              : "border-gray-300 bg-gray-50 dark:border-gray-700 dark:bg-neutral-950"
             }
       `}
           id="demo-upload"
@@ -86,7 +86,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
 
           {/* Uploading State Overlay */}
           {isUploading && (
-            <div className="absolute inset-0 bg-white/80 dark:bg-gray-900/80 z-10 flex items-center justify-center backdrop-blur-sm rounded-xl">
+            <div className="absolute inset-0 bg-white/80 dark:bg-neutral-950/80 z-10 flex items-center justify-center backdrop-blur-sm rounded-xl">
               <span className="text-brand-500 font-medium flex items-center gap-2">
                 <svg className="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
@@ -131,13 +131,10 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
                 </div>
               </div>
 
-              {/* Text Content */}
-              <h4 className="mb-3 font-semibold text-gray-800 text-theme-xl dark:text-white/90">
-                {isDragActive ? "Drop Files Here" : "Drag & Drop Files Here"}
-              </h4>
+            
 
               <span className=" text-center mb-5 block w-full max-w-[290px] text-sm text-gray-700 dark:text-gray-400">
-                Drag and drop your PNG, JPG, WebP, SVG images here or browse
+                Drag and drop, PNG, JPG, WebP, SVG 
               </span>
 
               <span className="font-medium underline text-theme-sm text-brand-500">

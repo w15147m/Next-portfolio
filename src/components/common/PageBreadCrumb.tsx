@@ -7,7 +7,7 @@ interface BreadcrumbProps {
 
 const PageBreadcrumb: React.FC<BreadcrumbProps> = ({ pageTitle }) => {
   return (
-    <div className="flex flex-col gap-2 mb-6">
+    <div className="flex flex-col gap-2 ">
       <h2
         className="text-xl font-semibold text-gray-800 dark:text-white/90"
         x-text="pageName"

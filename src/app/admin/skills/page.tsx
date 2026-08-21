@@ -1,20 +1,27 @@
-"use client";
+import ComponentCard from "@/components/common/ComponentCard";
+import { getCurrentUserId } from "@/lib/session";
+import CustomToaster from "@/components/common/CustomToaster";
+import SkillsHeader from "./_components/SkillsHeader";
+import SkillsTable from "./_components/SkillsTable/SkillsTable";
 
-import React from "react";
-import PageBreadcrumb from "@/components/common/PageBreadCrumb";
+export default async function SkillsPage() {
+  const userId = await getCurrentUserId();
 
-export default function SkillsPage() {
-  return (
-    <div className="space-y-6">
-      <PageBreadcrumb pageTitle="Skills" />
-      <div className="rounded-2xl border border-gray-200 bg-white p-6 dark:border-gray-800 dark:bg-white/[0.03]">
-        <h3 className="text-lg font-medium text-gray-800 dark:text-white/90">
-          Skills Coming Soon
-        </h3>
-        <p className="mt-2 text-sm text-gray-500">
-          This section is currently under development.
-        </p>
+  if (!userId) {
+    return (
+      <div className="p-10 text-center text-error-500">
+        Unauthorized. Please sign in.
       </div>
+    );
+  }
+
+  return (
+    <div className="space-y-5 p-4 sm:p-6">
+      <CustomToaster />
+      <SkillsHeader userId={userId} />
+      <ComponentCard title={null}>
+        <SkillsTable userId={userId} />
+      </ComponentCard>
     </div>
   );
 }

@@ -1,20 +1,27 @@
-"use client";
+import ComponentCard from "@/components/common/ComponentCard";
+import { getCurrentUserId } from "@/lib/session";
+import CustomToaster from "@/components/common/CustomToaster";
+import EducationsHeader from "./_components/EducationsHeader";
+import EducationsTable from "./_components/EducationsTable/EducationsTable";
 
-import React from "react";
-import PageBreadcrumb from "@/components/common/PageBreadCrumb";
+export default async function EducationsPage() {
+  const userId = await getCurrentUserId();
 
-export default function EducationsPage() {
-  return (
-    <div className="space-y-6">
-      <PageBreadcrumb pageTitle="Educations" />
-      <div className="rounded-2xl border border-gray-200 bg-white p-6 dark:border-gray-800 dark:bg-white/[0.03]">
-        <h3 className="text-lg font-medium text-gray-800 dark:text-white/90">
-          Educations Coming Soon
-        </h3>
-        <p className="mt-2 text-sm text-gray-500">
-          This section is currently under development.
-        </p>
+  if (!userId) {
+    return (
+      <div className="p-10 text-center text-error-500">
+        Unauthorized. Please sign in.
       </div>
+    );
+  }
+
+  return (
+    <div className="space-y-5 p-4 sm:p-6">
+      <CustomToaster />
+      <EducationsHeader userId={userId} />
+      <ComponentCard title={null}>
+        <EducationsTable userId={userId} />
+      </ComponentCard>
     </div>
   );
 }

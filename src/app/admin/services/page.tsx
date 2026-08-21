@@ -1,20 +1,27 @@
-"use client";
+import ComponentCard from "@/components/common/ComponentCard";
+import { getCurrentUserId } from "@/lib/session";
+import CustomToaster from "@/components/common/CustomToaster";
+import ServicesHeader from "./_components/ServicesHeader";
+import ServicesTable from "./_components/ServicesTable/ServicesTable";
 
-import React from "react";
-import PageBreadcrumb from "@/components/common/PageBreadCrumb";
+export default async function ServicesPage() {
+  const userId = await getCurrentUserId();
 
-export default function ServicesPage() {
-  return (
-    <div className="space-y-6">
-      <PageBreadcrumb pageTitle="Services" />
-      <div className="rounded-2xl border border-gray-200 bg-white p-6 dark:border-gray-800 dark:bg-white/[0.03]">
-        <h3 className="text-lg font-medium text-gray-800 dark:text-white/90">
-          Services Coming Soon
-        </h3>
-        <p className="mt-2 text-sm text-gray-500">
-          This section is currently under development.
-        </p>
+  if (!userId) {
+    return (
+      <div className="p-10 text-center text-error-500">
+        Unauthorized. Please sign in.
       </div>
+    );
+  }
+
+  return (
+    <div className="space-y-5 p-4 sm:p-6">
+      <CustomToaster />
+      <ServicesHeader userId={userId} />
+      <ComponentCard title={null}>
+        <ServicesTable userId={userId} />
+      </ComponentCard>
     </div>
   );
 }

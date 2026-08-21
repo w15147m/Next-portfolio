@@ -19,26 +19,26 @@ model User {
   emailVerified Boolean     @default(false) @map("email_verified")
   image         String?
   password      String?
-  role          Role        @default(USER)
+  address       String?
+  number        String?
+  desc          String?     @db.Text          // Short bio / hero paragraph / meta description
+  subDesc       String?     @db.Text @map("sub_desc")  // Hero tagline e.g. "I build things for the web."
+  about         String?     @db.Text          // Long-form About Me body text (multi-paragraph)
+  openForWork   Boolean     @default(false) @map("open_for_work")  // "Open to opportunities" badge
   createdAt     DateTime    @default(now()) @map("created_at")
   updatedAt     DateTime    @updatedAt      @map("updated_at")
 
-  sessions     Session[]
-  accounts     Account[]
-  skills       Skill[]
-  projects     Project[]
-  services     Service[]
-  socials      Social[]
-  experiences  Experience[]
-  educations   Education[]
-  testimonials Testimonial[]
+  sessions           Session[]
+  accounts           Account[]
+  skills             Skill[]
+  projects           Project[]
+  services           Service[]
+  socials            Social[]
+  experiences        Experience[]
+  educations         Education[]
+
 
   @@map("users")
-}
-
-enum Role {
-  ADMIN
-  USER
 }
 
 // ─────────────────────────────────────────────
@@ -51,6 +51,8 @@ model Skill {
   proficiency String?
   image       String?
   desc        String?
+  isCore      Boolean  @default(false) @map("is_core")  // Shown in About Me bullet list
+  sortOrder   Int      @default(0) @map("sort_order")
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt      @map("updated_at")
 
@@ -68,13 +70,19 @@ model Project {
   userId      String   @map("user_id")
   name        String
   image       String?
-  desc        String?
+  desc        String?  @db.Text
+  github      String?                         // GitHub repo URL
+  external    String?                         // Live demo / external URL
+  type        String?                         // "web" | "mobile" | "desktop" | "open-source"
+  featured    Boolean  @default(false)        // Show on main portfolio (vs archive)
+  sortOrder   Int      @default(0) @map("sort_order")
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt      @map("updated_at")
 
-  user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
-  projectImages ProjectImage[]
-  projectSkills ProjectSkill[]
+  user               User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  projectImages      ProjectImage[]
+  projectSkills      ProjectSkill[]
+  experienceProjects ExperienceProject[]
 
   @@map("projects")
 }
@@ -116,13 +124,14 @@ model ProjectSkill {
 // SERVICES
 // ─────────────────────────────────────────────
 model Service {
-  id          BigInt   @id @default(autoincrement())
-  userId      String   @map("user_id")
-  name        String
-  desc        String?
-  link        String?
-  createdAt   DateTime @default(now()) @map("created_at")
-  updatedAt   DateTime @updatedAt      @map("updated_at")
+  id        BigInt   @id @default(autoincrement())
+  userId    String   @map("user_id")
+  name      String
+  desc      String?
+  link      String?
+  sortOrder Int      @default(0) @map("sort_order")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt      @map("updated_at")
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -133,13 +142,14 @@ model Service {
 // SOCIALS
 // ─────────────────────────────────────────────
 model Social {
-  id          BigInt   @id @default(autoincrement())
-  userId      String   @map("user_id")
-  name        String
-  desc        String?
-  link        String?
-  createdAt   DateTime @default(now()) @map("created_at")
-  updatedAt   DateTime @updatedAt      @map("updated_at")
+  id        BigInt   @id @default(autoincrement())
+  userId    String   @map("user_id")
+  name      String
+  desc      String?
+  link      String?
+  sortOrder Int      @default(0) @map("sort_order")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt      @map("updated_at")
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -150,20 +160,40 @@ model Social {
 // EXPERIENCES
 // ─────────────────────────────────────────────
 model Experience {
-  id          BigInt    @id @default(autoincrement())
-  userId      String    @map("user_id")
-  company     String
-  position    String
-  image       String?
-  startDate   DateTime  @map("start_date") @db.Date
-  endDate     DateTime? @map("end_date")   @db.Date
-  desc        String?
-  createdAt   DateTime  @default(now()) @map("created_at")
-  updatedAt   DateTime  @updatedAt      @map("updated_at")
+  id        BigInt    @id @default(autoincrement())
+  userId    String    @map("user_id")
+  company   String
+  position  String
+  image     String?
+  url       String?                           // Company website URL
+  location  String?                           // "Remote" | "New York, NY" | etc.
+  startDate DateTime  @map("start_date") @db.Date
+  endDate   DateTime? @map("end_date")   @db.Date
+  desc      String?   @db.Text
+  sortOrder Int       @default(0) @map("sort_order")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt      @map("updated_at")
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user               User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  experienceProjects ExperienceProject[]
 
   @@map("experiences")
+}
+
+// ─────────────────────────────────────────────
+// EXPERIENCE_PROJECTS  (pivot — Experience ↔ Project)
+// ─────────────────────────────────────────────
+model ExperienceProject {
+  id           BigInt   @id @default(autoincrement())
+  experienceId BigInt   @map("experience_id")
+  projectId    BigInt   @map("project_id")
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  experience Experience @relation(fields: [experienceId], references: [id], onDelete: Cascade)
+  project    Project    @relation(fields: [projectId],    references: [id], onDelete: Cascade)
+
+  @@unique([experienceId, projectId])
+  @@map("experience_projects")
 }
 
 // ─────────────────────────────────────────────
@@ -237,7 +267,6 @@ model Verification {
 // ─────────────────────────────────────────────
 // NEW ADDITIONS
 // ─────────────────────────────────────────────
-
 model TempImage {
   id        String   @id @default(cuid())
   url       String   @unique
@@ -258,17 +287,3 @@ model ContactMessage {
   @@map("contact_messages")
 }
 
-model Testimonial {
-  id          BigInt   @id @default(autoincrement())
-  userId      String   @map("user_id")
-  name        String
-  role        String?
-  company     String?
-  image       String?
-  content     String   @db.Text
-  createdAt   DateTime @default(now()) @map("created_at")
-  
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@map("testimonials")
-}
