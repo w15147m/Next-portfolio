@@ -46,7 +46,7 @@
   --color-current: currentColor;
   --color-transparent: transparent;
   --color-white: #ffffff;
-  --color-black: #101828;
+  --color-black: #000000;
 
   --color-brand-25: #e6f1ff;
   --color-brand-50: #112240;
@@ -198,7 +198,7 @@
     cursor: pointer;
   }
   body {
-    @apply relative font-normal font-outfit z-1 bg-gray-50;
+    @apply relative font-normal font-outfit z-1 bg-gray-50 dark:bg-black;
   }
 }
 
@@ -207,7 +207,7 @@
 }
 
 @utility menu-item-active {
-  @apply bg-brand-50 text-brand-500 dark:bg-brand-500/[0.12] dark:text-brand-400;
+  @apply bg-brand-500/10 text-brand-800 dark:bg-brand-500/[0.12] dark:text-brand-400;
 }
 
 @utility menu-item-inactive {
@@ -243,7 +243,7 @@
 }
 
 @utility menu-dropdown-item-active {
-  @apply bg-brand-50 text-brand-500 dark:bg-brand-500/[0.12] dark:text-brand-400;
+  @apply bg-brand-500/10 text-brand-800 dark:bg-brand-500/[0.12] dark:text-brand-400;
 }
 
 @utility menu-dropdown-item-inactive {
@@ -259,7 +259,7 @@
 }
 
 @utility menu-dropdown-badge-inactive {
-  @apply bg-brand-50 group-hover:bg-brand-100 dark:bg-brand-500/15 dark:group-hover:bg-brand-500/20;
+  @apply bg-brand-500/10 group-hover:bg-brand-500/20 dark:bg-brand-500/15 dark:group-hover:bg-brand-500/20;
 }
 
 @utility no-scrollbar {

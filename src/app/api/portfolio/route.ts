@@ -11,7 +11,7 @@ export async function GET(request: NextRequest) {
         educations: { orderBy: { startDate: "desc" } },
         services: { orderBy: { createdAt: "asc" } },
         socials: { orderBy: { createdAt: "asc" } },
-        testimonials: { orderBy: { createdAt: "desc" } },
+
         projects: {
           orderBy: { createdAt: "desc" },
           include: {
@@ -36,7 +36,7 @@ export async function GET(request: NextRequest) {
         educations: user.educations.map((e) => ({ ...e, id: Number(e.id) })),
         services: user.services.map((s) => ({ ...s, id: Number(s.id) })),
         socials: user.socials.map((s) => ({ ...s, id: Number(s.id) })),
-        testimonials: user.testimonials.map((t) => ({ ...t, id: Number(t.id) })),
+
         projects: user.projects.map((p) => ({
           id: Number(p.id),
           name: p.name,

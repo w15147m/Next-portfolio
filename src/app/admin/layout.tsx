@@ -27,8 +27,8 @@ export default function AdminLayout({
   const mainContentMargin = isMobileOpen
     ? "ml-0"
     : isExpanded || isHovered
-    ? "lg:ml-[290px]"
-    : "lg:ml-[90px]";
+      ? "lg:ml-[290px]"
+      : "lg:ml-[90px]";
 
   if (isPending) {
     return <div className="flex items-center justify-center min-h-screen">Loading...</div>;
@@ -45,12 +45,12 @@ export default function AdminLayout({
       <Backdrop />
       {/* Main Content Area */}
       <div
-        className={`flex-1 transition-all dark:bg-[#0b0b0b]  duration-300 ease-in-out ${mainContentMargin}`}
+        className={`flex-1 transition-all dark:bg-black duration-300 ease-in-out ${mainContentMargin}`}
       >
         {/* Header */}
         <AppHeader />
         {/* Page Content */}
-        <div className="p-4 mx-auto max-w-(--breakpoint-2xl) md:p-6 ">{children}</div>
+        {children}
       </div>
     </div>
   );

@@ -14,6 +14,8 @@ export async function GET(request: NextRequest) {
       unreadMessagesCount,
       recentProjects,
       recentMessages,
+      recentSkills,
+      recentExperiences,
     ] = await Promise.all([
       prisma.skill.count(userId ? { where: { userId } } : undefined),
       prisma.project.count(userId ? { where: { userId } } : undefined),
@@ -33,6 +35,16 @@ export async function GET(request: NextRequest) {
       prisma.contactMessage.findMany({
         orderBy: { createdAt: "desc" },
         take: 5,
+      }),
+      prisma.skill.findMany({
+        ...(userId ? { where: { userId } } : {}),
+        orderBy: { sortOrder: "asc" },
+        take: 6,
+      }),
+      prisma.experience.findMany({
+        ...(userId ? { where: { userId } } : {}),
+        orderBy: { startDate: "desc" },
+        take: 4,
       }),
     ]);
 
@@ -55,6 +67,21 @@ export async function GET(request: NextRequest) {
       createdAt: m.createdAt,
     }));
 
+    const serializedSkills = recentSkills.map((s) => ({
+      id: Number(s.id),
+      name: s.name,
+      proficiency: s.proficiency || "Beginner",
+      image: s.image,
+    }));
+
+    const serializedExperiences = recentExperiences.map((e) => ({
+      id: Number(e.id),
+      company: e.company,
+      position: e.position,
+      startDate: e.startDate,
+      endDate: e.endDate,
+    }));
+
     return NextResponse.json({
       counts: {
         skills: skillsCount,
@@ -65,6 +92,8 @@ export async function GET(request: NextRequest) {
       },
       recentProjects: serializedProjects,
       recentMessages: serializedMessages,
+      recentSkills: serializedSkills,
+      recentExperiences: serializedExperiences,
     });
   } catch (error: any) {
     console.error("Dashboard stats error:", error);

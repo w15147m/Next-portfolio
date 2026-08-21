@@ -8,7 +8,7 @@ import ProjectsSection from "./components/ProjectsSection";
 import ExperienceSection from "./components/ExperienceSection";
 import EducationSection from "./components/EducationSection";
 import ServicesSection from "./components/ServicesSection";
-import TestimonialsSection from "./components/TestimonialsSection";
+
 import ContactSection from "./components/ContactSection";
 import Footer from "./components/Footer";
 import Sidebars from "./components/Sidebars";
@@ -63,7 +63,7 @@ async function PortfolioPage() {
         <ExperienceSection experiences={user.experiences} />
         {/* <EducationSection educations={user.educations} /> */}
         <ServicesSection services={user.services} />
-        <TestimonialsSection testimonials={user.testimonials} />
+
         <ContactSection user={user} />
         <Footer user={user} />
       </main>
