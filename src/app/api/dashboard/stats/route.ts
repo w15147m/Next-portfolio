@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
+import { getGithubData } from "@/lib/github";
 
 export async function GET(request: NextRequest) {
   try {
@@ -82,6 +83,14 @@ export async function GET(request: NextRequest) {
       endDate: e.endDate,
     }));
 
+    const githubData = userId ? await getGithubData(userId) : {
+      isConnected: false,
+      username: null,
+      avatarUrl: null,
+      events: [],
+      calendar: null,
+    };
+
     return NextResponse.json({
       counts: {
         skills: skillsCount,
@@ -94,6 +103,7 @@ export async function GET(request: NextRequest) {
       recentMessages: serializedMessages,
       recentSkills: serializedSkills,
       recentExperiences: serializedExperiences,
+      github: githubData,
     });
   } catch (error: any) {
     console.error("Dashboard stats error:", error);

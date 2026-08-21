@@ -49,6 +49,13 @@ export default async function Dashboard() {
   const recentMessages = data?.recentMessages || [];
   const recentSkills = data?.recentSkills || [];
   const recentExperiences = data?.recentExperiences || [];
+  const githubData = data?.github || {
+    isConnected: false,
+    username: null,
+    avatarUrl: null,
+    events: [],
+    calendar: null,
+  };
 
   return (
     <div className="space-y-6 px-4 sm:px-6 lg:px-8 pt-6 pb-12 w-full max-w-[1600px] mx-auto bg-gray-50 dark:bg-black min-h-screen">
@@ -65,7 +72,7 @@ export default async function Dashboard() {
           <DashboardOverviewWidget counts={counts} />
         </div>
         <div className="md:col-span-2 lg:col-span-4">
-          <ActivityTimelineWidget />
+          <ActivityTimelineWidget github={githubData} />
         </div>
 
         {/* Row 3 */}
@@ -86,7 +93,7 @@ export default async function Dashboard() {
         
         {/* Row 5 */}
         <div className="md:col-span-6 lg:col-span-12">
-          <GithubActivityWidget />
+          <GithubActivityWidget github={githubData} />
         </div>
         
       </div>
