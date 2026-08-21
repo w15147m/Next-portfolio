@@ -3,23 +3,31 @@
 import React, { useState } from 'react';
 import { authClient } from '@/lib/auth-client';
 import type { GithubData } from '@/lib/github';
+import { showToast } from '@/components/common/CustomToaster';
 
 export default function ActivityTimelineWidget({ github }: { github?: GithubData }) {
   const [isConnecting, setIsConnecting] = useState(false);
 
   const handleConnectGithub = async () => {
+    if (!github?.isConfigured) {
+      showToast("GitHub App not configured! Please add GITHUB_CLIENT_ID and GITHUB_CLIENT_SECRET to your .env file.", "error");
+      return;
+    }
+
     try {
       setIsConnecting(true);
-      // Link GitHub account to current session
-      await (authClient as any).linkSocial?.({
-        provider: "github",
-        callbackURL: "/admin",
-      }) || await authClient.signIn.social({
+      const res = await authClient.signIn.social({
         provider: "github",
         callbackURL: "/admin",
       });
-    } catch (err) {
+
+      if (res?.error) {
+        showToast(res.error.message || "Failed to initiate GitHub OAuth. Check GITHUB_CLIENT_ID in .env", "error");
+        setIsConnecting(false);
+      }
+    } catch (err: any) {
       console.error("GitHub connect error:", err);
+      showToast("Please check that GITHUB_CLIENT_ID & GITHUB_CLIENT_SECRET are configured in your .env file.", "error");
       setIsConnecting(false);
     }
   };

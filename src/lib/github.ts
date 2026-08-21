@@ -25,6 +25,7 @@ export interface GithubCalendarData {
 
 export interface GithubData {
   isConnected: boolean;
+  isConfigured: boolean;
   username: string | null;
   avatarUrl: string | null;
   events: GithubEventItem[];
@@ -48,6 +49,11 @@ function timeAgo(dateString: string): string {
 }
 
 export async function getGithubData(userId: string): Promise<GithubData> {
+  const isConfigured = Boolean(
+    (process.env.GITHUB_CLIENT_ID && process.env.GITHUB_CLIENT_SECRET) ||
+    process.env.GITHUB_TOKEN
+  );
+
   try {
     const account = await prisma.account.findFirst({
       where: {
@@ -61,6 +67,7 @@ export async function getGithubData(userId: string): Promise<GithubData> {
     if (!accessToken) {
       return {
         isConnected: false,
+        isConfigured,
         username: null,
         avatarUrl: null,
         events: [],
@@ -82,6 +89,7 @@ export async function getGithubData(userId: string): Promise<GithubData> {
       console.warn("Failed to fetch GitHub user with token");
       return {
         isConnected: false,
+        isConfigured,
         username: null,
         avatarUrl: null,
         events: [],
@@ -227,6 +235,7 @@ export async function getGithubData(userId: string): Promise<GithubData> {
 
     return {
       isConnected: true,
+      isConfigured,
       username,
       avatarUrl,
       events,
@@ -236,6 +245,7 @@ export async function getGithubData(userId: string): Promise<GithubData> {
     console.error("getGithubData error:", error);
     return {
       isConnected: false,
+      isConfigured: false,
       username: null,
       avatarUrl: null,
       events: [],
