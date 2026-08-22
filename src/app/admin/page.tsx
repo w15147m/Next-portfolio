@@ -82,10 +82,12 @@ export default async function Dashboard() {
           <TopSkillsWidget skills={recentSkills} />
         </div>
 
-        {/* Row 4 */}
-        <div className="md:col-span-6 lg:col-span-12">
-          <RecentMessagesList messages={recentMessages} />
-        </div>
+        {/* Row 4: Recent Messages (only if present) */}
+        {recentMessages && recentMessages.length > 0 && (
+          <div className="md:col-span-6 lg:col-span-12">
+            <RecentMessagesList messages={recentMessages} />
+          </div>
+        )}
         
         {/* Row 5 */}
         <div className="md:col-span-6 lg:col-span-12">

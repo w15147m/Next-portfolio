@@ -12,12 +12,7 @@ interface Message {
 
 export default function RecentMessagesList({ messages }: { messages: Message[] }) {
   if (!messages || messages.length === 0) {
-    return (
-      <div className="rounded-2xl bg-white dark:bg-[#091515] border border-gray-200 dark:border-[#163533] p-5 h-full flex flex-col items-center justify-center shadow-sm dark:shadow-none">
-        <p className="text-gray-500 dark:text-teal-600 text-sm mb-4">No recent messages.</p>
-        <Link href="/admin/messages" className="text-teal-600 dark:text-teal-400 hover:underline text-xs font-medium">View Messages</Link>
-      </div>
-    );
+    return null;
   }
 
   return (
