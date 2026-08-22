@@ -123,7 +123,7 @@ export default function ActivityTimelineWidget({ github }: { github?: GithubData
           No recent GitHub events found.
         </div>
       ) : (
-        <div className="flex-1 flex flex-col gap-5 relative ml-3 mt-1 overflow-y-auto pr-1">
+        <div className="flex-1 flex flex-col gap-4 relative ml-3 mt-1 max-h-[190px] overflow-y-auto pr-2">
           <div className="absolute left-[3px] top-2 bottom-2 w-[1px] bg-gray-200 dark:bg-[#163533]"></div>
           
           {events.map((evt, idx) => (

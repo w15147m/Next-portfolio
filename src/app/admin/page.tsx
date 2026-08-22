@@ -6,7 +6,6 @@ import DashboardOverviewWidget from "./_components/DashboardOverviewWidget";
 import ActivityTimelineWidget from "./_components/ActivityTimelineWidget";
 import RecentProjectsGrid from "./_components/RecentProjectsGrid";
 import TopSkillsWidget from "./_components/TopSkillsWidget";
-import ExperienceTimelineWidget from "./_components/ExperienceTimelineWidget";
 import RecentMessagesList from "./_components/RecentMessagesList";
 import GithubActivityWidget from "./_components/GithubActivityWidget";
 
@@ -84,10 +83,7 @@ export default async function Dashboard() {
         </div>
 
         {/* Row 4 */}
-        <div className="md:col-span-3 lg:col-span-6">
-          <ExperienceTimelineWidget experiences={recentExperiences} />
-        </div>
-        <div className="md:col-span-3 lg:col-span-6">
+        <div className="md:col-span-6 lg:col-span-12">
           <RecentMessagesList messages={recentMessages} />
         </div>
         
