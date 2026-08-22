@@ -26,7 +26,7 @@ export async function GET(request: NextRequest) {
       prisma.project.findMany({
         ...(userId ? { where: { userId } } : {}),
         orderBy: { createdAt: "desc" },
-        take: 5,
+        take: 12,
         include: {
           projectSkills: {
             include: { skill: true },
