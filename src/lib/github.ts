@@ -18,6 +18,7 @@ export interface ContributionDay {
 
 export interface GithubCalendarData {
   totalContributions: number;
+  years: number[];
   weeks: {
     contributionDays: ContributionDay[];
   }[];
@@ -191,6 +192,7 @@ export async function getGithubData(userId: string): Promise<GithubData> {
           query($username: String!) {
             user(login: $username) {
               contributionsCollection {
+                contributionYears
                 contributionCalendar {
                   totalContributions
                   weeks {
@@ -221,10 +223,13 @@ export async function getGithubData(userId: string): Promise<GithubData> {
 
       if (gqlRes.ok) {
         const gqlData = await gqlRes.json();
-        const cal = gqlData?.data?.user?.contributionsCollection?.contributionCalendar;
+        const collection = gqlData?.data?.user?.contributionsCollection;
+        const cal = collection?.contributionCalendar;
+        const years = collection?.contributionYears || [];
         if (cal) {
           calendar = {
             totalContributions: cal.totalContributions || 0,
+            years,
             weeks: cal.weeks || [],
           };
         }
@@ -251,5 +256,90 @@ export async function getGithubData(userId: string): Promise<GithubData> {
       events: [],
       calendar: null,
     };
+  }
+}
+
+export async function fetchGithubCalendarForYear(userId: string, year?: number): Promise<GithubCalendarData | null> {
+  try {
+    const account = await prisma.account.findFirst({
+      where: {
+        userId,
+        providerId: "github",
+      },
+    });
+
+    const accessToken = account?.accessToken || process.env.GITHUB_TOKEN;
+    if (!accessToken) return null;
+
+    const userRes = await fetch("https://api.github.com/user", {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "User-Agent": "Portfolio-Admin",
+        Accept: "application/vnd.github.v3+json",
+      },
+      next: { revalidate: 3600 },
+    });
+
+    if (!userRes.ok) return null;
+    const userData = await userRes.json();
+    const username = userData.login;
+
+    let variables: any = { username };
+    if (year) {
+      variables.from = `${year}-01-01T00:00:00Z`;
+      variables.to = `${year}-12-31T23:59:59Z`;
+    }
+
+    const gqlQuery = {
+      query: `
+        query($username: String!, $from: DateTime, $to: DateTime) {
+          user(login: $username) {
+            contributionsCollection(from: $from, to: $to) {
+              contributionYears
+              contributionCalendar {
+                totalContributions
+                weeks {
+                  contributionDays {
+                    contributionCount
+                    date
+                    contributionLevel
+                  }
+                }
+              }
+            }
+          }
+        }
+      `,
+      variables,
+    };
+
+    const gqlRes = await fetch("https://api.github.com/graphql", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "User-Agent": "Portfolio-Admin",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(gqlQuery),
+      next: { revalidate: 3600 },
+    });
+
+    if (!gqlRes.ok) return null;
+    const gqlData = await gqlRes.json();
+    const collection = gqlData?.data?.user?.contributionsCollection;
+    const cal = collection?.contributionCalendar;
+    const years = collection?.contributionYears || [];
+
+    if (cal) {
+      return {
+        totalContributions: cal.totalContributions || 0,
+        years,
+        weeks: cal.weeks || [],
+      };
+    }
+    return null;
+  } catch (error) {
+    console.error("fetchGithubCalendarForYear error:", error);
+    return null;
   }
 }
