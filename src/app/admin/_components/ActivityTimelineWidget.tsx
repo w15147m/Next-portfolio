@@ -1,12 +1,26 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { authClient } from '@/lib/auth-client';
 import type { GithubData } from '@/lib/github';
 import { showToast } from '@/components/common/CustomToaster';
 
 export default function ActivityTimelineWidget({ github }: { github?: GithubData }) {
   const [isConnecting, setIsConnecting] = useState(false);
+
+  useEffect(() => {
+    const handleMessage = (event: MessageEvent) => {
+      if (event.data?.type === "GITHUB_AUTH_SUCCESS") {
+        showToast("GitHub account connected successfully!", "success");
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
+      }
+    };
+
+    window.addEventListener("message", handleMessage);
+    return () => window.removeEventListener("message", handleMessage);
+  }, []);
 
   const handleConnectGithub = async () => {
     if (!github?.isConfigured) {
@@ -16,14 +30,43 @@ export default function ActivityTimelineWidget({ github }: { github?: GithubData
 
     try {
       setIsConnecting(true);
-      const res = await authClient.signIn.social({
+      const res: any = await authClient.signIn.social({
         provider: "github",
-        callbackURL: "/admin",
+        callbackURL: "/auth/popup-callback",
+        disableRedirect: true,
       });
 
-      if (res?.error) {
+      if (res?.data?.url) {
+        const width = 600;
+        const height = 750;
+        const left = Math.max(0, window.screenX + (window.outerWidth - width) / 2);
+        const top = Math.max(0, window.screenY + (window.outerHeight - height) / 2);
+
+        const popup = window.open(
+          res.data.url,
+          "github_oauth_popup",
+          `width=${width},height=${height},left=${left},top=${top},status=no,resizable=yes,scrollbars=yes`
+        );
+
+        // Fallback check if popup was closed
+        const timer = setInterval(() => {
+          if (!popup || popup.closed) {
+            clearInterval(timer);
+            setIsConnecting(false);
+            setTimeout(() => {
+              window.location.reload();
+            }, 1000);
+          }
+        }, 1000);
+      } else if (res?.error) {
         showToast(res.error.message || "Failed to initiate GitHub OAuth. Check GITHUB_CLIENT_ID in .env", "error");
         setIsConnecting(false);
+      } else {
+        // Fallback direct redirect if popup URL not returned
+        await authClient.signIn.social({
+          provider: "github",
+          callbackURL: "/admin",
+        });
       }
     } catch (err: any) {
       console.error("GitHub connect error:", err);
