@@ -89,7 +89,6 @@ export default function ActivityTimelineWidget({ github }: { github?: GithubData
             </span>
           )}
         </div>
-        <span className="text-gray-400 dark:text-teal-600 font-bold tracking-widest">...</span>
       </div>
 
       {!isConnected ? (

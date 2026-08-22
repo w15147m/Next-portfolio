@@ -22,9 +22,8 @@ export default function RecentProjectsGrid({ projects }: { projects: Project[] }
 
   return (
     <div data-theme-trigger="light-fix" className="rounded-2xl bg-white dark:bg-[#091515] border border-gray-200 dark:border-[#163533] p-5 h-full flex flex-col shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.2)]">
-      <div className="flex items-center justify-between mb-5">
+      <div className="flex items-center justify-between mb-4">
         <h3 className="text-sm font-medium text-gray-900 dark:text-teal-100 tracking-wide">Recent Projects</h3>
-        <span className="text-gray-400 dark:text-teal-600 font-bold tracking-widest">...</span>
       </div>
       <div className="relative flex-1 flex items-center">
         {/* Left Arrow */}

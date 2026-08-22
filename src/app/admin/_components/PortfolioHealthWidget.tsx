@@ -5,7 +5,6 @@ export default function PortfolioHealthWidget() {
     <div className="rounded-2xl bg-[#091515] border border-[#163533] p-5 h-full flex flex-col items-center relative overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.2)]">
       <div className="w-full flex items-center justify-between mb-4">
         <h3 className="text-sm font-medium text-teal-100 tracking-wide">Portfolio Health</h3>
-        <span className="text-teal-600 font-bold tracking-widest">...</span>
       </div>
       <div className="flex-1 flex flex-col items-center justify-center relative w-full mt-2">
         {/* Semi-circle gauge */}

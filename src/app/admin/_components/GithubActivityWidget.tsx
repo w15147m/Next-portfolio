@@ -106,7 +106,6 @@ export default function GithubActivityWidget({ github }: { github?: GithubData }
           </svg>
           GitHub Activity
         </h3>
-        <span className="text-gray-400 dark:text-teal-600 font-bold tracking-widest">...</span>
       </div>
 
       {/* Main Content Grid: Heatmap (Left) + Vertical Year Tabs (Right) */}

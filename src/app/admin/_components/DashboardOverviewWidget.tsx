@@ -5,7 +5,6 @@ export default function DashboardOverviewWidget({ counts }: { counts: any }) {
     <div className="rounded-2xl bg-white dark:bg-[#091515] border border-gray-200 dark:border-[#163533] p-5 h-full flex flex-col shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.2)]">
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-sm font-medium text-gray-900 dark:text-teal-100 tracking-wide">Dashboard Overview</h3>
-        <span className="text-gray-400 dark:text-teal-600 font-bold tracking-widest">...</span>
       </div>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 flex-1">
         <div className="bg-teal-50 dark:bg-[#122e2b] rounded-xl p-3 flex flex-col justify-center border border-teal-200 dark:border-teal-500/20 shadow-sm dark:shadow-[0_0_15px_rgba(20,184,166,0.15)] relative overflow-hidden">
